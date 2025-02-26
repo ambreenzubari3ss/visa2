@@ -14,6 +14,9 @@ module.exports = {
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
         warning: 'rgb(var(--color-warning) / <alpha-value>)',
       },
+      fontFamily: {
+        sans: ['var(--font-plus-jakarta)'],
+      },
     },
   },
   plugins: [],
