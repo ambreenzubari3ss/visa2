@@ -5,33 +5,29 @@
 }
 
 .card {
-  @apply w-full max-w-md bg-white p-6 rounded-lg shadow-md;
+  width: 464px !important;
+}
+
+.LoginLogo {
+  @apply flex items-center justify-center
 }
 
 .title {
   @apply text-2xl font-bold text-center text-gray-800;
 }
 
-.inputGroup {
-  @apply mt-4;
+.title {
+  font-size: 40px;
 }
 
-.label {
-  @apply block text-sm font-medium text-gray-700;
+.WelcomeText {
+  @apply text-xl font-normal
 }
 
-.input {
-  @apply mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500;
+.WelcomeText {
+  color: var(--text-color)
 }
 
-.button {
-  @apply w-full p-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md;
-}
-
-.link {
-  @apply text-blue-600 hover:underline;
-}
-
-.textCenter {
-  @apply mt-4 text-sm text-center text-gray-600;
+.policy-text{
+  
 }

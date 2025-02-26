@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+  --primary-color: #42DA82;
+  --text-color: #8E95A6;
+  --highlight-color: #24282E;
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -14,8 +17,20 @@
   }
 }
 
-body {
+/* body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+} */
+
+.color-primary {
+  color: var(--primary-color);
+}
+
+.text-color {
+  color: var(--text-color);
+}
+
+.highlight-color {
+  color: var(--highlight-color);
 }

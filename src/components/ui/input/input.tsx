@@ -1,9 +1,18 @@
+"use client"
 import React from 'react'
+import './style.modules.css'
 
-const InputField = () => {
+const InputField = ({fieldName}) => {
   return (
-    <div>
-      Input
+    <div className='flex flex-col items-start gap-2 w-full'>
+      <div>
+        <span className='text'>
+          {fieldName}
+        </span>
+      </div>
+      <div className='w-full'>
+        <input className='input-text' type='text' placeholder={fieldName} />
+      </div>
     </div>
   )
 }

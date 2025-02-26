@@ -1,0 +1,11 @@
+.btn-primary {
+    background-color: #42DA82;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    border-radius: 12px;
+    height: 54px;
+    width: 100%;
+    gap: 4px;
+}
