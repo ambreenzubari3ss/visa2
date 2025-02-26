@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./styles.module.css"; // Import the CSS Module
+import styles from "./../styles.module.css"; // Import the CSS Module
 import Button from "@/components/ui/button/button";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png"; // Import the image
 import InputField from "@/components/ui/input/input";
@@ -40,7 +40,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerauth}>
       <div className={styles.card}>
         <div className="flex items-center justify-center flex-col gap-7">
           <Image
@@ -54,8 +54,8 @@ export default function LoginPage() {
           <span className={styles.WelcomeText}>Welcome Back👋</span>
         </div>
         <div className="flex flex-col gap-5">
-          <InputField fieldName={'email'} />
-          <InputField fieldName={'password'} />
+          <InputField fieldName={'email'} placeHolder={'email'} />
+          <InputField fieldName={'password'} placeHolder={'password'}/>
           <p className="text-base font-medium color-primary">Forgot password?</p>
           <Button buttonText={'Login'} />
           <div>

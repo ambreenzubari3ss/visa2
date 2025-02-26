@@ -1,11 +1,10 @@
 /* styles.module.css */
 
-.container {
+.containerauth {
   @apply flex min-h-screen items-center justify-center bg-gray-100;
 }
 
-.container{
-  background: var(--primary-color);
+.containerauth{
   background: linear-gradient(164deg, #42da82 -140%, #fff 50%)
 }
 
@@ -26,13 +25,9 @@
 }
 
 .WelcomeText {
-  @apply text-xl font-normal
+  @apply text-xl font-normal text-center
 }
 
 .WelcomeText {
   color: var(--text-color)
-}
-
-.policy-text{
-  
 }
