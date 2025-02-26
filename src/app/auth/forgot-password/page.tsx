@@ -25,7 +25,7 @@ const ForgotPassword = () => {
           <InputField fieldName={'enter email'} placeHolder={'email'} />
           <Button buttonText={'Get Code'} />
           <div>
-            <p className="text-color text-sm font-medium text-center m-0">
+            <p className="text-color text-[14px] font-[500] text-center m-0">
               By clicking on the "Create an Account" button, I consent
               to the processing of my personal data in accordance with the{" "}
               <strong className="highlight-color">

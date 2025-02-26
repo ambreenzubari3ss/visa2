@@ -56,10 +56,10 @@ export default function LoginPage() {
         <div className="flex flex-col gap-5">
           <InputField fieldName={'email'} placeHolder={'email'} />
           <InputField fieldName={'password'} placeHolder={'password'}/>
-          <p className="text-base font-medium color-primary">Forgot password?</p>
+          <p className="text-[16px] font-[500] color-primary">Forgot password?</p>
           <Button buttonText={'Login'} />
           <div>
-            <p className="text-color text-sm font-medium text-center m-0">
+            <p className="text-color text-[14px] font-[500] text-center m-0">
               By clicking on the "Create an Account" button, I consent
               to the processing of my personal data in accordance with the{" "}
               <strong className="highlight-color">
