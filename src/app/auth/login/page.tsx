@@ -8,7 +8,7 @@ import styles from "./../styles.module.css"; // Import the CSS Module
 import Button from "@/components/ui/button/button";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png"; // Import the image
 import InputField from "@/components/ui/input/input";
-import './../../globals.css';
+import "./../../globals.css";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { loginUser } from "@/store/authSlice";
 
@@ -54,17 +54,27 @@ export default function LoginPage() {
           <span className={styles.WelcomeText}>Welcome Back👋</span>
         </div>
         <div className="flex flex-col gap-5">
-          <InputField fieldName={'email'} placeHolder={'email'} />
-          <InputField fieldName={'password'} placeHolder={'password'}/>
-          <p className="text-[16px] font-[500] color-primary">Forgot password?</p>
-          <Button buttonText={'Login'} />
+          <InputField fieldName={"email"} placeHolder={"email"} />
+          <InputField fieldName={"password"} placeHolder={"password"} />
+          <div
+            onClick={() => router.push("/auth/forgot-password")}
+            className="cursor-pointer"
+          >
+            <p className="text-[16px] font-[500] color-primary">
+              Forgot password?
+            </p>
+          </div>
+          <Button
+            buttonText={"Login"}
+            onClick={() => router.push("/auth/otp")}
+          />
+          {/* <p className="text-[16px] font-[500] color-primary">Forgot password?</p>
+          <Button buttonText={'Login'} /> */}
           <div>
             <p className="text-color text-[14px] font-[500] text-center m-0">
-              By clicking on the "Create an Account" button, I consent
-              to the processing of my personal data in accordance with the{" "}
-              <strong className="highlight-color">
-                Privacy Policy
-              </strong>
+              By clicking on the "Create an Account" button, I consent to the
+              processing of my personal data in accordance with the{" "}
+              <strong className="highlight-color">Privacy Policy</strong>
             </p>
           </div>
         </div>

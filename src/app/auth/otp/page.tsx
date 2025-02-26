@@ -24,45 +24,6 @@ export default function OTPPage() {
   };
 
   return (
-    // <div className={styles.container}>
-    //   <div>
-    //     <div className="flex items-center justify-center flex-col gap-7">
-    //       <Image
-    //         src={LoginLogo}
-    //         alt="Logo"
-    //         width={156}
-    //         height={93}
-    //         className={styles.logo}
-    //       />
-    //       <h2 className={styles.title}>Enter Code</h2>
-    //       <span className={styles.subtitle}>Check your mail and enter PIN</span>
-    //     </div>
-
-    //     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-    //       <div className={styles.otpContainer}>
-    //         <OTPInput
-    //           value={OTP}
-    //           onChange={setOTP}
-    //           autoFocus
-    //           OTPLength={4}
-    //           otpType="number"
-    //           disabled={false}
-    //           inputClassName={styles.otpInput}
-    //         />
-    //       </div>
-
-    //       <p className={styles.resendText}>
-    //         Enter Code to Continue or continue
-    //       </p>
-    //       <Button
-    //         buttonText="Continue to login"
-    //         type="submit"
-    //         disabled={OTP.length !== 4}
-    //       />
-    //     </form>
-    //   </div>
-    // </div>
-
     <div className={styles.containerauth}>
       <div>
         <div className="flex items-center justify-center flex-col gap-7">
@@ -74,13 +35,13 @@ export default function OTPPage() {
             className={styles.LoginLogo}
           />
           <h2 className={styles.title}>Enter Code </h2>
-          <span className={styles.WelcomeText}>
-            Check your mail and enter PIN
-          </span>
+          <span className={styles.WelcomeText}>Check your mail and enter PIN</span>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className={styles.otpContainer}>
-            <p>Check your mail and enter PIN</p>
+            <p className={styles.otpCheckMailText}>
+              Check your mail and enter PIN
+            </p>
             <OTPInput
               value={OTP}
               onChange={setOTP}

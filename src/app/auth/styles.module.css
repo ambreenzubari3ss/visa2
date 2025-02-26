@@ -25,7 +25,7 @@
 }
 
 .WelcomeText {
-  @apply text-[20px] font-[400] text-center
+  @apply text-[20px] font-[400] text-center;
 }
 
 .WelcomeText {
@@ -35,18 +35,20 @@
 /* otp screen style */
 
 .otpContainer {
-  @apply flex-col   mt-10
-} 
+  @apply flex-col   mt-10 mb-[20px];
+}
 
-.otpLabel{
-@apply font-[500] text-[14px] text-[#24282E]
+.otpLabel {
+  @apply font-[500] text-[14px] text-[#24282E];
 }
 /* Style for individual OTP input boxes */
 .otpInput {
-  @apply !w-[80px] !h-[80px] text-2xl font-bold rounded-[18px] border-2 border-[##BEC2CC] 
+  @apply !w-[80px] !h-[80px] text-[48px] font-bold rounded-[18px] border-2 border-[##BEC2CC] 
   focus:border-[#42DA82] focus:outline-none focus:ring-1 focus:ring-[#42DA82];
 }
-
+.otpCheckMailText {
+  @apply text-[14px] font-[500] text-[#24282E] mb-[10px];
+}
 .resendText {
   @apply text-[14px] font-[400] text-[#727A90];
 }
