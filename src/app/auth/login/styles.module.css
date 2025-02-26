@@ -4,6 +4,11 @@
   @apply flex min-h-screen items-center justify-center bg-gray-100;
 }
 
+.container{
+  background: var(--primary-color);
+  background: linear-gradient(164deg, #42da82 -140%, #fff 50%)
+}
+
 .card {
   width: 464px !important;
 }

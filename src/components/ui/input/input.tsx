@@ -6,7 +6,7 @@ const InputField = ({fieldName}) => {
   return (
     <div className='flex flex-col items-start gap-2 w-full'>
       <div>
-        <span className='text'>
+        <span className='text highlight-color'>
           {fieldName}
         </span>
       </div>
