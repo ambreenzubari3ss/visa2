@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./styles.module.css"; // Import the CSS Module
@@ -5,8 +9,36 @@ import Button from "@/components/ui/button/button";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png"; // Import the image
 import InputField from "@/components/ui/input/input";
 import './../../globals.css';
+import { useAppDispatch, useAppSelector } from "@/store";
+import { loginUser } from "@/store/authSlice";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { isLoading, error } = useAppSelector((state) => state.auth);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await dispatch(loginUser(formData));
+    if (loginUser.fulfilled.match(result)) {
+      router.push("/dashboard");
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    if (error) dispatch(clearError());
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
