@@ -1,0 +1,37 @@
+/* styles.module.css */
+
+.container {
+  @apply flex min-h-screen items-center justify-center bg-gray-100;
+}
+
+.card {
+  @apply w-full max-w-md bg-white p-6 rounded-lg shadow-md;
+}
+
+.title {
+  @apply text-2xl font-bold text-center text-gray-800;
+}
+
+.inputGroup {
+  @apply mt-4;
+}
+
+.label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+.input {
+  @apply mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500;
+}
+
+.button {
+  @apply w-full p-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md;
+}
+
+.link {
+  @apply text-blue-600 hover:underline;
+}
+
+.textCenter {
+  @apply mt-4 text-sm text-center text-gray-600;
+}
