@@ -4,8 +4,8 @@
   @apply flex min-h-screen items-center justify-center bg-gray-100;
 }
 
-.containerauth{
-  background: linear-gradient(164deg, #42da82 -140%, #fff 50%)
+.containerauth {
+  background: linear-gradient(164deg, #42da82 -140%, #fff 50%);
 }
 
 .card {
@@ -13,7 +13,7 @@
 }
 
 .LoginLogo {
-  @apply flex items-center justify-center
+  @apply flex items-center justify-center;
 }
 
 .title {
@@ -29,5 +29,24 @@
 }
 
 .WelcomeText {
-  color: var(--text-color)
+  color: var(--text-color);
+}
+
+/* otp screen style */
+
+.otpContainer {
+  @apply flex-col   mt-10
+} 
+
+.otpLabel{
+@apply font-[500] text-[14px] text-[#24282E]
+}
+/* Style for individual OTP input boxes */
+.otpInput {
+  @apply !w-[80px] !h-[80px] text-2xl font-bold rounded-[18px] border-2 border-[##BEC2CC] 
+  focus:border-[#42DA82] focus:outline-none focus:ring-1 focus:ring-[#42DA82];
+}
+
+.resendText {
+  @apply text-[14px] font-[400] text-[#727A90];
 }
