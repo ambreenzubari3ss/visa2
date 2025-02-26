@@ -1,9 +1,11 @@
 import Link from "next/link";
 import styles from "./styles.module.css"; // Import the CSS Module
+import InputField from "@/components/ui/input/input";
 
 export default function LoginPage() {
   return (
     <div className={styles.container}>
+      <InputField/>
       <div className={styles.card}>
         <h2 className={styles.title}>Login</h2>
         <form action="/api/auth/login" method="POST" className={styles.inputGroup}>
