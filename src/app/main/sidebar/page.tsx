@@ -15,9 +15,9 @@ import "./../../globals.css";
 import { usePathname } from "next/navigation";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
 import styles from "./sidebar.module.css";
-import DashboardIcon from "@/Assets/svgs/Dashboard";
 import CustomerListIcon from "@/Assets/svgs/CustomerListIcon";
 import UserIcon from "@/Assets/svgs/UsersIcon";
+import DashboardIcon from "@/Assets/svgs/Dashboard";
 
 const menuItems = [
   {
