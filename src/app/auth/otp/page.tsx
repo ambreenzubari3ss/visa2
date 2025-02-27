@@ -20,7 +20,7 @@ export default function OTPPage() {
     // Handle OTP verification here
     console.log("OTP submitted:", OTP);
     // If verification successful, redirect to next page
-    // router.push("/dashboard");
+    router.push("/main/dashboard");
   };
 
   return (
