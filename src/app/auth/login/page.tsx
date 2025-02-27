@@ -1,42 +1,32 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
-import styles from "./../styles.module.css"; // Import the CSS Module
+import { Formik, Form } from 'formik';
+import styles from "./../styles.module.css";
 import Button from "@/components/ui/button/button";
-import LoginLogo from "../../../Assets/Images/LoginLogo.png"; // Import the image
+import LoginLogo from "../../../Assets/Images/LoginLogo.png";
 import InputField from "@/components/ui/input/input";
-import "./../../globals.css";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { loginUser } from "@/store/authSlice";
+import { loginSchema } from "@/utils/validationSchema";
 
 export default function LoginPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state) => state.auth);
 
-  const [formData, setFormData] = useState({
+  const initialValues = {
     email: "",
     password: "",
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = await dispatch(loginUser(formData));
-    if (loginUser.fulfilled.match(result)) {
-      router.push("/dashboard");
-    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    if (error) dispatch(clearError());
+  const handleSubmit = async (values: typeof initialValues) => {
+    // const result = await dispatch(loginUser(values));
+    console.log("VALUES___________", values)
+    if (loginUser.fulfilled.match(result)) {
+      // router.push("/dashboa .rd");
+    }
   };
 
   return (
@@ -44,8 +34,8 @@ export default function LoginPage() {
       <div className={styles.card}>
         <div className="flex items-center justify-center flex-col gap-7">
           <Image
-            src={LoginLogo} // Use imported image
-            alt="Example Image"
+            src={LoginLogo}
+            alt="Login Logo"
             width={156}
             height={93}
             className={styles.LoginLogo}
@@ -53,31 +43,55 @@ export default function LoginPage() {
           <h2 className={styles.title}>Sign in/Log in</h2>
           <span className={styles.WelcomeText}>Welcome Back👋</span>
         </div>
-        <div className="flex flex-col gap-5">
-          <InputField fieldName={"email"} placeHolder={"email"} />
-          <InputField fieldName={"password"} placeHolder={"password"} />
-          <div
-            onClick={() => router.push("/auth/forgot-password")}
-            className="cursor-pointer"
-          >
-            <p className="text-[16px] font-[500] color-primary">
-              Forgot password?
-            </p>
-          </div>
-          <Button
-            buttonText={"Login"}
-            onClick={() => router.push("/auth/otp")}
-          />
-          {/* <p className="text-[16px] font-[500] color-primary">Forgot password?</p>
-          <Button buttonText={'Login'} /> */}
-          <div>
-            <p className="text-color text-[14px] font-[500] text-center m-0">
-              By clicking on the "Create an Account" button, I consent to the
-              processing of my personal data in accordance with the{" "}
-              <strong className="highlight-color">Privacy Policy</strong>
-            </p>
-          </div>
-        </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={loginSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched, handleChange, handleBlur }) => (
+            <Form className="flex flex-col gap-5">
+              <InputField
+                fieldName="email"
+                placeHolder="Email"
+                type="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.email && errors.email}
+              />
+              <InputField
+                fieldName="password"
+                placeHolder="Password"
+                type="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password && errors.password}
+              />
+              <div
+                onClick={() => router.push("/auth/forgot-password")}
+                className="cursor-pointer"
+              >
+                <p className="text-[16px] font-[500] color-[#42DA82]">
+                  Forgot password?
+                </p>
+              </div>
+              <Button
+                buttonText={isLoading ? "Logging in..." : "Login"}
+                type="submit"
+                disabled={isLoading}
+              />
+              {error && (
+                <p className="text-danger text-sm text-center">{error}</p>
+              )}
+              <div>
+                <p className="text-color text-[14px] font-[500] text-center m-0">
+                  By clicking on the &quot;Create an Account&quot; button, I consent to the
+                  processing of my personal data in accordance with the{" "}
+                  <strong className="highlight-color">Privacy Policy</strong>
+                </p>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

@@ -2,13 +2,28 @@
 import React from "react";
 import "./style.modules.css";
 
-const Button = ({ buttonText, onClick = () => {} }) => {
+interface ButtonProps {
+  buttonText: string;
+  onClick?: () => void;
+  type?: "button" | "submit";
+  disabled?: boolean;
+}
+
+const Button = ({ 
+  buttonText, 
+  onClick, 
+  type = "button",
+  disabled = false 
+}: ButtonProps) => {
   return (
-    <>
-      <button className="btn-primary" onClick={onClick}>
-        {buttonText}
-      </button>
-    </>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`btn-primary ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+    >
+      {buttonText}
+    </button>
   );
 };
 
