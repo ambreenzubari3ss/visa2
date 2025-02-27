@@ -1,13 +1,10 @@
-import React from 'react'
+"use client";
 
-const Dashboard = () => {
+export default function Dashboard() {
     return (
-        <>
-            <h1>
-                Dashboard
-            </h1>
-        </>
-    )
+        <div className="w-full">
+            <h1 className="text-2xl font-semibold mb-6">Dasasdasasashboard</h1>
+            {/* Your dashboard content goes here */}
+        </div>
+    );
 }
-
-export default Dashboard
