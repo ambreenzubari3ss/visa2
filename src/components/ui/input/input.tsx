@@ -1,6 +1,6 @@
-"use client"
-import React from 'react'
-import './style.modules.css'
+"use client";
+import React from "react";
+import "./style.modules.css";
 
 interface InputFieldProps {
   fieldName: string;
@@ -17,18 +17,23 @@ const InputField = ({
   type = "text",
   onChange,
   onBlur,
-  error
+  error,
 }: InputFieldProps) => {
   return (
-    <div className='flex flex-col items-start gap-2 w-full'>
+    <div className="flex flex-col items-start gap-2 w-full">
       <div>
-        <span className='text highlight-color'>
-          {fieldName}
-        </span>
+        <span className="text highlight-color">{fieldName}</span>
       </div>
-      <div className='w-full'>
+      <div className="w-full">
         <input
-          className={`input-text ${error ? 'border-danger' : ''}`}
+          className={` input-text ${
+            error
+              ? "focus:border-danger focus:outline-none focus:ring-1 focus:ring-danger border-danger;"
+              : "focus:border-[#42DA82] focus:outline-none focus:ring-1 focus:ring-[#42DA82];"
+          }
+            
+
+          `}
           type={type}
           name={fieldName.toLowerCase()}
           placeholder={placeHolder}
@@ -40,7 +45,7 @@ const InputField = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default InputField
+export default InputField;

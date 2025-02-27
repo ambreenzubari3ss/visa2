@@ -17,6 +17,7 @@ import RefundIcon from "./../../../Assets/icons/fi-sr-ticket.svg";
 import "./../../globals.css";
 import { usePathname } from "next/navigation";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
+import styles from "./sidebar.module.css";
 
 const menuItems = [
   {
@@ -79,27 +80,22 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Sidebar */}
-      <aside
-        className={`fixed top-0 left-0 h-screen bg-white transform transition-transform duration-300 ease-in-out ${
-          !isOpen ? "-translate-x-full" : "translate-x-0"
-        } w-64 z-40`}
-      >
-        <div className="p-4 flex justify-between items-center border-b">
+      <aside className={`${styles.sidebar} ${!isOpen ? styles.sidebarClosed : styles.sidebarOpen}`}>
+        <div className={styles.header}>
           <Image src={VisaLogo} alt="Visa Logo" width={89} height={53} />
           <div
-            className="cursor-pointer"
+            className={styles.toggleButton}
             onClick={() => dispatch(toggleSidebar())}
           >
             <LeftIcon />
           </div>
         </div>
 
-        <div className="overflow-y-auto h-[calc(100vh-80px)]">
-          <ul className="space-y-2 p-4">
+        <div className={styles.content}>
+          <ul className={styles.menuList}>
             <li>
-              <div className="px-2 py-4">
-                <span className="text-color-light text-[12px] font-[600]">
+              <div className={styles.menuHeader}>
+                <span className={styles.menuTitle}>
                   MAIN MENU
                 </span>
               </div>
@@ -111,28 +107,20 @@ const Sidebar = () => {
                 <li key={index}>
                   <a
                     href={item.path}
-                    className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
-                      isActive
-                        ? "bg-[#42DA82]/10 text-[#42DA82]"
-                        : "text-[#64748B] hover:bg-gray-50 hover:text-[#42DA82]"
+                    className={`${styles.menuItem} ${
+                      isActive ? styles.menuItemActive : styles.menuItemInactive
                     }`}
                   >
-                    <div
-                      className={`${
-                        isActive ? "text-[#42DA82] " : " hover:text-[#42DA82]"
-                      }`}
-                    >
+                    <div>
                       <Image
                         src={item.icon}
                         alt={item.name}
                         width={16}
                         height={16}
-                        className={`${isActive ? "" : ""}`}
+                        className={`${styles.menuIcon} ${isActive && styles.menuIconActive}`}
                       />
                     </div>
-                    <span className="ml-3 text-sm font-medium">
-                      {item.name}
-                    </span>
+                    <span className={styles.menuText}>{item.name}</span>
                   </a>
                 </li>
               );
@@ -141,10 +129,9 @@ const Sidebar = () => {
         </div>
       </aside>
 
-      {/* Overlay for Mobile */}
-      {isOpen && (
+      {isOpen  && (
         <div
-          className="fixed inset-0 bg-black/50 md:hidden z-30"
+          className={styles.overlay}
           onClick={() => dispatch(toggleSidebar())}
         />
       )}
