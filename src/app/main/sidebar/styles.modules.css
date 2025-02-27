@@ -1,0 +1,9 @@
+.action-icon {
+    background: #F1F2F4;
+    border-radius: 10px;
+}
+
+.active {
+    background: #42DA821A;
+    border-radius: 12px;
+}

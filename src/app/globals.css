@@ -20,6 +20,7 @@
 :root {
   --primary-color: #42DA82;
   --text-color: #8E95A6;
+  --text-color-light: #727A90;
   --highlight-color: #24282E;
   --background: #ffffff;
   --foreground: #171717;
@@ -44,6 +45,10 @@
 
 .text-color {
   color: var(--text-color);
+}
+
+.text-color-light {
+  color: var(--text-color-light);
 }
 
 .highlight-color {
