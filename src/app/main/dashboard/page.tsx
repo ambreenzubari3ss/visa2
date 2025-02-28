@@ -1,10 +1,5 @@
-'use client';
-import { useState } from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { DayPicker } from 'react-day-picker';
-import { CalendarIcon } from 'lucide-react';
-import LeftIcon from '@/Assets/svgs/LeftIcon';
-import 'react-day-picker/dist/style.css';
+"use client";
+import Calendar from "@/components/ui/calendar/calendar";
 import RevenueSvg from "@/Assets/svgs/RevenueSvg";
 import styles from "./styles.module.css";
 import Graph1Svg from "@/Assets/svgs/Graph1Svg";
@@ -15,52 +10,53 @@ import Graph3Svg from "@/Assets/svgs/Grapg3Svg";
 import ApplicationSvg from "@/Assets/svgs/ApplicationSvg";
 
 export default function Dashboard() {
-    const [selectedDate, setSelectedDate] = useState<Date>();
-    const [month, setMonth] = useState(new Date(2025, 1)); // February 2025
-    const [isOpen, setIsOpen] = useState(false);
+  // const [selectedDate, setSelectedDate] = useState<Date>();
+  // const [month, setMonth] = useState(new Date(2025, 1)); // February 2025
+  // const [isOpen, setIsOpen] = useState(false);
 
-    const handleNavigation = (direction: 'previous' | 'next') => {
-        setMonth((prevMonth) => {
-            const newMonth = new Date(prevMonth);
-            newMonth.setMonth(newMonth.getMonth() + (direction === 'next' ? 1 : -1));
-            return newMonth;
-        });
-    };
+  // const handleNavigation = (direction: 'previous' | 'next') => {
+  //     setMonth((prevMonth) => {
+  //         const newMonth = new Date(prevMonth);
+  //         newMonth.setMonth(newMonth.getMonth() + (direction === 'next' ? 1 : -1));
+  //         return newMonth;
+  //     });
+  // };
 
-    const quickActions = {
-        today: () => {
-            const today = new Date();
-            setSelectedDate(today);
-            setMonth(today);
-        },
-        yesterday: () => {
-            const date = new Date();
-            date.setDate(date.getDate() - 1);
-            setSelectedDate(date);
-            setMonth(date);
-        },
-        lastWeek: () => {
-            const date = new Date();
-            date.setDate(date.getDate() - 7);
-            setSelectedDate(date);
-            setMonth(date);
-        },
-        last10Days: () => {
-            const date = new Date();
-            date.setDate(date.getDate() - 10);
-            setSelectedDate(date);
-            setMonth(date);
-        }
-    };
+  // const quickActions = {
+  //     today: () => {
+  //         const today = new Date();
+  //         setSelectedDate(today);
+  //         setMonth(today);
+  //     },
+  //     yesterday: () => {
+  //         const date = new Date();
+  //         date.setDate(date.getDate() - 1);
+  //         setSelectedDate(date);
+  //         setMonth(date);
+  //     },
+  //     lastWeek: () => {
+  //         const date = new Date();
+  //         date.setDate(date.getDate() - 7);
+  //         setSelectedDate(date);
+  //         setMonth(date);
+  //     },
+  //     last10Days: () => {
+  //         const date = new Date();
+  //         date.setDate(date.getDate() - 10);
+  //         setSelectedDate(date);
+  //         setMonth(date);
+  //     }
+  // };
 
-    return (
-        <>
-            <div className="container">
-                <div className="w-full p-4 flex flex-col items-center">
-                    <div className="flex justify-between w-full">
-                        <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
-                        <div>
-                            <Popover open={isOpen} onOpenChange={setIsOpen}>
+  return (
+    <>
+      <div className="container">
+        <div className="w-full p-4 flex flex-col items-center">
+          <div className="flex justify-between w-full">
+            <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
+            <div>
+              <Calendar />
+              {/* <Popover open={isOpen} onOpenChange={setIsOpen}>
                                 <PopoverTrigger className="flex items-center gap-2 px-4 py-2 border rounded-lg shadow-sm bg-white text-gray-700">
                                     <CalendarIcon className="w-4 h-4" />
                                     Last 10 Days
@@ -117,99 +113,118 @@ export default function Dashboard() {
                                         </div>
                                     </div>
                                 </PopoverContent>
-                            </Popover>
-                        </div>
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                    <div className="card">
-                        <div className={styles.containerdashboard}>
-                            <div className="p-5">
-                                <div className="flex items-center gap-2">
-                                    <RevenueSvg />
-                                    <span className={styles.cardHeader}>Total Revenue</span>
-                                </div>
-                                <div className="flex items-center justify-between mt-4">
-                                    <div className="flex flex-col">
-                                        <div>
-                                            <h2 className="text-[24px] font-[600] text-[#24282E]">$75,000</h2>
-                                        </div>
-                                        <div className="flex gap-4">
-                                            <span className="text-[14px] font-[700] text-[#009499]">10%</span>
-                                            <span className="text-[14px] font-[400] text-[#727A90]">+750%</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Graph1Svg />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr className="my-1" />
-                            <div className="flex justify-between items-center p-5">
-                                <span className="text-[14px] font-[600] text-[#42DA82]">See More</span>
-                                <LeftIconSvg />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className={styles.containerdashboard}>
-                            <div className="p-5">
-                                <div className="flex items-center gap-2">
-                                    <UserSvg />
-                                    <span className={styles.cardHeader}>Total New Customers</span>
-                                </div>
-                                <div className="flex items-center justify-between mt-4">
-                                    <div className="flex flex-col">
-                                        <div>
-                                            <h2 className="text-[24px] font-[600] text-[#24282E]">31,300</h2>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <span className="text-[14px] font-[700] text-[#009499]">5%</span>
-                                            <span className="text-[14px] font-[400] text-[#727A90]">+156</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Graph2Svg />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr className="my-1" />
-                            <div className="flex justify-between items-center p-5">
-                                <span className="text-[14px] font-[600] text-[#42DA82]">See More</span>
-                                <LeftIconSvg />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className={styles.containerdashboard}>
-                            <div className="p-5">
-                                <div className="flex items-center gap-2">
-                                    <ApplicationSvg />
-                                    <span className={styles.cardHeader}>Application to Apply</span>
-                                </div>
-                                <div className="flex items-center justify-between mt-4">
-                                    <div className="flex flex-col">
-                                        <div>
-                                            <h2 className="text-[24px] font-[600] text-[#24282E]">26</h2>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <span className="text-[14px] font-[700] text-[#009499]">10%</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Graph3Svg />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr className="my-1" />
-                            <div className="flex justify-between items-center p-5">
-                                <span className="text-[14px] font-[600] text-[#42DA82]">See More</span>
-                                <LeftIconSvg />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </Popover */}
             </div>
-        </>
-    );
+          </div>
+        </div>
+
+        {/* Dashboard Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          {/* Total Revenue */}
+          <div className="card">
+            <div className={styles.containerdashboard}>
+              <div className="p-5">
+                <div className="flex items-center gap-2">
+                  <RevenueSvg />
+                  <span className={styles.cardHeader}>Total Revenue</span>
+                </div>
+                <div className="flex items-center justify-between mt-4">
+                  <div className="flex flex-col">
+                    <h2 className="text-[24px] font-[600] text-[#24282E]">
+                      $75,000
+                    </h2>
+                    <div className="flex gap-4">
+                      <span className="text-[14px] font-[700] text-[#009499]">
+                        10%
+                      </span>
+                      <span className="text-[14px] font-[400] text-[#727A90]">
+                        +750%
+                      </span>
+                    </div>
+                  </div>
+                  <Graph1Svg />
+                </div>
+              </div>
+              <hr className="my-1" />
+              <div className="flex justify-between items-center p-5">
+                <span className="text-[14px] font-[600] text-[#42DA82]">
+                  See More
+                </span>
+                <LeftIconSvg />
+              </div>
+            </div>
+          </div>
+
+          {/* Total New Customers */}
+          <div className="card">
+            <div className={styles.containerdashboard}>
+              <div className="p-5">
+                <div className="flex items-center gap-2">
+                  <UserSvg />
+                  <span className={styles.cardHeader}>Total New Customers</span>
+                </div>
+                <div className="flex items-center justify-between mt-4">
+                  <div className="flex flex-col">
+                    <h2 className="text-[24px] font-[600] text-[#24282E]">
+                      31,300
+                    </h2>
+                    <div className="flex gap-2">
+                      <span className="text-[14px] font-[700] text-[#009499]">
+                        5%
+                      </span>
+                      <span className="text-[14px] font-[400] text-[#727A90]">
+                        +156
+                      </span>
+                    </div>
+                  </div>
+                  <Graph2Svg />
+                </div>
+              </div>
+              <hr className="my-1" />
+              <div className="flex justify-between items-center p-5">
+                <span className="text-[14px] font-[600] text-[#42DA82]">
+                  See More
+                </span>
+                <LeftIconSvg />
+              </div>
+            </div>
+          </div>
+
+          {/* Applications to Apply */}
+          <div className="card">
+            <div className={styles.containerdashboard}>
+              <div className="p-5">
+                <div className="flex items-center gap-2">
+                  <ApplicationSvg />
+                  <span className={styles.cardHeader}>
+                    Applications to Apply
+                  </span>
+                </div>
+                <div className="flex items-center justify-between mt-4">
+                  <div className="flex flex-col">
+                    <h2 className="text-[24px] font-[600] text-[#24282E]">
+                      26
+                    </h2>
+                    <div className="flex gap-2">
+                      <span className="text-[14px] font-[700] text-[#009499]">
+                        10%
+                      </span>
+                    </div>
+                  </div>
+                  <Graph3Svg />
+                </div>
+              </div>
+              <hr className="my-1" />
+              <div className="flex justify-between items-center p-5">
+                <span className="text-[14px] font-[600] text-[#42DA82]">
+                  See More
+                </span>
+                <LeftIconSvg />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
