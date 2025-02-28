@@ -14,8 +14,8 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className="bg-white pt-[5px]">
-        <div className="px-[10px]">
+      <div className="pt-[5px]">
+        <div className="">
           <div className="flex items-center justify-between h-[72px] w-[100%">
             <div className="relative">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
