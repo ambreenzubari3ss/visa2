@@ -29,7 +29,7 @@ const InputField = ({
           className={` input-text ${
             error
               ? "focus:border-danger focus:outline-none focus:ring-1 focus:ring-danger border-danger;"
-              : "focus:border-[#42DA82] focus:outline-none focus:ring-1 focus:ring-[#42DA82];"
+              : "focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;"
           }
             
 

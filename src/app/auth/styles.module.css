@@ -42,7 +42,7 @@
 /* Style for individual OTP input boxes */
 .otpInput {
   @apply font-bold rounded-[18px] border-2 border-[##BEC2CC] 
-  focus:border-[#42DA82] focus:outline-none focus:ring-1 focus:ring-[#42DA82];
+  focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
   width: clamp(50px, 15vw, 80px) !important;
   height: clamp(50px, 15vw, 80px) !important;
   font-size: clamp(24px, 5vw, 48px);

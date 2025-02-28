@@ -70,7 +70,7 @@ export default function LoginPage() {
                 onClick={() => router.push("/auth/forgot-password")}
                 className="cursor-pointer"
               >
-                <p className="text-[16px] font-[500] color-[#42DA82]">
+                <p className="text-[16px] font-[500] text-primary">
                   Forgot password?
                 </p>
               </div>
