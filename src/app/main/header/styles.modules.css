@@ -3,13 +3,14 @@
     border-radius: 12px;
     font-weight: 700;
     font-size: 14px;
-    width: 272px;
+    width: 100%;  /* Ensures full width on smaller screens */
+    max-width: 272px; /* Limits width on larger screens */
     color: #727A90;
     outline: none;
 }
 
 .Notification {
-    width: 25px;
+    width: 22px;
     height: 18px;
     display: flex;
     align-items: center;
@@ -17,12 +18,12 @@
     background-color: #F05D3D;
     border-radius: 100px;
     position: absolute;
-    top: -12px;
+    top: -8px;
     left: 7px;
 }
 
 .NotifactionNm {
     font-size: 10px;
     font-weight: 600;
-    color: #ffff;
+    color: #fff;
 }

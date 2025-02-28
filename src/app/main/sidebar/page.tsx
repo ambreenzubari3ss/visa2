@@ -71,7 +71,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      dispatch(setSidebarOpen(window.innerWidth >= 768));
+      dispatch(setSidebarOpen(window.innerWidth >= 858));
     };
 
     handleResize();
