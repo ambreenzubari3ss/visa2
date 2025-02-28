@@ -39,11 +39,11 @@
 }
 
 .menuItemActive {
-  @apply bg-[#42DA82]/10 text-[#42DA82];
+  @apply bg-primary/10 text-primary;
 }
 
 .menuItemInactive {
-  @apply text-[#64748B] hover:bg-gray-50 hover:text-[#42DA82];
+  @apply text-[#64748B] hover:bg-gray-50 hover:text-primary;
 }
 
 .menuIcon {
