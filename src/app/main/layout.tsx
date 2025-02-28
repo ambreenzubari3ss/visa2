@@ -47,7 +47,7 @@ export default function MainLayout({
 
       {/* Main Content Section */}
       <div className="flex-1 transition-all duration-300 ease-in-out">
-        <div className={`${isOpen ? "px-1" : "px-16 pr-[10px] pt-[15px]"} `}>
+        <div className={`${isOpen ? "" : "px-16 pt-[15px]"} `}>
           <Header />
           {children}
         </div>
