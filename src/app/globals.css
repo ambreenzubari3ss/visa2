@@ -54,3 +54,12 @@
 .highlight-color {
   color: var(--highlight-color);
 }
+
+
+
+@layer base {
+  * {
+  }
+  body {
+  }
+}
