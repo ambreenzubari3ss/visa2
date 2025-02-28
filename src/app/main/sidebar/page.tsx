@@ -5,12 +5,6 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleSidebar, setSidebarOpen } from "@/store/sidebarSlice";
 import VisaLogo from "../../../Assets/Images/LoginLogo.png";
-import ApplicationsIcon from "./../../../Assets/icons/fi-sr-application.svg";
-import SettingsIcon from "./../../../Assets/icons/fi-sr-settings.svg";
-import FormsIcon from "./../../../Assets/icons/fi-sr-forms.svg";
-import KanbanIcon from "./../../../Assets/icons/fi-sr-layers.svg";
-import StatsIcon from "./../../../Assets/icons/fi-sr-stats.svg";
-import RefundIcon from "./../../../Assets/icons/fi-sr-ticket.svg";
 import "./../../globals.css";
 import { usePathname } from "next/navigation";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
@@ -18,6 +12,12 @@ import styles from "./sidebar.module.css";
 import CustomerListIcon from "@/Assets/svgs/CustomerListIcon";
 import UserIcon from "@/Assets/svgs/UsersIcon";
 import DashboardIcon from "@/Assets/svgs/Dashboard";
+import KanbanSvg from "@/Assets/svgs/KanbanSvg";
+import VisaSvg from "@/Assets/svgs/VisaSvg";
+import ApplicationSidebar from "@/Assets/svgs/ApplicationSidebar";
+import SettingsSvg from "@/Assets/svgs/SettingsSvg";
+import AnalyticsSvg from "@/Assets/svgs/AnalyticsSvg";
+import RefundedSvg from "@/Assets/svgs/RefundedSvg";
 
 const menuItems = [
   {
@@ -35,32 +35,32 @@ const menuItems = [
     icon: CustomerListIcon,
     path: "/main/customers",
   },
-  // {
-  //   name: "Applications List",
-  //   icon: ApplicationsIcon,
-  //   path: "/main/applications",
-  // },
-  // {
-  //   name: "Settings",
-  //   icon: SettingsIcon,
-  //   path: "/main/settings",
-  // },
-  // { name: "Visa Forms", icon: FormsIcon, path: "/main/forms" },
-  // {
-  //   name: "Kanban Board",
-  //   icon: KanbanIcon,
-  //   path: "/main/kanban",
-  // },
-  // {
-  //   name: "Analytics",
-  //   icon: StatsIcon,
-  //   path: "/main/analytics",
-  // },
-  // {
-  //   name: "Refunds Requests",
-  //   icon: RefundIcon,
-  //   path: "/main/refunds",
-  // },
+  {
+    name: "Applications List",
+    icon: ApplicationSidebar,
+    path: "/main/applications",
+  },
+  {
+    name: "Settings",
+    icon: SettingsSvg,
+    path: "/main/settings",
+  },
+  { name: "Visa Forms", icon: VisaSvg, path: "/main/forms" },
+  {
+    name: "Kanban Board",
+    icon: KanbanSvg,
+    path: "/main/kanban",
+  },
+  {
+    name: "Analytics",
+    icon: AnalyticsSvg,
+    path: "/main/analytics",
+  },
+  {
+    name: "Refunds Requests",
+    icon: RefundedSvg,
+    path: "/main/refunds",
+  },
 ];
 
 const Sidebar = () => {
@@ -120,7 +120,9 @@ const Sidebar = () => {
                     onMouseLeave={() => setHoveredItem(null)}
                   >
                     <div>
-                      <IconComponent color={isActive || isHovered?"#42DA82":"#727A90"} />
+                      <IconComponent
+                        color={isActive || isHovered ? "#42DA82" : "#727A90"}
+                      />
                     </div>
                     <span className={styles.menuText}>{item.name}</span>
                   </a>
