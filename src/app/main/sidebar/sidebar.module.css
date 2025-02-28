@@ -27,7 +27,7 @@
 }
 
 .menuHeader {
-  @apply px-2 py-4;
+  @apply px-2 px-4;
 }
 
 .menuTitle {

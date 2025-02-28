@@ -9,3 +9,19 @@
 .cardHeader {
     @apply font-[500] text-[16px] text-[#727A90]
 }
+
+.btncalendar {
+    @apply text-start font-[600] text-[14px] text-[#24282E] py-2 px-4;
+    border: 1px solid #E9EAEA;
+    border-radius: 16px;
+    height: 52px;
+}
+
+.selectedBtn {
+    /* @apply height-[24px] width-[24px] bg-[#42DA82] radius-[8px] text-white; */
+    background-color: #42DA82;
+    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+    color: white;
+}
