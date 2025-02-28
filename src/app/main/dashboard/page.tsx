@@ -8,8 +8,27 @@ import UserSvg from "@/Assets/svgs/UserSvg";
 import Graph2Svg from "@/Assets/svgs/Graph2Svg";
 import Graph3Svg from "@/Assets/svgs/Grapg3Svg";
 import ApplicationSvg from "@/Assets/svgs/ApplicationSvg";
-
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Filter } from "lucide-react";
+import { useState } from "react";
 export default function Dashboard() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 3;
+  const customers = [
+    { id: "#12331", name: "John Bushmill", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
+    { id: "#12331", name: "Ilham Budi Agung", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
+    { id: "#12331", name: "Mohammad Karim", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
+    { id: "#12331", name: "Linda Blair", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
+    { id: "#12331", name: "Josh Adam", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
+  ];
   // const [selectedDate, setSelectedDate] = useState<Date>();
   // const [month, setMonth] = useState(new Date(2025, 1)); // February 2025
   // const [isOpen, setIsOpen] = useState(false);
@@ -221,6 +240,75 @@ export default function Dashboard() {
                 </span>
                 <LeftIconSvg />
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6 bg-white rounded-lg shadow-md">
+          <div className="flex justify-between items-center pb-4">
+            <h2 className="text-xl font-semibold">New Customers</h2>
+            <div className="flex space-x-2">
+              <Button variant="outline">
+                <Filter className="w-4 h-4 mr-2" /> Filters
+              </Button>
+              <Button variant="outline">See More</Button>
+            </div>
+          </div>
+
+          <Table>
+            <TableHeader>
+              <TableRow className="">
+                <TableHead>#ID</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Phone</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Created Date</TableHead>
+                <TableHead># Total Orders</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {customers.map((customer, index) => (
+                <TableRow key={index}>
+                  <TableCell>{customer.id}</TableCell>
+                  <TableCell>{customer.name}</TableCell>
+                  <TableCell>{customer.phone}</TableCell>
+                  <TableCell>{customer.email}</TableCell>
+                  <TableCell>{customer.date}</TableCell>
+                  <TableCell>{customer.orders}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          {/* Pagination */}
+          <div className="flex justify-between items-center mt-4 text-gray-600">
+            <span>Showing 1-5 from 100</span>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              {[1, 2, 3].map((page) => (
+                <Button
+                  key={page}
+                  variant={currentPage === page ? "default" : "outline"}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </Button>
+              ))}
+              <Button
+                variant="outline"
+                disabled={currentPage === totalPages}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </div>
