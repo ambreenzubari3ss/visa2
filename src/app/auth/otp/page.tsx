@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import OTPInput from "otp-input-react";
+// import OTPInput from "otp-input-react";
 // import styles from "./styles.module.css";
 import Button from "@/components/ui/button/button";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png";
@@ -13,6 +13,11 @@ import "./../../globals.css";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { verifyResetPin } from "@/store/authSlice";
+import dynamic from "next/dynamic";
+const DynamicComponentWithNoSSR = dynamic(
+  // () => import('../components/'),
+  { ssr: false }
+);
 
 export default function OTPPage() {
   const router = useRouter();
@@ -22,6 +27,7 @@ export default function OTPPage() {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.auth);
 
+  useEffect(() => {}, []);
   useEffect(() => {
     // Get email from URL parameters
     const emailParam = searchParams.get("email");
@@ -84,7 +90,7 @@ export default function OTPPage() {
               <p className={styles.otpCheckMailText}>
                 Check your mail and enter PIN
               </p>
-              <OTPInput
+              {/* <OTPInput
                 value={OTP}
                 onChange={setOTP}
                 autoFocus
@@ -92,7 +98,7 @@ export default function OTPPage() {
                 otpType="number"
                 disabled={false}
                 inputClassName={styles.otpInput}
-              />
+              /> */}
             </div>
 
             <p className={styles.resendText}>

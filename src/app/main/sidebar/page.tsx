@@ -73,12 +73,12 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      dispatch(setSidebarOpen(window.innerWidth >= 858));
+      dispatch(setSidebarOpen(window?.innerWidth >= 858));
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window?.addEventListener("resize", handleResize);
+    return () => window?.removeEventListener("resize", handleResize);
   }, [dispatch]);
 
   return (

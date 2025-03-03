@@ -4,6 +4,7 @@ import { plusJakartaSans } from "./fonts";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({
       <body
         className={`${inter.className} h-full ${plusJakartaSans.className}`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Suspense>{children}</Suspense>
+        </Providers>
         <ToastContainer
           position="top-right"
           autoClose={3000}

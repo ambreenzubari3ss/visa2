@@ -4,13 +4,7 @@ import SearchSvg from "@/Assets/svgs/SearchSvg";
 import { Button } from "@/components/ui/button";
 import FilterIconSvg from "@/Assets/svgs/FilterIconSvg";
 
-const TableHeaderPage = ({
-  header,
-  search,
-}: {
-  header: string;
-  search: boolean;
-}) => {
+const TableHeaderPage = ({ header = "", search = false }) => {
   return (
     <>
       <div className="flex items-center justify-between p-4">
