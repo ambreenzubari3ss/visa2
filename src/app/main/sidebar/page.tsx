@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleSidebar, setSidebarOpen } from "@/store/sidebarSlice";
 import VisaLogo from "../../../Assets/Images/LoginLogo.png";
 import "./../../globals.css";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
 import styles from "./sidebar.module.css";
 import CustomerListIcon from "@/Assets/svgs/CustomerListIcon";
@@ -64,6 +64,8 @@ const menuItems = [
 ];
 
 const Sidebar = () => {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const { isOpen } = useAppSelector((state) => state.sidebar);
   const pathname = usePathname();
@@ -112,8 +114,10 @@ const Sidebar = () => {
               return (
                 <li key={index}>
                   <a
-                    href={item.path}
-                    className={`${styles.menuItem} ${
+                    onClick={() => {
+                      router.push(item.path);
+                    }}
+                    className={`cursor-pointer ${styles.menuItem} ${
                       isActive ? styles.menuItemActive : styles.menuItemInactive
                     }`}
                     onMouseEnter={() => setHoveredItem(item.path)}
