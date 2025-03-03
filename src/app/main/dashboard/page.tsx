@@ -8,7 +8,7 @@ import UserSvg from "@/Assets/svgs/UserSvg";
 import Graph2Svg from "@/Assets/svgs/Graph2Svg";
 import Graph3Svg from "@/Assets/svgs/Grapg3Svg";
 import ApplicationSvg from "@/Assets/svgs/ApplicationSvg";
-import GeneralData from '../tableheader/page';
+import GeneralData from "../tableheader/page";
 import {
   Table,
   TableHeader,
@@ -104,7 +104,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="container p-4">
+      <div className="container ">
         <div className="w-full flex flex-col items-center">
           <div className="flex justify-between w-full py-5">
             <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
@@ -279,11 +279,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-
-
-        <div className={styles.mainContainer}>
+        <div className={tableStyles.mainContainer}>
           {/* Header */}
-          <GeneralData search={false} header="User List" />
+          <GeneralData search={false} header="New Customers" />
           {/* User Table */}
           <div className="bg-white rounded-xl">
             <Table>
@@ -306,11 +304,15 @@ export default function Dashboard() {
                   </TableHead>
 
                   <TableHead className="text-center whitespace-nowrap">
-                    <span className={tableStyles.tableHeaders}>Created date</span>
+                    <span className={tableStyles.tableHeaders}>
+                      Created date
+                    </span>
                   </TableHead>
                   <TableHead className="text-center whitespace-nowrap">
                     <span className="flex items-center justify-center gap-2">
-                      <span className={tableStyles.tableHeaders}>#total orders</span>
+                      <span className={tableStyles.tableHeaders}>
+                        #total orders
+                      </span>
                       <DropdownSVG className="w-2 h-2" />
                     </span>
                   </TableHead>
@@ -320,12 +322,34 @@ export default function Dashboard() {
               <TableBody>
                 {customers.map((user, index) => (
                   <TableRow key={index} className="hover:bg-gray-50">
-                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.id}</TableCell>
-                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.name}</TableCell>
-                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.phone}</TableCell>
-                    <TableCell className={`text-center ${tableStyles.tableHeaders}`}>{user.email}</TableCell>
-                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.email}</TableCell>
-                    <TableCell className={`text-center ${tableStyles.userName}`}>
+                    <TableCell
+                      className={`text-center ${tableStyles.userName}`}
+                    >
+                      {user.id}
+                    </TableCell>
+                    <TableCell
+                      className={`text-center ${tableStyles.userName}`}
+                    >
+                      {user.name}
+                    </TableCell>
+                    <TableCell
+                      className={`text-center ${tableStyles.userName}`}
+                    >
+                      {user.phone}
+                    </TableCell>
+                    <TableCell
+                      className={`text-center ${tableStyles.tableHeaders}`}
+                    >
+                      {user.email}
+                    </TableCell>
+                    <TableCell
+                      className={`text-center ${tableStyles.userName}`}
+                    >
+                      {user.email}
+                    </TableCell>
+                    <TableCell
+                      className={`text-center ${tableStyles.userName}`}
+                    >
                       {user.orders}
                     </TableCell>
                   </TableRow>
@@ -335,7 +359,7 @@ export default function Dashboard() {
           </div>
           {/* Footer Section */}
           <TableFooter />
-        </div >
+        </div>
       </div>
     </>
   );

@@ -95,14 +95,14 @@ const users = [
 export default function UserTable() {
   return (
     <>
-      <div className="flex justify-between p-5 mt-3">
+      <div className="flex justify-between  mt-3">
         <h1 className={styles.header}>Manage users</h1>
         <button type="button" className={styles.userBtn}>
           <PlusGreenSvg className={styles.btnPlusIcon} />
           Add New User
         </button>
       </div>
-      <div className={styles.mainContainer}>
+      <div className={tableStyles.mainContainer}>
         {/* Header */}
         <GeneralData search={true} header="User List" />
         {/* User Table */}

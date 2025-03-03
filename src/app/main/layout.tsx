@@ -71,7 +71,7 @@ export default function MainLayout({
               <Header />
             </div>
           </div>
-          <div className="px-[10px]">{children}</div>
+          <div className="px-[20px] pt-[10px]">{children}</div>
         </div>
       </div>
     </div>
