@@ -19,15 +19,92 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import { useState } from "react";
+import DropDownSvg from "@/Assets/svgs/DropDown";
+
 export default function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 3;
+  const itemsPerPage = 5;
+  const totalItems = 100;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  // Calculate the range of items being shown
+  const startItem = (currentPage - 1) * itemsPerPage + 1;
+  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+
+  // Generate page numbers to display
+  const getPageNumbers = () => {
+    const pages = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 3; i++) {
+          pages.push(i);
+        }
+        pages.push("...");
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1);
+        pages.push("...");
+        for (let i = totalPages - 2; i <= totalPages; i++) {
+          pages.push(i);
+        }
+      } else {
+        pages.push(1);
+        pages.push("...");
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
+        pages.push("...");
+        pages.push(totalPages);
+      }
+    }
+    return pages;
+  };
+
   const customers = [
-    { id: "#12331", name: "John Bushmill", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
-    { id: "#12331", name: "Ilham Budi Agung", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
-    { id: "#12331", name: "Mohammad Karim", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
-    { id: "#12331", name: "Linda Blair", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
-    { id: "#12331", name: "Josh Adam", phone: "+351350335312", email: "Johnb@mail.com", date: "26 July 2024", orders: 30 },
+    {
+      id: "#12331",
+      name: "John Bushmill",
+      phone: "+351350335312",
+      email: "Johnb@mail.com",
+      date: "26 July 2024",
+      orders: 30,
+    },
+    {
+      id: "#12331",
+      name: "Ilham Budi Agung",
+      phone: "+351350335312",
+      email: "Johnb@mail.com",
+      date: "26 July 2024",
+      orders: 30,
+    },
+    {
+      id: "#12331",
+      name: "Mohammad Karim",
+      phone: "+351350335312",
+      email: "Johnb@mail.com",
+      date: "26 July 2024",
+      orders: 30,
+    },
+    {
+      id: "#12331",
+      name: "Linda Blair",
+      phone: "+351350335312",
+      email: "Johnb@mail.com",
+      date: "26 July 2024",
+      orders: 30,
+    },
+    {
+      id: "#12331",
+      name: "Josh Adam",
+      phone: "+351350335312",
+      email: "Johnb@mail.com",
+      date: "26 July 2024",
+      orders: 30,
+    },
   ];
   // const [selectedDate, setSelectedDate] = useState<Date>();
   // const [month, setMonth] = useState(new Date(2025, 1)); // February 2025
@@ -244,70 +321,114 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="p-6 bg-white rounded-lg shadow-md">
-          <div className="flex justify-between items-center pb-4">
-            <h2 className="text-xl font-semibold">New Customers</h2>
-            <div className="flex space-x-2">
-              <Button variant="outline">
-                <Filter className="w-4 h-4 mr-2" /> Filters
+        <div className={styles.tableContainer}>
+          <div className={styles.tableHeader}>
+            <h2 className={styles.tableTitle}>New Customers</h2>
+            <div className={styles.tableActions}>
+              <Button variant="outline" className={styles.filterButton}>
+                <Filter className="w-4 h-4" /> Filters
               </Button>
-              <Button variant="outline">See More</Button>
+              <Button variant="outline" className={styles.filterButton}>
+                See More
+              </Button>
             </div>
           </div>
 
-          <Table>
+          <Table className={styles.table}>
             <TableHeader>
-              <TableRow className="">
-                <TableHead>#ID</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Created Date</TableHead>
-                <TableHead># Total Orders</TableHead>
+              <TableRow className={styles.tableHeaderRow}>
+                <TableHead className={styles.tableHeaderCell}>
+                  <p> #ID</p>
+                  <DropDownSvg />
+                </TableHead>
+                <TableHead className={styles.tableHeaderCell}>Name</TableHead>
+                <TableHead className={styles.tableHeaderCell}>Phone</TableHead>
+                <TableHead className={styles.tableHeaderCell}>Email</TableHead>
+                <TableHead className={styles.tableHeaderCell}>
+                  Created date
+                </TableHead>
+                <TableHead className={styles.tableHeaderCell}>
+                  # total orders
+                  <DropDownSvg />
+                  {/* <span className={styles.sortIcon}>▼</span> */}
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {customers.map((customer, index) => (
                 <TableRow key={index}>
-                  <TableCell>{customer.id}</TableCell>
-                  <TableCell>{customer.name}</TableCell>
-                  <TableCell>{customer.phone}</TableCell>
-                  <TableCell>{customer.email}</TableCell>
-                  <TableCell>{customer.date}</TableCell>
-                  <TableCell>{customer.orders}</TableCell>
+                  <TableCell className={styles.tableCell}>
+                    {customer.id}
+                  </TableCell>
+                  <TableCell className={styles.tableCell}>
+                    {customer.name}
+                  </TableCell>
+                  <TableCell className={styles.tableCell}>
+                    {customer.phone}
+                  </TableCell>
+                  <TableCell className={styles.tableCell}>
+                    {customer.email}
+                  </TableCell>
+                  <TableCell className={styles.tableCell}>
+                    {customer.date}
+                  </TableCell>
+                  <TableCell className={styles.tableCell}>
+                    {customer.orders}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
 
-          {/* Pagination */}
-          <div className="flex justify-between items-center mt-4 text-gray-600">
-            <span>Showing 1-5 from 100</span>
-            <div className="flex items-center space-x-2">
+          <div className={styles.tablePagination}>
+            <span className={styles.paginationText}>
+              Showing {startItem}-{endItem} from {totalItems}
+            </span>
+            <div className={styles.paginationControls}>
               <Button
                 variant="outline"
+                className={`${styles.paginationButton} ${
+                  currentPage === 1 ? styles.paginationDisabled : ""
+                }`}
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className={`w-4 h-4 ${styles.paginationArrow}`} />
               </Button>
-              {[1, 2, 3].map((page) => (
-                <Button
-                  key={page}
-                  variant={currentPage === page ? "default" : "outline"}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </Button>
-              ))}
+
+              {getPageNumbers().map((page, index) =>
+                page === "..." ? (
+                  <span
+                    key={`ellipsis-${index}`}
+                    className={styles.paginationEllipsis}
+                  >
+                    ...
+                  </span>
+                ) : (
+                  <Button
+                    key={page}
+                    variant="outline"
+                    className={`${styles.paginationButton} ${
+                      currentPage === page ? styles.paginationButtonActive : ""
+                    }`}
+                    onClick={() => setCurrentPage(Number(page))}
+                  >
+                    {page}
+                  </Button>
+                )
+              )}
+
               <Button
                 variant="outline"
+                className={`${styles.paginationButton} ${
+                  currentPage === totalPages ? styles.paginationDisabled : ""
+                }`}
                 disabled={currentPage === totalPages}
                 onClick={() =>
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className={`w-4 h-4 ${styles.paginationArrow}`} />
               </Button>
             </div>
           </div>

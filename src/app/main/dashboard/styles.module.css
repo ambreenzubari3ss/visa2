@@ -25,3 +25,75 @@
     height: 24px;
     color: white;
 }
+
+.tableContainer {
+  @apply bg-white rounded-[20px] border border-[#E9EAEA] mt-[10px];
+}
+
+.tableHeader {
+  @apply flex justify-between items-center pb-4 px-6 pt-4 border-b border-[#E9EAEA];
+}
+
+.tableTitle {
+  @apply text-[24px] font-[600] text-[#24282E];
+}
+
+.tableActions {
+  @apply flex items-center gap-3;
+}
+
+.filterButton {
+  @apply flex items-center gap-2 px-4 py-2 border border-[#E9EAEA] rounded-[10px] text-[14px] font-[500] text-[#24282E];
+}
+
+.table {
+  @apply w-full;
+}
+
+.tableHeaderRow {
+  @apply border-b border-[#E9EAEA];
+}
+
+.tableHeaderCell {
+  @apply py-4 px-6 text-[14px] font-[500] text-[#727A90] flex-row; 
+}
+
+.tableCell {
+  @apply py-4 px-6 text-[14px] font-[500] text-[#24282E];
+}
+
+.tablePagination {
+  @apply flex justify-between items-center p-6 border-t border-[#E9EAEA];
+}
+
+.paginationText {
+  @apply text-[14px] font-[500] text-[#727A90];
+}
+
+.paginationControls {
+  @apply flex items-center gap-2;
+}
+
+.paginationButton {
+  @apply flex items-center justify-center min-w-[40px] h-[40px] rounded-[10px] border border-[#E9EAEA] text-[14px] font-[500];
+}
+
+.paginationButtonActive {
+  @apply bg-[#42DA82] text-white border-[#42DA82];
+}
+
+.paginationEllipsis {
+  @apply flex items-center justify-center px-4 text-[#727A90];
+}
+
+.paginationArrow {
+  @apply text-[#727A90] hover:text-[#42DA82] transition-colors;
+}
+
+.paginationDisabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.sortIcon {
+  @apply ml-1 inline-block;
+}
