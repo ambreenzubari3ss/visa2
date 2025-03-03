@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Formik, Form } from 'formik';
+import { Formik, Form } from "formik";
 import styles from "./../styles.module.css";
 import Button from "@/components/ui/button/button";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png";
@@ -22,12 +23,28 @@ export default function LoginPage() {
   };
 
   const handleSubmit = async (values: typeof initialValues) => {
-    // const result = await dispatch(loginUser(values));
-    console.log("VALUES___________", values)
-    if (loginUser.fulfilled.match(result)) {
-      // router.push("/dashboa .rd");
+    try {
+      console.log("Form submitted with values:", values);
+      const result = await dispatch(
+        loginUser({
+          username: values.email,
+          password: values.password,
+        })
+      ).unwrap();
+
+      console.log("Login result:", result);
+
+      if (result) {
+        router.push("/main/dashboard");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
     }
   };
+
+  useEffect(() => {
+    // Any client-side only code goes here
+  }, []);
 
   return (
     <div className={styles.containerauth}>
@@ -84,8 +101,9 @@ export default function LoginPage() {
               )}
               <div>
                 <p className="text-color text-[14px] font-[500] text-center m-0">
-                  By clicking on the &quot;Create an Account&quot; button, I consent to the
-                  processing of my personal data in accordance with the{" "}
+                  By clicking on the &quot;Create an Account&quot; button, I
+                  consent to the processing of my personal data in accordance
+                  with the{" "}
                   <strong className="highlight-color">Privacy Policy</strong>
                 </p>
               </div>

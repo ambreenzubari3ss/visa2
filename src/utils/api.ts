@@ -1,7 +1,7 @@
 import axios, { AxiosRequestHeaders } from "axios";
 import { getAccessToken } from "./asyncStorage";
 
-export const BASE_URL = "";
+export const BASE_URL = "https://api.visa2.pro/api/v1/";
 export const STATIC_URL = "";
 
 axios.defaults.baseURL = BASE_URL;

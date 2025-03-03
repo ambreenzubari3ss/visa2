@@ -19,14 +19,26 @@ interface AuthState {
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (
-    credentials: { email: string; password: string },
+    credentials: { username: string; password: string },
     { rejectWithValue }
   ) => {
     try {
+      const formData = new URLSearchParams();
+      formData.append('grant_type', '');
+      formData.append('username', credentials.username);
+      formData.append('password', credentials.password);
+      formData.append('scope', '');
+      formData.append('client_id', '');
+      formData.append('client_secret', '');
+
       const response: any = await postAPIWithoutAuth(
-        "/auth/login",
-        credentials
+        "login",
+        formData.toString(),
+        {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }
       );
+      
       if (!response.success) {
         return rejectWithValue(response.data?.message || "Login failed");
       }
