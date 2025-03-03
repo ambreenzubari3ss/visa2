@@ -17,11 +17,17 @@ interface ApiResponse<T = any> {
 // POST without Auth
 export const postAPIWithoutAuth = async <T>(
   url: string,
-  body: Record<string, any>
+  body: Record<string, any> | string,
+  headers?: AxiosRequestHeaders
 ): Promise<ApiResponse<T>> => {
   try {
     removeApiHeader();
-    const res = await axios.post<T>(url, body);
+    const defaultHeaders = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      ...headers // Allow overriding default headers if needed
+    };
+    
+    const res = await axios.post<T>(url, body, { headers: defaultHeaders });
     return {
       data: res.data,
       status: res.status,
