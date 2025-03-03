@@ -6,6 +6,7 @@ interface InputFieldProps {
   fieldName: string;
   placeHolder: string;
   type?: string;
+  label?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: string;
@@ -13,6 +14,7 @@ interface InputFieldProps {
 
 const InputField = ({
   fieldName,
+  label,
   placeHolder,
   type = "text",
   onChange,
@@ -22,7 +24,9 @@ const InputField = ({
   return (
     <div className="flex flex-col items-start gap-2 w-full">
       <div>
-        <span className="text highlight-color">{fieldName}</span>
+        <span className="text highlight-color font-jakarta text-[#24282E]">
+          {label ? label : fieldName}
+        </span>
       </div>
       <div className="w-full">
         <input

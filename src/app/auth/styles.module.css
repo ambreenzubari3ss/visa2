@@ -1,5 +1,7 @@
 /* styles.module.css */
-
+.pageDesc {
+  @apply  text-[14px] font-[500] text-center m-0 text-[#8E95A6] font-jakarta w-full;
+}
 .containerauth {
   @apply flex min-h-screen items-center justify-center bg-gray-100;
   background: linear-gradient(164deg, #42da82 -140%, #fff 50%);
@@ -18,15 +20,14 @@
 }
 
 .title {
-  @apply font-[700] text-center text-[40px];
+  @apply font-[700] text-center text-[40px] font-jakarta;
   font-family: var(--font-plus-jakarta);
 }
 
 .WelcomeText {
-  @apply font-[400] text-center text-[20px];
-  font-family: var(--font-plus-jakarta);
-  color: var(--text-color);
-
+  @apply font-[400] text-center text-[20px] text-[#8E95A6] font-jakarta mb-[20px];
+  /* font-family: var(--font-plus-jakarta); */
+  /* color: var(--text-color); */
 }
 
 /* otp screen style */
@@ -55,6 +56,7 @@
 .resendText {
   @apply text-[14px] font-[400] text-[#727A90];
 }
+
 
 /* Media queries for better responsiveness */
 @media screen and (max-width: 480px) {

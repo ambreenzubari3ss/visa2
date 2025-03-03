@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Formik, Form } from 'formik';
+import { Formik, Form } from "formik";
 import Button from "@/components/ui/button/button";
 import InputField from "@/components/ui/input/input";
 import styles from "./../styles.module.css";
@@ -51,21 +51,20 @@ const ForgotPassword = () => {
                 fieldName="email"
                 placeHolder="Enter your email"
                 type="email"
+                label="Enter Email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.email && errors.email}
               />
               <div className="mt-[10px]">
-                <Button
-                  buttonText="Get Code"
-                  type="submit"
-                />
+                <Button buttonText="Get Code" type="submit" />
               </div>
               <div>
-                <p className="text-color text-[14px] font-[500] text-center m-0">
-                  By clicking on the &quot;Create an Account&quot; button, I consent to the
-                  processing of my personal data in accordance with the{" "}
-                  <strong className="highlight-color">Privacy Policy</strong>
+                <p className={styles.pageDesc}>
+                  By clicking on the &quot;Create an Account&quot; button, I
+                  consent to the processing of my personal data in accordance
+                  with the{" "}
+                  <strong className="text-black">Privacy Policy</strong>
                 </p>
               </div>
             </Form>

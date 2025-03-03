@@ -15,7 +15,7 @@ import { loginSchema } from "@/utils/validationSchema";
 export default function LoginPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isLoading, error } = useAppSelector((state) => state.auth);
+  const { isLoading } = useAppSelector((state) => state.auth);
 
   const initialValues = {
     email: "",
@@ -71,12 +71,14 @@ export default function LoginPage() {
                 fieldName="email"
                 placeHolder="Email"
                 type="email"
+                label="Email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.email && errors.email}
               />
               <InputField
                 fieldName="password"
+                label="Enter your Password"
                 placeHolder="Password"
                 type="password"
                 onChange={handleChange}
@@ -98,11 +100,11 @@ export default function LoginPage() {
               />
 
               <div>
-                <p className="text-color text-[14px] font-[500] text-center m-0">
+                <p className={styles.pageDesc}>
                   By clicking on the &quot;Create an Account&quot; button, I
                   consent to the processing of my personal data in accordance
                   with the{" "}
-                  <strong className="highlight-color">Privacy Policy</strong>
+                  <strong className="text-black">Privacy Policy</strong>
                 </p>
               </div>
             </Form>
