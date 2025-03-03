@@ -101,6 +101,38 @@ export const forgotPassword = createAsyncThunk(
   }
 );
 
+export const verifyResetPin = createAsyncThunk(
+  "auth/verifyResetPin",
+  async (data: { email: string; pin: string }, { rejectWithValue }) => {
+    try {
+      const response: any = await postAPIWithoutAuth(
+        "verify-reset-pin",
+        JSON.stringify({
+          email: data.email,
+          pin: data.pin,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      console.log("RESPONSE____", response);
+
+      if (!response.success) {
+        console.log("RESPONSE", response.data.message);
+        toast.error(response.data.message || "PIN verification failed");
+        return rejectWithValue(response.data || "PIN verification failed");
+      }
+
+      toast.success("PIN verified successfully");
+      return response.data;
+    } catch (error: any) {
+      console.log("ERROR___", error);
+      toast.error(error.message || "Failed to verify PIN");
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // Slice
 const authSlice = createSlice({
   name: "auth",
@@ -154,6 +186,20 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(forgotPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
+
+    // Verify Reset PIN
+    builder
+      .addCase(verifyResetPin.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(verifyResetPin.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(verifyResetPin.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

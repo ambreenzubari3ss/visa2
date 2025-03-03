@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -33,6 +32,10 @@ const ForgotPassword = () => {
       // Optionally redirect to login page after successful submission
       // setTimeout(() => {
       //   router.push("/auth/login");
+      const encodedEmail = encodeURIComponent(values.email);
+      // Navigate to OTP page with email parameter
+      router.push(`/auth/otp?email=${encodedEmail}`);
+
       // }, 2000);
     } catch (error) {
       console.error("Forgot password error:", error);
@@ -94,6 +97,6 @@ const ForgotPassword = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ForgotPassword;

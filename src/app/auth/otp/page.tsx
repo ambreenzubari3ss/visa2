@@ -1,26 +1,60 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import OTPInput from "otp-input-react";
 // import styles from "./styles.module.css";
 import Button from "@/components/ui/button/button";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png";
 import styles from "./../styles.module.css"; // Import the CSS Module
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import "./../../globals.css";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "@/store";
+import { verifyResetPin } from "@/store/authSlice";
 
 export default function OTPPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [OTP, setOTP] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    // Get email from URL parameters
+    const emailParam = searchParams.get("email");
+    console.log("decoded", emailParam);
+    if (!emailParam) {
+      toast.error("Email not found. Please try again");
+      router.push("/auth/forgot-password");
+      return;
+    }
+    setEmail(decodeURIComponent(emailParam));
+  }, [searchParams, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle OTP verification here
-    console.log("OTP submitted:", OTP);
-    // If verification successful, redirect to next page
-    router.push("/main/dashboard");
+
+    if (OTP.length !== 4) {
+      toast.error("Please enter a valid 4-digit PIN");
+      return;
+    }
+
+    try {
+      await dispatch(
+        verifyResetPin({
+          email: email,
+          pin: OTP,
+        })
+      ).unwrap();
+
+      // After successful verification, redirect to reset password page
+      router.push(`/auth/reset-password?email=${encodeURIComponent(email)}`);
+    } catch (error) {
+      console.error("OTP verification error:", error);
+      // Error toast is already handled in the thunk
+    }
   };
 
   return (
