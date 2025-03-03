@@ -24,7 +24,7 @@ const Header = () => {
       dispatch(logout());
       toast.success("Logged out successfully");
       router.push("/auth/login");
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Logout failed");
     }
     setIsOpen(false);
