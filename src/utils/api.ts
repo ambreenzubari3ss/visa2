@@ -23,7 +23,7 @@ export const postAPIWithoutAuth = async <T>(
   try {
     removeApiHeader();
     const defaultHeaders = {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      "Content-Type": "application/json",
       ...headers // Allow overriding default headers if needed
     };
     

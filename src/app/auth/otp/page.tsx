@@ -11,7 +11,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import "./../../globals.css";
 import { toast } from "react-toastify";
-import { useAppDispatch } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { verifyResetPin } from "@/store/authSlice";
 
 export default function OTPPage() {
@@ -20,6 +20,7 @@ export default function OTPPage() {
   const [OTP, setOTP] = useState("");
   const [email, setEmail] = useState<string>("");
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     // Get email from URL parameters
@@ -94,9 +95,11 @@ export default function OTPPage() {
               Enter Code to Continue or continue
             </p>
             <Button
-              buttonText="Continue to login"
+              buttonText={
+                isLoading ? "Verifying..." : "Continue to Reset Password"
+              }
               type="submit"
-              disabled={OTP.length !== 4}
+              disabled={OTP.length !== 4 || isLoading}
             />
           </form>
         </div>

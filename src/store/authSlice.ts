@@ -24,18 +24,14 @@ export const loginUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const formData = new URLSearchParams();
-      formData.append("grant_type", "");
-      formData.append("username", credentials.username);
-      formData.append("password", credentials.password);
-      formData.append("scope", "");
-      formData.append("client_id", "");
-      formData.append("client_secret", "");
-
-      const response: any = await postAPIWithoutAuth(
-        "login",
-        formData.toString()
-      );
+      const response: any = await postAPIWithoutAuth("login", {
+        username: credentials.username,
+        password: credentials.password,
+        grant_type: "",
+        scope: "",
+        client_id: "",
+        client_secret: "",
+      });
 
       if (!response.success) {
         toast.error(response.data?.message || "Login failed");
@@ -77,10 +73,7 @@ export const forgotPassword = createAsyncThunk(
     try {
       const response: any = await postAPIWithoutAuth(
         "forgot-password",
-        JSON.stringify({ email }),
-        {
-          "Content-Type": "application/json", // Override default content type as this API expects JSON
-        }
+        JSON.stringify({ email })
       );
 
       if (!response.success) {
@@ -110,10 +103,7 @@ export const verifyResetPin = createAsyncThunk(
         JSON.stringify({
           email: data.email,
           pin: data.pin,
-        }),
-        {
-          "Content-Type": "application/json",
-        }
+        })
       );
       console.log("RESPONSE____", response);
 
