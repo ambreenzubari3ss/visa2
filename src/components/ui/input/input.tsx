@@ -39,7 +39,7 @@ const InputField = ({
 
           `}
           type={type}
-          name={fieldName.toLowerCase()}
+          name={fieldName}
           placeholder={placeHolder}
           onChange={onChange}
           onBlur={onBlur}

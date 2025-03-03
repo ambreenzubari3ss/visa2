@@ -51,7 +51,11 @@ export default function OTPPage() {
       ).unwrap();
 
       // After successful verification, redirect to reset password page
-      router.push(`/auth/reset-password?email=${encodeURIComponent(email)}`);
+      router.push(
+        `/auth/new-password?email=${encodeURIComponent(
+          email
+        )}&otp=${encodeURIComponent(OTP)}`
+      );
     } catch (error) {
       console.error("OTP verification error:", error);
       // Error toast is already handled in the thunk

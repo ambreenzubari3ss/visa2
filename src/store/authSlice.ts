@@ -123,6 +123,40 @@ export const verifyResetPin = createAsyncThunk(
   }
 );
 
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (
+    data: {
+      email: string;
+      new_password: string;
+      pin: string;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response: any = await postAPIWithoutAuth(
+        "reset-password",
+        JSON.stringify({
+          email: data.email,
+          pin: data.pin,
+          new_password: data.new_password,
+        })
+      );
+
+      if (!response.success) {
+        toast.error(response.data || "Password reset failed");
+        return rejectWithValue(response.data || "Password reset failed");
+      }
+
+      toast.success("Password reset successfully");
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.message || "Failed to reset password");
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // Slice
 const authSlice = createSlice({
   name: "auth",
@@ -190,6 +224,20 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(verifyResetPin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
+
+    // RESET NEW PASSWORD
+    builder
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });
