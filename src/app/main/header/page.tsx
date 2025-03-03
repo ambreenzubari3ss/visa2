@@ -9,10 +9,26 @@ import DropdownSVG from "@/Assets/svgs/DropdownSVG";
 import ProfileImage from "../../../Assets/Images/generic-profile.png";
 import Image from "next/image";
 import SearchSvg from "@/Assets/svgs/SearchSvg";
+import { useAppDispatch } from "@/store";
+import { logout } from "@/store/authSlice";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
+  const handleLogout = () => {
+    try {
+      dispatch(logout());
+      toast.success("Logged out successfully");
+      router.push("/auth/login");
+    } catch (error) {
+      toast.error("Logout failed");
+    }
+    setIsOpen(false);
+  };
   return (
     <div className="header-container">
       <div className="header-content">
@@ -59,7 +75,9 @@ const Header = () => {
                 <ul>
                   <li className="dropdown-item">Profile</li>
                   <li className="dropdown-item">Settings</li>
-                  <li className="dropdown-item">Logout</li>
+                  <li className="dropdown-item" onClick={handleLogout}>
+                    Logout
+                  </li>
                 </ul>
               </div>
             )}

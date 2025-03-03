@@ -41,12 +41,20 @@ export const loginUser = createAsyncThunk(
       );
       
       if (!response.success) {
-        console.log("RESPONSE___", response)
         toast.error(response.data?.message || "Login failed");
         return rejectWithValue(response.data?.message || "Login failed");
       }
+
+      // Store token in localStorage
+      if (response.data?.access_token) {
+        localStorage.setItem("token", response.data.access_token);
+      }
+      
       toast.success("Login successful!");
-      return response.data;
+      return {
+        token: response.data.access_token,
+        user: response.data.user
+      };
     } catch (error: any) {
       toast.error(error.message || "An error occurred during login");
       return rejectWithValue(error.message);
@@ -79,6 +87,11 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      localStorage.removeItem("token");
+    },
   },
   extraReducers: (builder) => {
     // Login
@@ -91,7 +104,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -107,5 +119,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, logout } = authSlice.actions;
 export default authSlice.reducer;

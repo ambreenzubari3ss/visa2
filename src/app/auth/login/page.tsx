@@ -16,6 +16,7 @@ export default function LoginPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.auth);
+  const { token } = useAppSelector((state) => state.auth);
 
   const initialValues = {
     email: "",
@@ -43,8 +44,12 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    // Any client-side only code goes here
-  }, []);
+    console.log("TOKEN_____", token);
+    if (token && token !== "undefined" && token !== "null") {
+      console.log("TOKEN___222__", token);
+      router.push("/main/dashboard");
+    }
+  }, [token, router]);
 
   return (
     <div className={styles.containerauth}>
