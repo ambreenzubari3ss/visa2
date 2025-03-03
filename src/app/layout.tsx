@@ -2,6 +2,8 @@ import "@/styles/globals.css";
 import { Providers } from "@/store/provider";
 import { plusJakartaSans } from "./fonts";
 import { Inter } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +21,18 @@ export default function RootLayout({
         className={`${inter.className} h-full ${plusJakartaSans.className}`}
       >
         <Providers>{children}</Providers>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </body>
     </html>
   );

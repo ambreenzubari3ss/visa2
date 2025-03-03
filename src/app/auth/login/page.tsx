@@ -96,9 +96,7 @@ export default function LoginPage() {
                 type="submit"
                 disabled={isLoading}
               />
-              {error && (
-                <p className="text-danger text-sm text-center">{error}</p>
-              )}
+
               <div>
                 <p className="text-color text-[14px] font-[500] text-center m-0">
                   By clicking on the &quot;Create an Account&quot; button, I

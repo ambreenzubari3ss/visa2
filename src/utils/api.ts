@@ -29,7 +29,8 @@ export const postAPIWithoutAuth = async <T>(
       headers: res.headers,
     };
   } catch (err: any) {
-    return { data: err?.response?.data, success: false };
+    console.log("ERROR_--", err);
+    return { data: err?.response?.data.detail, success: false };
   }
 };
 

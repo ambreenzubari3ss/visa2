@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postAPIWithoutAuth, postAPIWithAuth } from "@/utils/api";
+import { toast } from 'react-toastify';
 
 // Types
 interface User {
@@ -40,10 +41,14 @@ export const loginUser = createAsyncThunk(
       );
       
       if (!response.success) {
+        console.log("RESPONSE___", response)
+        toast.error(response.data?.message || "Login failed");
         return rejectWithValue(response.data?.message || "Login failed");
       }
+      toast.success("Login successful!");
       return response.data;
     } catch (error: any) {
+      toast.error(error.message || "An error occurred during login");
       return rejectWithValue(error.message);
     }
   }
