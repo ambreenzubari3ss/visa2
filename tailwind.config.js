@@ -16,7 +16,7 @@ module.exports = {
         warning: 'rgb(var(--color-warning) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['var(--font-plus-jakarta)'],
+        jakarta: ['var(--font-plus-jakarta)'],
       },
     },
   },

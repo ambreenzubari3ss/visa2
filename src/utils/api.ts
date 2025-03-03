@@ -1,7 +1,7 @@
 import axios, { AxiosRequestHeaders } from "axios";
 import { getAccessToken } from "./asyncStorage";
 
-export const BASE_URL = "";
+export const BASE_URL = "https://api.visa2.pro/api/v1/";
 export const STATIC_URL = "";
 
 axios.defaults.baseURL = BASE_URL;
@@ -17,11 +17,17 @@ interface ApiResponse<T = any> {
 // POST without Auth
 export const postAPIWithoutAuth = async <T>(
   url: string,
-  body: Record<string, any>
+  body: Record<string, any> | string,
+  headers?: AxiosRequestHeaders
 ): Promise<ApiResponse<T>> => {
   try {
     removeApiHeader();
-    const res = await axios.post<T>(url, body);
+    const defaultHeaders = {
+      "Content-Type": "application/json",
+      ...headers // Allow overriding default headers if needed
+    };
+    
+    const res = await axios.post<T>(url, body, { headers: defaultHeaders });
     return {
       data: res.data,
       status: res.status,
@@ -29,7 +35,8 @@ export const postAPIWithoutAuth = async <T>(
       headers: res.headers,
     };
   } catch (err: any) {
-    return { data: err?.response?.data, success: false };
+    console.log("ERROR_--", err);
+    return { data: err?.response?.data.detail, success: false };
   }
 };
 

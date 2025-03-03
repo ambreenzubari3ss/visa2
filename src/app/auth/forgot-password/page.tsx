@@ -1,25 +1,45 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { Formik, Form } from 'formik';
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { forgotPassword } from "@/store/authSlice";
+import styles from "./../styles.module.css";
 import Button from "@/components/ui/button/button";
 import InputField from "@/components/ui/input/input";
-import styles from "./../styles.module.css";
+import Image from "next/image";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png";
-import { forgotPasswordSchema } from "@/utils/validationSchema";
+
+const forgotPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+});
 
 const ForgotPassword = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.auth);
 
   const initialValues = {
     email: "",
   };
 
   const handleSubmit = async (values: typeof initialValues) => {
-    console.log("Forgot Password Values:", values);
-    // Handle forgot password logic here
-    router.push("/auth/otp");
+    try {
+      await dispatch(forgotPassword(values.email)).unwrap();
+      // Optionally redirect to login page after successful submission
+      // setTimeout(() => {
+      //   router.push("/auth/login");
+      const encodedEmail = encodeURIComponent(values.email);
+      // Navigate to OTP page with email parameter
+      router.push(`/auth/otp?email=${encodedEmail}`);
+
+      // }, 2000);
+    } catch (error) {
+      console.error("Forgot password error:", error);
+    }
   };
 
   return (
@@ -51,21 +71,24 @@ const ForgotPassword = () => {
                 fieldName="email"
                 placeHolder="Enter your email"
                 type="email"
+                label="Enter Email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.email && errors.email}
               />
               <div className="mt-[10px]">
                 <Button
-                  buttonText="Get Code"
+                  buttonText={isLoading ? "Sending..." : "Reset Password"}
                   type="submit"
+                  disabled={isLoading}
                 />
               </div>
               <div>
-                <p className="text-color text-[14px] font-[500] text-center m-0">
-                  By clicking on the &quot;Create an Account&quot; button, I consent to the
-                  processing of my personal data in accordance with the{" "}
-                  <strong className="highlight-color">Privacy Policy</strong>
+                <p className={styles.pageDesc}>
+                  By clicking on the &quot;Create an Account&quot; button, I
+                  consent to the processing of my personal data in accordance
+                  with the{" "}
+                  <strong className="text-black">Privacy Policy</strong>
                 </p>
               </div>
             </Form>

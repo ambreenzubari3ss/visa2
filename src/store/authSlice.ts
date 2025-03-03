@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postAPIWithoutAuth, postAPIWithAuth } from "@/utils/api";
+import { toast } from "react-toastify";
 
 // Types
 interface User {
@@ -19,19 +20,36 @@ interface AuthState {
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (
-    credentials: { email: string; password: string },
+    credentials: { username: string; password: string },
     { rejectWithValue }
   ) => {
     try {
-      const response: any = await postAPIWithoutAuth(
-        "/auth/login",
-        credentials
-      );
+      const response: any = await postAPIWithoutAuth("login", {
+        username: credentials.username,
+        password: credentials.password,
+        grant_type: "",
+        scope: "",
+        client_id: "",
+        client_secret: "",
+      });
+
       if (!response.success) {
+        toast.error(response.data?.message || "Login failed");
         return rejectWithValue(response.data?.message || "Login failed");
       }
-      return response.data;
+
+      // Store token in localStorage
+      if (response.data?.access_token) {
+        localStorage.setItem("token", response.data.access_token);
+      }
+
+      toast.success("Login successful!");
+      return {
+        token: response.data.access_token,
+        user: response.data.user,
+      };
     } catch (error: any) {
+      toast.error(error.message || "An error occurred during login");
       return rejectWithValue(error.message);
     }
   }
@@ -44,6 +62,62 @@ export const logoutUser = createAsyncThunk(
       await postAPIWithAuth("/auth/logout", {});
       return null;
     } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (email: string, { rejectWithValue }) => {
+    try {
+      const response: any = await postAPIWithoutAuth(
+        "forgot-password",
+        JSON.stringify({ email })
+      );
+
+      if (!response.success) {
+        toast.error(response.data?.message || "Password reset request failed");
+        return rejectWithValue(
+          response.data?.message || "Password reset request failed"
+        );
+      }
+      toast.success(
+        response.data?.message ||
+          "Password reset instructions sent to your email"
+      );
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.message || "Failed to send reset instructions");
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const verifyResetPin = createAsyncThunk(
+  "auth/verifyResetPin",
+  async (data: { email: string; pin: string }, { rejectWithValue }) => {
+    try {
+      const response: any = await postAPIWithoutAuth(
+        "verify-reset-pin",
+        JSON.stringify({
+          email: data.email,
+          pin: data.pin,
+        })
+      );
+      console.log("RESPONSE____", response);
+
+      if (!response.success) {
+        console.log("RESPONSE", response.data.message);
+        toast.error(response.data.message || "PIN verification failed");
+        return rejectWithValue(response.data || "PIN verification failed");
+      }
+
+      toast.success("PIN verified successfully");
+      return response.data;
+    } catch (error: any) {
+      console.log("ERROR___", error);
+      toast.error(error.message || "Failed to verify PIN");
       return rejectWithValue(error.message);
     }
   }
@@ -62,6 +136,11 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      localStorage.removeItem("token");
+    },
   },
   extraReducers: (builder) => {
     // Login
@@ -74,7 +153,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -87,8 +165,36 @@ const authSlice = createSlice({
       state.token = null;
       localStorage.removeItem("token");
     });
+
+    // Forgot Password
+    builder
+      .addCase(forgotPassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
+
+    // Verify Reset PIN
+    builder
+      .addCase(verifyResetPin.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(verifyResetPin.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(verifyResetPin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, logout } = authSlice.actions;
 export default authSlice.reducer;
