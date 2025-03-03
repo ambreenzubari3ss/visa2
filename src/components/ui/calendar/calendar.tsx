@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Popover,
   PopoverTrigger,
@@ -69,7 +69,7 @@ export default function CalendarPicker() {
 
         {/* Calendar Popover */}
         <PopoverContent className="w-[320px] p-4 rounded-2xl shadow-lg overflow-visible z-[9999] relative bg-white">
-        {/* Header */}
+          {/* Header */}
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-lg font-semibold">Calendar</h2>

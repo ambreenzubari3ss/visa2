@@ -10,16 +10,27 @@
     height: 40px;
 }
 
-.btnPlusIcon{
+.btnPlusIcon {
     @apply w-[16px] h-[16px] text-[#ffff]
 }
 
-.inputSearch {
+.searchContainer {
     @apply relative flex-1 min-w-[200px] max-w-[400px];
 }
 
 .inputSearchIcon {
     @apply absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none;
+}
+
+.dropdownItem {
+    @apply rounded-[16px] p-0;
+    box-shadow: none;
+    background-color: #ffff;
+    border: 1px solid #E9EAEA;
+}
+
+.dropdownText {
+    @apply text-[14px] font-[500] text-[#727A90];
 }
 
 .mainContainer {
@@ -30,31 +41,6 @@
 
 .userListText {
     @apply text-[20px] font-[600] text-[#24282E]
-}
-
-.tableHeaders {
-    @apply text-center text-[14px] font-[500] text-[#727A90];
-}
-
-.userName {
-    @apply text-[14px] font-[500] text-[#24282E]
-}
-
-.userEmail {
-    @apply text-[12px] font-[400] text-[#727A90]
-}
-
-.footerBtn {
-    border: 1px solid #E9EAEA;
-    border-radius: 10px;
-    color: #727A90;
-}
-
-.activeBtn {
-    border-radius: 10px;
-    color: #24282E;
-    background-color: #F1F2F4;
-    border: none;
 }
 
 .roleBtnRed {

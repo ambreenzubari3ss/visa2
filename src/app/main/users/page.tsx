@@ -1,3 +1,4 @@
+'use client'
 import {
   Table,
   TableBody,
@@ -6,19 +7,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Trash2, Filter } from "lucide-react";
-import SearchSvg from "@/Assets/svgs/SearchSvg";
 import styles from "./styles.module.css";
+import tableStyles from "../table.styles.module.css";
 import PlusGreenSvg from "@/Assets/svgs/PlusGreenSvg";
 import CalendarSvg from "@/Assets/svgs/CalendarSvg";
-
+import PhoneSvg from "@/Assets/svgs/PhoneSvg";
+import TimeSvg from "@/Assets/svgs/TimeSvg";
+import DropdownSVG from "@/Assets/svgs/DropdownSVG";
+import TrashSvg from "@/Assets/svgs/TrashSvg";
+import UserSvg from "@/Assets/svgs/UserSvg";
+import EditSvg from "@/Assets/svgs/EditSvg";
+import DownloadSvg from "@/Assets/svgs/DownloadSvg";
+import GeneralData from '../tableheader/page'
+import TableFooter from "../tablefooter/page";
 const users = [
   {
     name: "John Bushmill",
@@ -97,43 +104,40 @@ export default function UserTable() {
       </div>
       <div className={styles.mainContainer}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4">
-          <div className="bg-white rounded-xl ">
-            <h2 className={styles.userListText}>User List</h2>
-          </div>
-
-          {/* Search & Filters */}
-          <div className="bg-white rounded-xl flex justify-between items-center space-x-2">
-            <div className={styles.inputSearch}>
-              <div className={styles.inputSearchIcon}>
-                <SearchSvg />
-              </div>
-              <input type="text" className="input-search" placeholder="Search..." />
-            </div>
-            <div className="flex space-x-2">
-              <Button variant="outline" className="flex items-center gap-1">
-                <Filter className="w-4 h-4" /> Filters
-              </Button>
-              <Button variant="outline">See More</Button>
-            </div>
-          </div>
-        </div>
-        <hr />
-
+        <GeneralData search={true} header="User List" />
         {/* User Table */}
         <div className="bg-white rounded-xl">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="text-[14px] font-[500] text-[#727A90]">Users</TableHead>
-                <TableHead className={`flex justify-center items-center gap-2 ${styles.tableHeaders}`}>
-                  <span><CalendarSvg /></span>
-                  <span>Created date</span>
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <CalendarSvg className="w-4 h-4" />
+                    <span className={tableStyles.tableHeaders}>Created date</span>
+                  </span>
                 </TableHead>
-                <TableHead className={styles.tableHeaders}>Phone</TableHead>
-                <TableHead className={styles.tableHeaders}>Role</TableHead>
-                <TableHead className={styles.tableHeaders}>Last Login</TableHead>
-                <TableHead className={styles.tableHeaders}>Actions</TableHead>
+
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <PhoneSvg className="w-4 h-4" />
+                    <span className={tableStyles.tableHeaders}>Phone</span>
+                  </span>
+                </TableHead>
+
+                <TableHead className={tableStyles.tableHeaders}>Role</TableHead>
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <TimeSvg className="w-4 h-4" />
+                    <span className={tableStyles.tableHeaders}>Last Login</span>
+                  </span>
+                </TableHead>
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <span className={tableStyles.tableHeaders}>Actions</span>
+                    <DropdownSVG />
+                  </span>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -141,12 +145,12 @@ export default function UserTable() {
                 <TableRow key={index} className="hover:bg-gray-50">
                   <TableCell>
                     <div className="flex flex-col">
-                      <span className={styles.userName}>{user.name}</span>
-                      <span className={styles.userEmail}>{user.email}</span>
+                      <span className={tableStyles.userName}>{user.name}</span>
+                      <span className={tableStyles.userEmail}>{user.email}</span>
                     </div>
                   </TableCell>
-                  <TableCell className={`text-center ${styles.userName}`}>{user.date}</TableCell>
-                  <TableCell className={`text-center ${styles.userName}`}>{user.phone}</TableCell>
+                  <TableCell className={`text-center ${tableStyles.userName}`}>{user.date}</TableCell>
+                  <TableCell className={`text-center ${tableStyles.userName}`}>{user.phone}</TableCell>
                   <TableCell className="text-center">
                     <span
                       className={`rounded-full text-sm ${user.roleColor}`}
@@ -154,42 +158,41 @@ export default function UserTable() {
                       {user.role}
                     </span>
                   </TableCell>
-                  <TableCell className={styles.tableHeaders}>{user.lastLogin}</TableCell>
+                  <TableCell className={tableStyles.tableHeaders}>{user.lastLogin}</TableCell>
                   <TableCell className="text-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MoreHorizontal className="cursor-pointer" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-600 flex items-center">
-                          <Trash2 className="w-4 h-4 mr-2" />
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <span className="flex justify-center align-center gap-2">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <DropdownSVG className="cursor-pointer" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className={styles.dropdownItem}>
+                          <DropdownMenuItem className="flex items-center p-4">
+                            <UserSvg color='#727A90' className="w-4 h-4" />
+                            <span className={styles.dropdownText}>Change Account Type</span>
+                          </DropdownMenuItem>
+                          <hr />
+                          <DropdownMenuItem className="flex items-center p-4">
+                            <EditSvg className="w-4 h-4" />
+                            <span className={styles.dropdownText}>Edit</span>
+                          </DropdownMenuItem>
+                          <hr />
+                          <DropdownMenuItem className="flex items-center p-4">
+                            <DownloadSvg className="w-4 h-4" />
+                            <span className={styles.dropdownText}>Resend Invite</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                      <TrashSvg className="cursor-pointer" />
+                    </span>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
-        <hr />
-        {/* Pagination */}
-        <div className="flex justify-between items-center my-4 p-4">
-          <span className={styles.tableHeaders}>Showing 1-5 from 100</span>
-          <div className="flex space-x-1">
-            <Button className={styles.footerBtn} variant="outline">&lt;</Button>
-            <Button className={styles.activeBtn} variant="outline">
-              1
-            </Button>
-            <Button className={styles.footerBtn} variant="outline">2</Button>
-            <Button className={styles.footerBtn} variant="outline">3</Button>
-            <Button className={styles.footerBtn} variant="outline">...</Button>
-            <Button className={styles.footerBtn} variant="outline">&gt;</Button>
-          </div>
-        </div>
-      </div>
+        {/* Footer Section */}
+        <TableFooter />
+      </div >
     </>
   );
 }

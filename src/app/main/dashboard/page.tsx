@@ -8,6 +8,7 @@ import UserSvg from "@/Assets/svgs/UserSvg";
 import Graph2Svg from "@/Assets/svgs/Graph2Svg";
 import Graph3Svg from "@/Assets/svgs/Grapg3Svg";
 import ApplicationSvg from "@/Assets/svgs/ApplicationSvg";
+import GeneralData from '../tableheader/page';
 import {
   Table,
   TableHeader,
@@ -16,54 +17,11 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Filter } from "lucide-react";
-import { useState } from "react";
-import DropDownSvg from "@/Assets/svgs/DropDown";
+import tableStyles from "../table.styles.module.css";
+import TableFooter from "../tablefooter/page";
+import DropdownSVG from "@/Assets/svgs/DropdownSVG";
 
 export default function Dashboard() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const totalItems = 100;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  // Calculate the range of items being shown
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
-  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
-
-  // Generate page numbers to display
-  const getPageNumbers = () => {
-    const pages = [];
-    if (totalPages <= 5) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 3; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      } else if (currentPage >= totalPages - 2) {
-        pages.push(1);
-        pages.push("...");
-        for (let i = totalPages - 2; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        pages.push(1);
-        pages.push("...");
-        pages.push(currentPage - 1);
-        pages.push(currentPage);
-        pages.push(currentPage + 1);
-        pages.push("...");
-        pages.push(totalPages);
-      }
-    }
-    return pages;
-  };
-
   const customers = [
     {
       id: "#12331",
@@ -146,9 +104,9 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="container">
-        <div className="w-full p-4 flex flex-col items-center">
-          <div className="flex justify-between w-full">
+      <div className="container p-4">
+        <div className="w-full flex flex-col items-center">
+          <div className="flex justify-between w-full py-5">
             <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
             <div>
               <Calendar />
@@ -215,7 +173,7 @@ export default function Dashboard() {
         </div>
 
         {/* Dashboard Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Total Revenue */}
           <div className="card">
             <div className={styles.containerdashboard}>
@@ -321,118 +279,63 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className={styles.tableContainer}>
-          <div className={styles.tableHeader}>
-            <h2 className={styles.tableTitle}>New Customers</h2>
-            <div className={styles.tableActions}>
-              <Button variant="outline" className={styles.filterButton}>
-                <Filter className="w-4 h-4" /> Filters
-              </Button>
-              <Button variant="outline" className={styles.filterButton}>
-                See More
-              </Button>
-            </div>
-          </div>
 
-          <Table className={styles.table}>
-            <TableHeader>
-              <TableRow className={styles.tableHeaderRow}>
-                <TableHead className={styles.tableHeaderCell}>
-                  <p> #ID</p>
-                  <DropDownSvg />
-                </TableHead>
-                <TableHead className={styles.tableHeaderCell}>Name</TableHead>
-                <TableHead className={styles.tableHeaderCell}>Phone</TableHead>
-                <TableHead className={styles.tableHeaderCell}>Email</TableHead>
-                <TableHead className={styles.tableHeaderCell}>
-                  Created date
-                </TableHead>
-                <TableHead className={styles.tableHeaderCell}>
-                  # total orders
-                  <DropDownSvg />
-                  {/* <span className={styles.sortIcon}>▼</span> */}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {customers.map((customer, index) => (
-                <TableRow key={index}>
-                  <TableCell className={styles.tableCell}>
-                    {customer.id}
-                  </TableCell>
-                  <TableCell className={styles.tableCell}>
-                    {customer.name}
-                  </TableCell>
-                  <TableCell className={styles.tableCell}>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell className={styles.tableCell}>
-                    {customer.email}
-                  </TableCell>
-                  <TableCell className={styles.tableCell}>
-                    {customer.date}
-                  </TableCell>
-                  <TableCell className={styles.tableCell}>
-                    {customer.orders}
-                  </TableCell>
+
+        <div className={styles.mainContainer}>
+          {/* Header */}
+          <GeneralData search={false} header="User List" />
+          {/* User Table */}
+          <div className="bg-white rounded-xl">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="whitespace-nowrap">
+                    <span className="flex items-center justify-center gap-2">
+                      <span className={tableStyles.tableHeaders}>#id</span>
+                      <DropdownSVG className="w-2 h-2" />
+                    </span>
+                  </TableHead>
+                  <TableHead className="text-center whitespace-nowrap">
+                    <span className={tableStyles.tableHeaders}>Name</span>
+                  </TableHead>
+                  <TableHead className={tableStyles.tableHeaders}>
+                    Phone
+                  </TableHead>
+                  <TableHead className="text-center whitespace-nowrap">
+                    <span className={tableStyles.tableHeaders}>Email</span>
+                  </TableHead>
+
+                  <TableHead className="text-center whitespace-nowrap">
+                    <span className={tableStyles.tableHeaders}>Created date</span>
+                  </TableHead>
+                  <TableHead className="text-center whitespace-nowrap">
+                    <span className="flex items-center justify-center gap-2">
+                      <span className={tableStyles.tableHeaders}>#total orders</span>
+                      <DropdownSVG className="w-2 h-2" />
+                    </span>
+                  </TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
 
-          <div className={styles.tablePagination}>
-            <span className={styles.paginationText}>
-              Showing {startItem}-{endItem} from {totalItems}
-            </span>
-            <div className={styles.paginationControls}>
-              <Button
-                variant="outline"
-                className={`${styles.paginationButton} ${
-                  currentPage === 1 ? styles.paginationDisabled : ""
-                }`}
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              >
-                <ChevronLeft className={`w-4 h-4 ${styles.paginationArrow}`} />
-              </Button>
-
-              {getPageNumbers().map((page, index) =>
-                page === "..." ? (
-                  <span
-                    key={`ellipsis-${index}`}
-                    className={styles.paginationEllipsis}
-                  >
-                    ...
-                  </span>
-                ) : (
-                  <Button
-                    key={page}
-                    variant="outline"
-                    className={`${styles.paginationButton} ${
-                      currentPage === page ? styles.paginationButtonActive : ""
-                    }`}
-                    onClick={() => setCurrentPage(Number(page))}
-                  >
-                    {page}
-                  </Button>
-                )
-              )}
-
-              <Button
-                variant="outline"
-                className={`${styles.paginationButton} ${
-                  currentPage === totalPages ? styles.paginationDisabled : ""
-                }`}
-                disabled={currentPage === totalPages}
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-              >
-                <ChevronRight className={`w-4 h-4 ${styles.paginationArrow}`} />
-              </Button>
-            </div>
+              <TableBody>
+                {customers.map((user, index) => (
+                  <TableRow key={index} className="hover:bg-gray-50">
+                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.id}</TableCell>
+                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.name}</TableCell>
+                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.phone}</TableCell>
+                    <TableCell className={`text-center ${tableStyles.tableHeaders}`}>{user.email}</TableCell>
+                    <TableCell className={`text-center ${tableStyles.userName}`}>{user.email}</TableCell>
+                    <TableCell className={`text-center ${tableStyles.userName}`}>
+                      {user.orders}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
-        </div>
+          {/* Footer Section */}
+          <TableFooter />
+        </div >
       </div>
     </>
   );
