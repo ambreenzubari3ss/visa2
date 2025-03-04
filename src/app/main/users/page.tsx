@@ -140,6 +140,14 @@ export default function UserTable() {
       </TableRow>
     ));
 
+  const NoDataRow = () => (
+    <TableRow>
+      <TableCell colSpan={6} className="text-center py-6">
+          <p className="text-sm font-medium text-gray-400">No data found</p>
+      </TableCell>
+    </TableRow>
+  );
+
   return (
     <>
       <div className="flex justify-between  mt-3">
@@ -200,6 +208,8 @@ export default function UserTable() {
             <TableBody>
               {isLoading ? (
                 <LoadingSkeleton />
+              ) : filteredUsers.length === 0 ? (
+                <NoDataRow />
               ) : (
                 filteredUsers.map((user, index) => (
                   <TableRow key={user.id || index} className="hover:bg-gray-50">
