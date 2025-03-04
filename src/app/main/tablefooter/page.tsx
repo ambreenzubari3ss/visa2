@@ -8,17 +8,11 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { fetchUsers, setCurrentPage } from "@/store/slices/usersSlice";
 import { PAGINATION_CONFIG } from "@/config/pagination";
 
-interface TableFooterProps {
-  total: number;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-}
-
 const TableFooter = ({
-  total,
-  currentPage,
-  onPageChange,
-}: TableFooterProps) => {
+  total = 1,
+  currentPage = 1,
+  onPageChange = (page) => {},
+}) => {
   const dispatch = useAppDispatch();
   //   const { total, currentPage, limit } = useAppSelector((state) => state.users);
   const totalPages = Math.ceil(total / PAGINATION_CONFIG.DEFAULT_PAGE_SIZE);
@@ -52,8 +46,10 @@ const TableFooter = ({
       {/* Pagination */}
       <div className="flex justify-between items-center my-4 p-4">
         <span className={styles.tableHeaders}>
-          Showing {(currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE + 1} to{" "}
-          {Math.min(currentPage * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE, total)} of {total}
+          Showing {(currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE + 1}{" "}
+          to{" "}
+          {Math.min(currentPage * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE, total)}{" "}
+          of {total}
         </span>
         <div className="flex space-x-1">
           <Button
