@@ -11,7 +11,7 @@ export const setAccessToken = (value: string): void => {
 export const getAccessToken = (): string | null => {
   try {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("access_token");
+      return localStorage.getItem("token");
     }
     return null;
   } catch (e) {

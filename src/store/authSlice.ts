@@ -1,16 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postAPIWithoutAuth, postAPIWithAuth } from "@/utils/api";
+import {
+  postAPIWithoutAuth,
+  postAPIWithAuth,
+  getApiWithAuth,
+} from "@/utils/api";
 import { toast } from "react-toastify";
 
 // Types
-interface User {
-  id: string;
-  email: string;
-  name: string;
-}
 
 interface AuthState {
-  user: User | null;
+  user: any | null;
   token: string | null;
   isLoading: boolean;
   error: string | null;
@@ -157,6 +156,24 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+export const getCurrentUser = createAsyncThunk(
+  "auth/getCurrentUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await getApiWithAuth("users/me");
+      console.log("RESPONSE", response);
+      if (!response.success) {
+        throw new Error(response.data?.message || "Failed to fetch user data");
+      }
+
+      return response.data.data;
+    } catch (error: any) {
+      toast.error(error.message || "Failed to fetch user data");
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // Slice
 const authSlice = createSlice({
   name: "auth",
@@ -238,6 +255,21 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(resetPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
+
+    // Get Current User
+    builder
+      .addCase(getCurrentUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+      })
+      .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

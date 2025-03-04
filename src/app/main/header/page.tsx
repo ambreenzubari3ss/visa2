@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.modules.css";
 import "./../../globals.css";
 import BellSvg from "@/Assets/svgs/BellSvg";
@@ -9,8 +9,8 @@ import DropdownSVG from "@/Assets/svgs/DropdownSVG";
 import ProfileImage from "../../../Assets/Images/generic-profile.png";
 import Image from "next/image";
 import SearchSvg from "@/Assets/svgs/SearchSvg";
-import { useAppDispatch } from "@/store";
-import { logout } from "@/store/authSlice";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { getCurrentUser, logout } from "@/store/authSlice";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
@@ -18,6 +18,11 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { user, isLoading } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
 
   const handleLogout = () => {
     try {
@@ -29,6 +34,7 @@ const Header = () => {
     }
     setIsOpen(false);
   };
+
   return (
     <div className="header-container">
       <div className="header-content">
@@ -64,8 +70,8 @@ const Header = () => {
                 <Image src={ProfileImage} alt="Profile" />
               </div>
               <div className="profile-info hidden sm:block">
-                <p className="profile-name">John Will Palinsky</p>
-                <p className="profile-role">Manager</p>
+                <p className="profile-name">{user?.name || "Loading..."}</p>
+                <p className="profile-role">{user?.role || "User"}</p>
               </div>
               <DropdownSVG />
             </div>
