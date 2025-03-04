@@ -32,15 +32,13 @@ import TableFooter from "../tablefooter/page";
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
-  const { users, isLoading, error, currentPage, limit } = useAppSelector(
+  const { users, isLoading, error, currentPage, limit, total } = useAppSelector(
     (state) => state.users
   );
 
   useEffect(() => {
     dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
   }, [dispatch, currentPage, limit]);
-
-  
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -71,6 +69,36 @@ export default function UserTable() {
     return `${Math.floor(hours / 24)}d ago`;
   }
 
+  const LoadingSkeleton = () =>
+    [...Array(limit)].map((_, index) => (
+      <TableRow key={index}>
+        <TableCell>
+          <div className="flex flex-col gap-2">
+            <div className="h-4 w-24 bg-gray-200 rounded"></div>
+            <div className="h-3 w-32 bg-gray-100 rounded"></div>
+          </div>
+        </TableCell>
+        <TableCell>
+          <div className="h-4 w-24 bg-gray-200 rounded mx-auto"></div>
+        </TableCell>
+        <TableCell>
+          <div className="h-4 w-28 bg-gray-200 rounded mx-auto"></div>
+        </TableCell>
+        <TableCell>
+          <div className="h-6 w-16 bg-gray-200 rounded-full mx-auto"></div>
+        </TableCell>
+        <TableCell>
+          <div className="h-4 w-16 bg-gray-200 rounded mx-auto"></div>
+        </TableCell>
+        <TableCell>
+          <div className="flex justify-center gap-2">
+            <div className="h-8 w-8 bg-gray-200 rounded"></div>
+            <div className="h-8 w-8 bg-gray-200 rounded"></div>
+          </div>
+        </TableCell>
+      </TableRow>
+    ));
+
   return (
     <>
       <div className="flex justify-between  mt-3">
@@ -81,55 +109,53 @@ export default function UserTable() {
         </button>
       </div>
 
-      {!isLoading ? (
-        <div className={tableStyles.mainContainer}>
-          {/* Header */}
-          <GeneralData search={true} header="User List" />
-          {/* User Table */}
-          <div className="bg-white rounded-xl">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="text-[14px] font-[500] text-[#727A90]">
-                    Users
-                  </TableHead>
-                  <TableHead className="text-center whitespace-nowrap">
-                    <span className="inline-flex items-center gap-2">
-                      <CalendarSvg className="w-4 h-4" />
-                      <span className={tableStyles.tableHeaders}>
-                        Created date
-                      </span>
+      <div className={tableStyles.mainContainer}>
+        {/* Header */}
+        <GeneralData search={true} header="User List" />
+        {/* User Table */}
+        <div className="bg-white rounded-xl">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-[14px] font-[500] text-[#727A90]">
+                  Users
+                </TableHead>
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <CalendarSvg className="w-4 h-4" />
+                    <span className={tableStyles.tableHeaders}>
+                      Created date
                     </span>
-                  </TableHead>
+                  </span>
+                </TableHead>
 
-                  <TableHead className="text-center whitespace-nowrap">
-                    <span className="inline-flex items-center gap-2">
-                      <PhoneSvg className="w-4 h-4" />
-                      <span className={tableStyles.tableHeaders}>Phone</span>
-                    </span>
-                  </TableHead>
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <PhoneSvg className="w-4 h-4" />
+                    <span className={tableStyles.tableHeaders}>Phone</span>
+                  </span>
+                </TableHead>
 
-                  <TableHead className={tableStyles.tableHeaders}>
-                    Role
-                  </TableHead>
-                  <TableHead className="text-center whitespace-nowrap">
-                    <span className="inline-flex items-center gap-2">
-                      <TimeSvg className="w-4 h-4" />
-                      <span className={tableStyles.tableHeaders}>
-                        Last Login
-                      </span>
-                    </span>
-                  </TableHead>
-                  <TableHead className="text-center whitespace-nowrap">
-                    <span className="inline-flex items-center gap-2">
-                      <span className={tableStyles.tableHeaders}>Actions</span>
-                      <DropdownSVG />
-                    </span>
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {users.map((user, index) => (
+                <TableHead className={tableStyles.tableHeaders}>Role</TableHead>
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <TimeSvg className="w-4 h-4" />
+                    <span className={tableStyles.tableHeaders}>Last Login</span>
+                  </span>
+                </TableHead>
+                <TableHead className="text-center whitespace-nowrap">
+                  <span className="inline-flex items-center gap-2">
+                    <span className={tableStyles.tableHeaders}>Actions</span>
+                    <DropdownSVG />
+                  </span>
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading ? (
+                <LoadingSkeleton />
+              ) : (
+                users.map((user, index) => (
                   <TableRow key={user.id || index} className="hover:bg-gray-50">
                     <TableCell>
                       <div className="flex flex-col">
@@ -194,18 +220,14 @@ export default function UserTable() {
                       </span>
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-          {/* Footer Section */}
-          <TableFooter />
+                ))
+              )}
+            </TableBody>
+          </Table>
         </div>
-      ) : (
-        <>
-          <p>Loading....</p>
-        </>
-      )}
+        {/* Footer Section */}
+        <TableFooter />
+      </div>
     </>
   );
 }
