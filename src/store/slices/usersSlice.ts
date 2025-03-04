@@ -5,40 +5,26 @@ import {
   getApiWithAuth,
 } from "@/utils/api";
 import { toast } from "react-toastify";
+import { PAGINATION_CONFIG } from "@/config/pagination";
 
 // Types
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  created_at: string;
-  phone: string;
-  last_login: string;
-  is_active: boolean;
-}
-
 interface UsersState {
-  users: User[];
+  users: any[];
   isLoading: boolean;
   error: string | null;
   total: number;
   currentPage: number;
-  limit: number;
 }
 
 // Async Actions
 
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
-  async (
-    { skip = 0, limit = 1 }: { skip?: number; limit?: number },
-    { rejectWithValue }
-  ) => {
+  async ({ skip = 0 }: { skip?: number }, { rejectWithValue }) => {
     try {
       const response: any = await getApiWithAuth(
-        `users/?skip=${skip}&limit=${limit}`
+        `users/?skip=${skip}&limit=${PAGINATION_CONFIG.DEFAULT_PAGE_SIZE}`
       );
 
       if (!response.success) {
@@ -82,7 +68,6 @@ const usersSlice = createSlice({
     error: null,
     total: 0,
     currentPage: 1,
-    limit: 5,
   } as UsersState,
   reducers: {
     clearError: (state) => {

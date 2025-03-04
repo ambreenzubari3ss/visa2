@@ -20,87 +20,66 @@ import {
 import tableStyles from "../table.styles.module.css";
 import TableFooter from "../tablefooter/page";
 import DropdownSVG from "@/Assets/svgs/DropdownSVG";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { fetchCustomers, setCurrentPage } from "@/store/slices/customersSlice";
+import { PAGINATION_CONFIG } from "@/config/pagination";
 
 export default function Dashboard() {
-  const customers = [
-    {
-      id: "#12331",
-      name: "John Bushmill",
-      phone: "+351350335312",
-      email: "Johnb@mail.com",
-      date: "26 July 2024",
-      orders: 30,
-    },
-    {
-      id: "#12331",
-      name: "Ilham Budi Agung",
-      phone: "+351350335312",
-      email: "Johnb@mail.com",
-      date: "26 July 2024",
-      orders: 30,
-    },
-    {
-      id: "#12331",
-      name: "Mohammad Karim",
-      phone: "+351350335312",
-      email: "Johnb@mail.com",
-      date: "26 July 2024",
-      orders: 30,
-    },
-    {
-      id: "#12331",
-      name: "Linda Blair",
-      phone: "+351350335312",
-      email: "Johnb@mail.com",
-      date: "26 July 2024",
-      orders: 30,
-    },
-    {
-      id: "#12331",
-      name: "Josh Adam",
-      phone: "+351350335312",
-      email: "Johnb@mail.com",
-      date: "26 July 2024",
-      orders: 30,
-    },
-  ];
-  // const [selectedDate, setSelectedDate] = useState<Date>();
-  // const [month, setMonth] = useState(new Date(2025, 1)); // February 2025
-  // const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const { customers, isLoading, error, currentPage, total } = useAppSelector(
+    (state) => state.customers
+  );
 
-  // const handleNavigation = (direction: 'previous' | 'next') => {
-  //     setMonth((prevMonth) => {
-  //         const newMonth = new Date(prevMonth);
-  //         newMonth.setMonth(newMonth.getMonth() + (direction === 'next' ? 1 : -1));
-  //         return newMonth;
-  //     });
-  // };
+  useEffect(() => {
+    dispatch(
+      fetchCustomers({
+        skip: (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE,
+      })
+    );
+  }, [dispatch, currentPage]);
 
-  // const quickActions = {
-  //     today: () => {
-  //         const today = new Date();
-  //         setSelectedDate(today);
-  //         setMonth(today);
-  //     },
-  //     yesterday: () => {
-  //         const date = new Date();
-  //         date.setDate(date.getDate() - 1);
-  //         setSelectedDate(date);
-  //         setMonth(date);
-  //     },
-  //     lastWeek: () => {
-  //         const date = new Date();
-  //         date.setDate(date.getDate() - 7);
-  //         setSelectedDate(date);
-  //         setMonth(date);
-  //     },
-  //     last10Days: () => {
-  //         const date = new Date();
-  //         date.setDate(date.getDate() - 10);
-  //         setSelectedDate(date);
-  //         setMonth(date);
-  //     }
-  // };
+  const handlePageChange = (page: number) => {
+    const totalPages = Math.ceil(total / PAGINATION_CONFIG.DEFAULT_PAGE_SIZE);
+    if (page >= 1 && page <= totalPages) {
+      dispatch(setCurrentPage(page));
+    }
+  };
+
+  const LoadingSkeleton = () => (
+    <>
+      {[...Array(PAGINATION_CONFIG.DEFAULT_PAGE_SIZE)].map((_, index) => (
+        <TableRow key={index}>
+          <TableCell>
+            <div className="h-4 w-16 bg-gray-200 rounded"></div>
+          </TableCell>
+          <TableCell>
+            <div className="h-4 w-24 bg-gray-200 rounded"></div>
+          </TableCell>
+          <TableCell>
+            <div className="h-4 w-24 bg-gray-200 rounded"></div>
+          </TableCell>
+          <TableCell>
+            <div className="h-4 w-32 bg-gray-200 rounded"></div>
+          </TableCell>
+          <TableCell>
+            <div className="h-4 w-24 bg-gray-200 rounded"></div>
+          </TableCell>
+          <TableCell>
+            <div className="h-4 w-16 bg-gray-200 rounded"></div>
+          </TableCell>
+        </TableRow>
+      ))}
+    </>
+  );
+
+  const NoDataRow = () => (
+    <TableRow>
+      <TableCell colSpan={6} className="text-center py-6">
+        <p className="text-sm font-medium text-gray-400">No customers found</p>
+      </TableCell>
+    </TableRow>
+  );
 
   return (
     <>
@@ -320,45 +299,55 @@ export default function Dashboard() {
               </TableHeader>
 
               <TableBody>
-                {customers.map((user, index) => (
-                  <TableRow key={index} className="hover:bg-gray-50">
-                    <TableCell
-                      className={`text-center ${tableStyles.userName}`}
-                    >
-                      {user.id}
-                    </TableCell>
-                    <TableCell
-                      className={`text-center ${tableStyles.userName}`}
-                    >
-                      {user.name}
-                    </TableCell>
-                    <TableCell
-                      className={`text-center ${tableStyles.userName}`}
-                    >
-                      {user.phone}
-                    </TableCell>
-                    <TableCell
-                      className={`text-center ${tableStyles.tableHeaders}`}
-                    >
-                      {user.email}
-                    </TableCell>
-                    <TableCell
-                      className={`text-center ${tableStyles.userName}`}
-                    >
-                      {user.email}
-                    </TableCell>
-                    <TableCell
-                      className={`text-center ${tableStyles.userName}`}
-                    >
-                      {user.orders}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {isLoading ? (
+                  <LoadingSkeleton />
+                ) : customers.length === 0 ? (
+                  <NoDataRow />
+                ) : (
+                  customers.map((customer) => (
+                    <TableRow key={customer.id} className="hover:bg-gray-50">
+                      <TableCell
+                        className={`text-center ${tableStyles.userName}`}
+                      >
+                        {customer.id}
+                      </TableCell>
+                      <TableCell
+                        className={`text-center ${tableStyles.userName}`}
+                      >
+                        {customer.name}
+                      </TableCell>
+                      <TableCell
+                        className={`text-center ${tableStyles.userName}`}
+                      >
+                        {customer.phone}
+                      </TableCell>
+                      <TableCell
+                        className={`text-center ${tableStyles.tableHeaders}`}
+                      >
+                        {customer.email}
+                      </TableCell>
+                      <TableCell
+                        className={`text-center ${tableStyles.userName}`}
+                      >
+                        {new Date(customer.created_at).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell
+                        className={`text-center ${tableStyles.userName}`}
+                      >
+                        {customer.total_applications}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>
           {/* Footer Section */}
-          <TableFooter />
+          <TableFooter
+            total={total}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
     </>
