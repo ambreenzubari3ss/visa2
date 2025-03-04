@@ -160,7 +160,7 @@ export const getCurrentUser = createAsyncThunk(
   "auth/getCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await getApiWithAuth("users/me");
+      const response:any = await getApiWithAuth("users/me");
       console.log("RESPONSE", response);
       if (!response.success) {
         throw new Error(response.data?.message || "Failed to fetch user data");
