@@ -30,11 +30,12 @@ import GeneralData from "../tableheader/page";
 import TableFooter from "../tablefooter/page";
 import { toast } from "react-toastify";
 import ConfirmDialog from "@/components/ui/confirmDialogue/confirmDialogu";
-import { fetchUsers } from "@/store/slices/usersSlice";
+import { fetchUsers, setCurrentPage } from "@/store/slices/usersSlice";
+import { PAGINATION_CONFIG } from "@/config/pagination";
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
-  const { users, isLoading, error, currentPage, limit, total } = useAppSelector(
+  const { users, isLoading, error, currentPage, total } = useAppSelector(
     (state) => state.users
   );
 
@@ -44,8 +45,12 @@ export default function UserTable() {
   const [filteredUsers, setFilteredUsers] = useState(users);
 
   useEffect(() => {
-    dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
-  }, [dispatch, currentPage, limit]);
+    dispatch(
+      fetchUsers({
+        skip: (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE,
+      })
+    );
+  }, [dispatch, currentPage]);
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -60,6 +65,12 @@ export default function UserTable() {
     }
   }, [users, searchQuery]);
 
+  const handlePageChange = (page: number) => {
+    const totalPages = Math.ceil(total / PAGINATION_CONFIG.DEFAULT_PAGE_SIZE);
+    if (page >= 1 && page <= totalPages) {
+      dispatch(setCurrentPage(page));
+    }
+  };
   const handleDeleteClick = (user: any) => {
     setUserToDelete(user);
     setIsDeleteDialogOpen(true);
@@ -111,7 +122,7 @@ export default function UserTable() {
   }
 
   const LoadingSkeleton = () =>
-    [...Array(limit)].map((_, index) => (
+    [...Array(PAGINATION_CONFIG.DEFAULT_PAGE_SIZE)].map((_, index) => (
       <TableRow key={index}>
         <TableCell>
           <div className="flex flex-col gap-2">
@@ -143,7 +154,7 @@ export default function UserTable() {
   const NoDataRow = () => (
     <TableRow>
       <TableCell colSpan={6} className="text-center py-6">
-          <p className="text-sm font-medium text-gray-400">No data found</p>
+        <p className="text-sm font-medium text-gray-400">No data found</p>
       </TableCell>
     </TableRow>
   );
@@ -160,9 +171,9 @@ export default function UserTable() {
 
       <div className={tableStyles.mainContainer}>
         {/* Header */}
-        <GeneralData 
-          search={true} 
-          header="User List" 
+        <GeneralData
+          search={true}
+          header="User List"
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
@@ -285,10 +296,10 @@ export default function UserTable() {
           </Table>
         </div>
         {/* Footer Section */}
-        <TableFooter 
-          total={searchQuery ? filteredUsers.length : total} 
-          limit={limit} 
-          currentPage={currentPage} 
+        <TableFooter
+          total={searchQuery ? filteredUsers.length : total}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
         />
       </div>
 

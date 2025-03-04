@@ -6,16 +6,26 @@ import LeftSvg from "@/Assets/svgs/LeftSvg";
 import styles from "./styles.module.css";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { fetchUsers, setCurrentPage } from "@/store/slices/usersSlice";
+import { PAGINATION_CONFIG } from "@/config/pagination";
 
-const TableFooter = ({ total = 100, currentPage = 1, limit = 10 }) => {
+interface TableFooterProps {
+  total: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}
+
+const TableFooter = ({
+  total,
+  currentPage,
+  onPageChange,
+}: TableFooterProps) => {
   const dispatch = useAppDispatch();
   //   const { total, currentPage, limit } = useAppSelector((state) => state.users);
-  const totalPages = Math.ceil(total / limit);
+  const totalPages = Math.ceil(total / PAGINATION_CONFIG.DEFAULT_PAGE_SIZE);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      dispatch(setCurrentPage(page));
-      dispatch(fetchUsers({ skip: (page - 1) * limit, limit }));
+      onPageChange(page);
     }
   };
 
@@ -42,8 +52,8 @@ const TableFooter = ({ total = 100, currentPage = 1, limit = 10 }) => {
       {/* Pagination */}
       <div className="flex justify-between items-center my-4 p-4">
         <span className={styles.tableHeaders}>
-          Showing {(currentPage - 1) * limit + 1} to{" "}
-          {Math.min(currentPage * limit, total)} of {total}
+          Showing {(currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE + 1} to{" "}
+          {Math.min(currentPage * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE, total)} of {total}
         </span>
         <div className="flex space-x-1">
           <Button
