@@ -56,6 +56,23 @@ export const fetchUsers = createAsyncThunk(
   }
 );
 
+// export const deleteUser = createAsyncThunk(
+//   "users/deleteUser",
+//   async (userId: number, { rejectWithValue }) => {
+//     try {
+//       const response: any = await deleteApi(`users/${userId}`);
+
+//       if (!response.success) {
+//         throw new Error(response.data?.message || "Failed to delete user");
+//       }
+
+//       return userId;
+//     } catch (error: any) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
 // Slice
 const usersSlice = createSlice({
   name: "users",
@@ -65,7 +82,7 @@ const usersSlice = createSlice({
     error: null,
     total: 0,
     currentPage: 1,
-    limit: 1,
+    limit: 5,
   } as UsersState,
   reducers: {
     clearError: (state) => {
@@ -94,6 +111,24 @@ const usersSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload as string;
       });
+    //   .addCase(deleteUser.pending, (state) => {
+    //     state.isLoading = true;
+    //     state.error = null;
+    //   })
+    //   .addCase(deleteUser.fulfilled, (state, action) => {
+    //     state.isLoading = false;
+    //     state.users = state.users.filter(user => user.id !== action.payload);
+    //     state.total -= 1;
+
+    //     const totalPages = Math.ceil((state.total) / state.limit);
+    //     if (state.users.length === 0 && state.currentPage > 1) {
+    //       state.currentPage -= 1;
+    //     }
+    //   })
+    //   .addCase(deleteUser.rejected, (state, action) => {
+    //     state.isLoading = false;
+    //     state.error = action.payload as string;
+    //   });
   },
 });
 

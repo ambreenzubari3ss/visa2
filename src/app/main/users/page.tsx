@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { fetchUsers } from "@/store/usersSlice";
+import {  fetchUsers } from "@/store/usersSlice";
 import {
   Table,
   TableBody,
@@ -29,6 +29,8 @@ import EditSvg from "@/Assets/svgs/EditSvg";
 import DownloadSvg from "@/Assets/svgs/DownloadSvg";
 import GeneralData from "../tableheader/page";
 import TableFooter from "../tablefooter/page";
+import { toast } from "react-toastify";
+import ConfirmDialog from "@/components/ui/confirmDialogue/confirmDialogu";
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
@@ -36,9 +38,33 @@ export default function UserTable() {
     (state) => state.users
   );
 
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<any>(null);
+
   useEffect(() => {
     dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
   }, [dispatch, currentPage, limit]);
+
+  const handleDeleteClick = (user: any) => {
+    setUserToDelete(user);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (userToDelete) {
+      try {
+        // We'll implement this action in usersSlice
+        // await dispatch(deleteUser(userToDelete.id)).unwrap();
+        // toast.success("User deleted successfully");
+        // Refresh the users list
+        dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
+      } catch (error: any) {
+        toast.error(error.message || "Failed to delete user");
+      }
+    }
+    setIsDeleteDialogOpen(false);
+    setUserToDelete(null);
+  };
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -216,7 +242,10 @@ export default function UserTable() {
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
-                        <TrashSvg className="cursor-pointer" />
+                        <TrashSvg
+                          className="cursor-pointer"
+                          onClick={() => handleDeleteClick(user)}
+                        />
                       </span>
                     </TableCell>
                   </TableRow>
@@ -226,8 +255,17 @@ export default function UserTable() {
           </Table>
         </div>
         {/* Footer Section */}
-        <TableFooter />
+        <TableFooter total={total} limit={limit} currentPage={currentPage} />
       </div>
+
+      <ConfirmDialog
+        isOpen={isDeleteDialogOpen}
+        setIsOpen={setIsDeleteDialogOpen}
+        onConfirm={handleConfirmDelete}
+        title="Delete User"
+        description={`Are you sure you want to delete ${userToDelete?.name}? This action cannot be undone.`}
+        triggerText={""}
+      />
     </>
   );
 }

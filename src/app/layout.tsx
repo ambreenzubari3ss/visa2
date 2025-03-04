@@ -19,7 +19,7 @@ export default function RootLayout({
       className={`${inter.className} ${plusJakartaSans.variable}`}
     >
       <body
-        className={`${inter.className} h-full ${plusJakartaSans.className}`}
+        className={`${inter.className} font-jakarta h-full ${plusJakartaSans.className}`}
       >
         <Providers>
           <Suspense>{children}</Suspense>
