@@ -40,10 +40,25 @@ export default function UserTable() {
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState(users);
 
   useEffect(() => {
     dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
   }, [dispatch, currentPage, limit]);
+
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredUsers(users);
+    } else {
+      const filtered = users.filter((user) =>
+        Object.values(user).some((value) =>
+          String(value).toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+      setFilteredUsers(filtered);
+    }
+  }, [users, searchQuery]);
 
   const handleDeleteClick = (user: any) => {
     setUserToDelete(user);
@@ -137,7 +152,12 @@ export default function UserTable() {
 
       <div className={tableStyles.mainContainer}>
         {/* Header */}
-        <GeneralData search={true} header="User List" />
+        <GeneralData 
+          search={true} 
+          header="User List" 
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
         {/* User Table */}
         <div className="bg-white rounded-xl">
           <Table>
@@ -181,7 +201,7 @@ export default function UserTable() {
               {isLoading ? (
                 <LoadingSkeleton />
               ) : (
-                users.map((user, index) => (
+                filteredUsers.map((user, index) => (
                   <TableRow key={user.id || index} className="hover:bg-gray-50">
                     <TableCell>
                       <div className="flex flex-col">
@@ -255,7 +275,11 @@ export default function UserTable() {
           </Table>
         </div>
         {/* Footer Section */}
-        <TableFooter total={total} limit={limit} currentPage={currentPage} />
+        <TableFooter 
+          total={searchQuery ? filteredUsers.length : total} 
+          limit={limit} 
+          currentPage={currentPage} 
+        />
       </div>
 
       <ConfirmDialog

@@ -1,10 +1,23 @@
+"use client";
 import React from "react";
 import styles from "./styles.module.css";
 import SearchSvg from "@/Assets/svgs/SearchSvg";
 import { Button } from "@/components/ui/button";
 import FilterIconSvg from "@/Assets/svgs/FilterIconSvg";
 
-const TableHeaderPage = ({ header = "", search = false }) => {
+interface TableHeaderProps {
+  header?: string;
+  search?: boolean;
+  searchQuery?: string;
+  onSearchChange?: (value: string) => void;
+}
+
+const TableHeaderPage = ({ 
+  header = "", 
+  search = false,
+  searchQuery = "",
+  onSearchChange
+}: TableHeaderProps) => {
   return (
     <>
       <div className="flex items-center justify-between p-4">
@@ -23,14 +36,14 @@ const TableHeaderPage = ({ header = "", search = false }) => {
                 type="text"
                 className={`input-search ${styles.inputField}`}
                 placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange?.(e.target.value)}
               />
             </div>
           )}
 
           <div className="flex space-x-2">
-            <Button
-              className={`${styles.filtersBtn}  flex items-center gap-1 `}
-            >
+            <Button className={`${styles.filtersBtn} flex items-center gap-1`}>
               <FilterIconSvg className="w-4 h-4" />
               <span className={styles.filterBtnText}>Filters</span>
             </Button>
