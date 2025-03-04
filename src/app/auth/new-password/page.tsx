@@ -11,8 +11,8 @@ import Button from "@/components/ui/button/button";
 import InputField from "@/components/ui/input/input";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { resetPassword } from "@/store/authSlice";
 import {Suspense} from "react";
+import { resetPassword } from "@/store/slices/authSlice";
 
 export default function NewPassword() {
   const router = useRouter();

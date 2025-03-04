@@ -9,8 +9,8 @@ import Button from "@/components/ui/button/button";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png";
 import InputField from "@/components/ui/input/input";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { loginUser } from "@/store/authSlice";
 import { loginSchema } from "@/utils/validationSchema";
+import { loginUser } from "@/store/slices/authSlice";
 
 export default function LoginPage() {
   const router = useRouter();

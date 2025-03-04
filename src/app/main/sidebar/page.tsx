@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { toggleSidebar, setSidebarOpen } from "@/store/sidebarSlice";
 import VisaLogo from "../../../Assets/Images/LoginLogo.png";
 import "./../../globals.css";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,6 +17,7 @@ import ApplicationSidebar from "@/Assets/svgs/ApplicationSidebar";
 import SettingsSvg from "@/Assets/svgs/SettingsSvg";
 import AnalyticsSvg from "@/Assets/svgs/AnalyticsSvg";
 import RefundedSvg from "@/Assets/svgs/RefundedSvg";
+import { setSidebarOpen, toggleSidebar } from "@/store/slices/sidebarSlice";
 
 const menuItems = [
   {

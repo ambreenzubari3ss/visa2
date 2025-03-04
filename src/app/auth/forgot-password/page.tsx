@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { forgotPassword } from "@/store/authSlice";
 import styles from "./../styles.module.css";
 import Button from "@/components/ui/button/button";
 import InputField from "@/components/ui/input/input";
 import Image from "next/image";
 import LoginLogo from "../../../Assets/Images/LoginLogo.png";
+import { forgotPassword } from "@/store/slices/authSlice";
 
 const forgotPasswordSchema = Yup.object().shape({
   email: Yup.string()

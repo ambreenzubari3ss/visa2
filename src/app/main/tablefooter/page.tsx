@@ -5,7 +5,7 @@ import RightIconSvg from "@/Assets/svgs/RightSvg";
 import LeftSvg from "@/Assets/svgs/LeftSvg";
 import styles from "./styles.module.css";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { fetchUsers, setCurrentPage } from "@/store/usersSlice";
+import { fetchUsers, setCurrentPage } from "@/store/slices/usersSlice";
 
 const TableFooter = ({ total = 100, currentPage = 1, limit = 10 }) => {
   const dispatch = useAppDispatch();

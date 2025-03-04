@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store";
-import {  fetchUsers } from "@/store/usersSlice";
 import {
   Table,
   TableBody,
@@ -31,6 +30,7 @@ import GeneralData from "../tableheader/page";
 import TableFooter from "../tablefooter/page";
 import { toast } from "react-toastify";
 import ConfirmDialog from "@/components/ui/confirmDialogue/confirmDialogu";
+import { fetchUsers } from "@/store/slices/usersSlice";
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
@@ -72,7 +72,7 @@ export default function UserTable() {
         // await dispatch(deleteUser(userToDelete.id)).unwrap();
         // toast.success("User deleted successfully");
         // Refresh the users list
-        dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
+        // dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
       } catch (error: any) {
         toast.error(error.message || "Failed to delete user");
       }

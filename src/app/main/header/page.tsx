@@ -10,9 +10,9 @@ import ProfileImage from "../../../Assets/Images/generic-profile.png";
 import Image from "next/image";
 import SearchSvg from "@/Assets/svgs/SearchSvg";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { getCurrentUser, logout } from "@/store/authSlice";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { getCurrentUser, logout } from "@/store/slices/authSlice";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

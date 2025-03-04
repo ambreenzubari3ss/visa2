@@ -3,9 +3,9 @@
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import Sidebar from "./sidebar/page";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { toggleSidebar } from "@/store/sidebarSlice";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
 import Header from "./header/page";
+import { toggleSidebar } from "@/store/slices/sidebarSlice";
 
 export default function MainLayout({
   children,

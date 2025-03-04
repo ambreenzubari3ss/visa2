@@ -12,8 +12,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import "./../../globals.css";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { verifyResetPin } from "@/store/authSlice";
 import OTPInput from "react-otp-input";
+import { verifyResetPin } from "@/store/slices/authSlice";
 
 export default function OTPPage() {
   const router = useRouter();
@@ -94,7 +94,6 @@ export default function OTPPage() {
                 inputStyle={styles.otpInput}
                 shouldAutoFocus={true}
               />
-          
             </div>
 
             <p className={styles.resendText}>
