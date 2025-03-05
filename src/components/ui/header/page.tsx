@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./styles.modules.css";
-import "./../../globals.css";
+import './../../../app/globals.css';
 import BellSvg from "@/Assets/svgs/BellSvg";
 import FlagSvg from "@/Assets/svgs/FlagSvg";
 import PlusSvg from "@/Assets/svgs/PlusSvg";

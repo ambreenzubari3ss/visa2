@@ -22,8 +22,8 @@ import DropdownSVG from "@/Assets/svgs/DropdownSVG";
 import UserSvg from "@/Assets/svgs/UserSvg";
 import EditSvg from "@/Assets/svgs/EditSvg";
 import DownloadSvg from "@/Assets/svgs/DownloadSvg";
-import GeneralData from "../tableheader/page";
-import TableFooter from "../tablefooter/page";
+import GeneralData from "../../../components/ui/tableheader/page";
+import TableFooter from "../../../components/ui/tablefooter/page";
 import { useRouter } from "next/navigation"; // ✅ Make sure to import from "next/navigation" in App Router (Next.js 13+)
 const customers: any = [
     {

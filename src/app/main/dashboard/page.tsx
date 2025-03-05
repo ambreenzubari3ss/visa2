@@ -8,7 +8,7 @@ import UserSvg from "@/Assets/svgs/UserSvg";
 import Graph2Svg from "@/Assets/svgs/Graph2Svg";
 import Graph3Svg from "@/Assets/svgs/Grapg3Svg";
 import ApplicationSvg from "@/Assets/svgs/ApplicationSvg";
-import GeneralData from "../tableheader/page";
+import GeneralData from "../../../components/ui/tableheader/page";
 import {
   Table,
   TableHeader,
@@ -18,7 +18,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import tableStyles from "../table.styles.module.css";
-import TableFooter from "../tablefooter/page";
+import TableFooter from "../../../components/ui/tablefooter/page";
 import DropdownSVG from "@/Assets/svgs/DropdownSVG";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store";
