@@ -98,7 +98,7 @@ export default function Forms() {
                     </span>
                   </div>
                 </TableHead>
-                <TableHead className={tableStyles.tableHeaders}>
+                <TableHead className={` w-[20px] ${tableStyles.tableHeaders}`}>
                   <span className="flex items-center  gap-2 ">
                     Actions
                     <DropdownSVG />
