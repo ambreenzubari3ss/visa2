@@ -11,7 +11,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";  
+} from "@/components/ui/dropdown-menu";
 import DropDownSvg from "@/Assets/svgs/DropDown";
 import FlagImage from "./../../../Assets/Images/flag.png";
 import Image from "next/image";
@@ -21,6 +21,7 @@ import Chip from "../../../components/ui/chipMenu/page";
 import UserSvg from "@/Assets/svgs/UserSvg";
 import EditSvg from "@/Assets/svgs/EditSvg";
 import DownloadSvg from "@/Assets/svgs/DownloadSvg";
+import WhatsappSvg from "@/Assets/svgs/WhatsappSvf";
 
 // Dummy data (Main Sections with Sub-Sections)
 const customers = [
@@ -228,21 +229,19 @@ export default function CustomerDetails() {
                                                         </DropdownMenuTrigger>
                                                         <DropdownMenuContent className={styles.dropdownItem}>
                                                             <DropdownMenuItem className="flex items-center p-4">
-                                                                <UserSvg color="#727A90" className="w-4 h-4" />
-                                                                <span className={styles.dropdownText}>
-                                                                    Change Account Type
-                                                                </span>
-                                                            </DropdownMenuItem>
-                                                            <hr />
-                                                            <DropdownMenuItem className="flex items-center p-4">
                                                                 <EditSvg className="w-4 h-4" />
                                                                 <span className={styles.dropdownText}>Edit</span>
                                                             </DropdownMenuItem>
                                                             <hr />
                                                             <DropdownMenuItem className="flex items-center p-4">
                                                                 <DownloadSvg className="w-4 h-4" />
+                                                                <span className={styles.dropdownText}>Send Email</span>
+                                                            </DropdownMenuItem>
+                                                            <hr />
+                                                            <DropdownMenuItem className="flex items-center p-4">
+                                                                <WhatsappSvg className="w-4 h-4" />
                                                                 <span className={styles.dropdownText}>
-                                                                    Resend Invite
+                                                                    Send Whatsapp
                                                                 </span>
                                                             </DropdownMenuItem>
                                                         </DropdownMenuContent>

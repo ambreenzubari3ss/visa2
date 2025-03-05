@@ -134,16 +134,16 @@ const Chip = ({ status, className }: ChipProps) => {
 
       {/* Main Dropdown Menu */}
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+        <div className={`absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 ${styles.dropdownItem}`}>
           <ul className="py-1">
-            <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+            <li className={`px-4 py-2 border-b-[1px] border-b-[#E9EAEA] hover:bg-gray-100 cursor-pointer border-bottom ${styles.dropdownText}`}>
               New
             </li>
-            <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+            <li className={`px-4 py-2 border-b-[1px] border-b-[#E9EAEA] hover:bg-gray-100 cursor-pointer ${styles.dropdownText}`}>
               Ready to be applied
             </li>
             <li
-              className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer relative flex items-center"
+              className={`px-4 py-2 hover:bg-gray-100 border-b-[1px] border-b-[#E9EAEA] cursor-pointer relative flex items-center ${styles.dropdownText}`}
               onMouseEnter={() => handleMouseEnter('haveIssues')}
               onMouseLeave={handleMouseLeave}
             >
@@ -153,7 +153,7 @@ const Chip = ({ status, className }: ChipProps) => {
                 <div className="absolute right-full top-0 mt-0 mr-2 w-48 bg-white rounded-md shadow-lg z-20">
                   <ul className="py-1">
                     {issues.map((issue, index) => (
-                      <li key={index} className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                      <li key={index} className={`px-4 py-2 hover:bg-gray-100 border-b-[1px] border-b-[#E9EAEA] flex items-center ${styles.dropdownText}`}>
                         <input
                           type="radio"
                           name="issue"
@@ -165,7 +165,7 @@ const Chip = ({ status, className }: ChipProps) => {
                         {issue}
                       </li>
                     ))}
-                    <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                    <li className={`px-4 py-2 hover:bg-gray-100 flex items-center ${styles.dropdownText}`}>
                       <input
                         type="radio"
                         name="issue"
@@ -191,11 +191,11 @@ const Chip = ({ status, className }: ChipProps) => {
                 </div>
               )}
             </li>
-            <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+            <li className={`px-4 py-2 hover:bg-gray-100 border-b-[1px] border-b-[#E9EAEA] cursor-pointer ${styles.dropdownText}`}>
               Need to pay gov fee
             </li>
             <li
-              className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer relative flex items-center"
+              className={`px-4 py-2 hover:bg-gray-100 border-b-[1px] border-b-[#E9EAEA] cursor-pointer relative flex items-center ${styles.dropdownText}`}
               onMouseEnter={() => handleMouseEnter('govPaid')}
               onMouseLeave={handleMouseLeave}
             >
@@ -204,14 +204,16 @@ const Chip = ({ status, className }: ChipProps) => {
               {hoveredItem === 'govPaid' && (
                 <div className="absolute right-full top-0 mt-0 mr-2 w-48 bg-white rounded-md shadow-lg z-20">
                   <ul className="py-1">
-                    <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                    <li className="px-4 py-2 hover:bg-gray-100 flex items-center">
                       <input
                         type="checkbox"
                         checked={govPaidCheckbox}
                         onChange={(e) => setGovPaidCheckbox(e.target.checked)}
                         className="mr-2"
                       />
-                      Add Application ID
+                      <span className={styles.dropdownText}>
+                        Add Application ID
+                      </span>
                       {govPaidCheckbox && <CheckmarkIcon />}
                     </li>
                     {govPaidCheckbox && (
@@ -230,7 +232,7 @@ const Chip = ({ status, className }: ChipProps) => {
               )}
             </li>
             <li
-              className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer relative flex items-center"
+              className={`px-4 py-2 hover:bg-gray-100 border-b-[1px] border-b-[#E9EAEA] cursor-pointer relative flex items-center ${styles.dropdownText}`}
               onMouseEnter={() => handleMouseEnter('cancel')}
               onMouseLeave={handleMouseLeave}
             >
@@ -239,14 +241,16 @@ const Chip = ({ status, className }: ChipProps) => {
               {hoveredItem === 'cancel' && (
                 <div className="absolute right-full top-0 mt-0 mr-2 w-48 bg-white rounded-md shadow-lg z-20">
                   <ul className="py-1">
-                    <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                    <li className="px-4 py-2 hover:bg-gray-100 flex items-center">
                       <input
                         type="checkbox"
                         checked={cancelCheckbox}
                         onChange={(e) => setCancelCheckbox(e.target.checked)}
                         className="mr-2"
                       />
-                      Add Reason
+                      <span className={styles.dropdownText}>
+                        Add Reason
+                      </span>
                     </li>
                     {cancelCheckbox && (
                       <li className="px-4 py-2">
@@ -263,7 +267,7 @@ const Chip = ({ status, className }: ChipProps) => {
                 </div>
               )}
             </li>
-            <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+            <li className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${styles.dropdownText}`}>
               Resend invite
             </li>
           </ul>
