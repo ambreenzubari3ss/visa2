@@ -12,6 +12,7 @@ import Image from "next/image";
 import EyeSvg from "@/Assets/svgs/EyeSvg";
 import LeftSvg from "@/Assets/svgs/LeftSvg";
 import RightIconSvg from "@/Assets/svgs/RightSvg";
+import Chip from "../chipMenu/page";
 
 // Dummy data (Main Sections with Sub-Sections)
 const customers = [
@@ -212,10 +213,14 @@ export default function CustomerDetails() {
 
 
                                                 {/* Status */}
-                                                <span className={styles.tableChip}>
+                                                {/* <span className={styles.tableChip}>
                                                     {record.status}
                                                     <DropDownSvg color="#F05D3D" />
-                                                </span>
+                                                </span> */}
+
+                                                <div className="flex justify-center items-center min-h-screen bg-gray-900">
+                                                    <Chip status="New" />
+                                                </div>
 
                                                 {/* Actions */}
                                                 <span className="flex items-center justify-end gap-2">
