@@ -144,10 +144,10 @@ export default function CustomerTable() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="text-[14px] font-[500] text-[#727A90]">
+                                <TableHead className={tableStyles.tableHeaders}>
                                     Users
                                 </TableHead>
-                                <TableHead className="text-[14px] font-[500] text-[#727A90]">
+                                <TableHead className={tableStyles.tableHeaders}>
                                     Customers
                                 </TableHead>
                                 <TableHead className="text-center whitespace-nowrap">
