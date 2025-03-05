@@ -3,7 +3,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -23,35 +22,36 @@ import DropdownSVG from "@/Assets/svgs/DropdownSVG";
 import UserSvg from "@/Assets/svgs/UserSvg";
 import EditSvg from "@/Assets/svgs/EditSvg";
 import DownloadSvg from "@/Assets/svgs/DownloadSvg";
-import { useRouter } from "next/navigation"; // ✅ Make sure to import from "next/navigation" in App Router (Next.js 13+)
 // import { IndiaFlag } from "@/Assets/svgs/CountryFlags";
 import { Button } from "@/components/ui/button";
 import IndiaFlag from "@/Assets/svgs/IndiaFlag";
 import EyeIcon from "@/Assets/svgs/EyeIcon";
 import GeneralData from "../../../components/ui/tableheader/page";
+import TableFooterComponent from "@/components/ui/tablefooter/page";
 
 // Status component with different styles
 const Status = ({ status = "" }: { status: string }) => {
   const getStatusStyle = () => {
     switch (status.toLowerCase()) {
       case "new":
-        return "bg-red-50 text-red-500";
-      case "ready to be apply":
-        return "bg-blue-50 text-blue-500";
       case "have issues":
-        return "bg-orange-50 text-orange-500";
       case "need to pay gov fee":
-        return "bg-purple-50 text-purple-500";
+        return "bg-[#feefec] text-[#F05D3D] text-[10px] font-[600] border-[1px] rounded-[100px] border-[#FACDC3]";
+
       case "gov fee paid":
-        return "bg-green-50 text-green-500";
-      case "approved":
-        return "bg-teal-50 text-teal-500";
-      case "rejected":
-        return "bg-red-50 text-red-500";
+        return "bg-[#ECFBF3] text-[#42DA82] text-[10px] font-[600] border-[1px] rounded-[100px] border-[#42DA82]";
       case "cancel":
-        return "bg-gray-50 text-gray-500";
+      case "approved":
+        return "bg-[#E6F4F5] text-[#009499] text-[10px] font-[600] border-[1px] rounded-[100px] border-[#B0DEDF]";
+
+      case "ready to be apply":
+        return "bg-[#E6F5FE] text-[#019BF4] text-[10px] font-[600] border-[1px] rounded-[100px] border-[#B0E0FC]";
+
+      case "rejected":
+        return "bg-[#FDEDED] text-[#D32F2F] text-[10px] font-[600] border-[1px] rounded-[100px] border-[#F5C6C6]";
+
       default:
-        return "bg-gray-50 text-gray-500";
+        return "bg-[#F3F4F6] text-[#6B7280] text-[10px] font-[600] border-[1px] rounded-[100px] border-[#D1D5DB]";
     }
   };
 
@@ -69,13 +69,13 @@ const Priority = ({ level = "" }: { level: string }) => {
   const getColor = () => {
     switch (level.toLowerCase()) {
       case "high priority":
-        return "text-red-500";
+        return "text-[#F05D3D] text-[14px] font-[500] ";
       case "medium priority":
-        return "text-yellow-500";
+        return "text-[#DDCB06] text-[14px] font-[500]";
       case "low priority":
-        return "text-green-500";
+        return "text-[#42DA82] text-[14px] font-[500]";
       default:
-        return "text-gray-500";
+        return "text-gray-500 text-[14px] font-[500]";
     }
   };
 
@@ -115,6 +115,21 @@ const customers: any = [
     totalOrders: 24,
     action: "All Orders",
     status: "Ready to be apply",
+    priority: "Low Priority",
+    visaType: "Business Visa",
+  },
+  {
+    id: "#445232",
+    platform: "Instagram",
+    customerName: "Jane Doe",
+    email: "janed@mail.com",
+    createdDate: "26 July 2024",
+    phone: "983429234832",
+    lastOrderDate: "26 October 2025",
+    lastOrderTime: "12:15 am",
+    totalOrders: 24,
+    action: "All Orders",
+    status: "Have issues",
     priority: "Low Priority",
     visaType: "Business Visa",
   },
@@ -190,22 +205,7 @@ const customers: any = [
     totalOrders: 24,
     action: "All Orders",
     status: "Cancel",
-    priority: "Medium Priority",
-    visaType: "Business Visa",
-  },
-  {
-    id: "#876543",
-    platform: "TikTok",
-    customerName: "Kevin Miller",
-    email: "kevinm@mail.com",
-    createdDate: "26 July 2024",
-    phone: "1111111111",
-    lastOrderDate: "26 October 2025",
-    lastOrderTime: "12:15 am",
-    totalOrders: 24,
-    action: "All Orders",
-    status: "Approved",
-    priority: "Medium Priority",
+    priority: "Low Priority",
     visaType: "Business Visa",
   },
 ];
@@ -262,8 +262,8 @@ export default function Applications() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="flex flex-col">
-                      <span className={tableStyles.userEmail}>
+                    <div className="flex flex-col w-[140px]">
+                      <span className={styles.tags}>
                         #tag, #tag, #tag,#tag, #tag, #tag,
                       </span>
                     </div>
@@ -278,9 +278,7 @@ export default function Applications() {
                   </TableCell>
                   <TableCell>
                     <div className="flex flex-col gap-1">
-                      <span className="text-sm font-medium">
-                        {customer.visaType}
-                      </span>
+                      <span className={styles.visaText}>{customer.visaType}</span>
                       <div className="flex items-center gap-2">
                         <IndiaFlag className="w-5 h-5" />
                         <span className="text-sm">India</span>
@@ -299,7 +297,13 @@ export default function Applications() {
           </Table>
         </div>
         {/* Footer Section */}
-        <TableFooter />
+        <TableFooterComponent
+          total={customers.length}
+          currentPage={1}
+          onPageChange={(page) => {
+            // Handle page change
+          }}
+        />
       </div>
     </>
   );
