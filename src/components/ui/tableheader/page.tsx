@@ -10,13 +10,17 @@ interface TableHeaderProps {
   search?: boolean;
   searchQuery?: string;
   onSearchChange?: (value: string) => void;
+  showFilters?: boolean;
+  showSeeMore?: boolean;
 }
 
 const TableHeaderPage = ({ 
   header = "", 
   search = false,
   searchQuery = "",
-  onSearchChange
+  onSearchChange,
+  showFilters = false,
+  showSeeMore = false,
 }: TableHeaderProps) => {
   return (
     <>
@@ -43,13 +47,17 @@ const TableHeaderPage = ({
           )}
 
           <div className="flex space-x-2">
-            <Button className={`${styles.filtersBtn} flex items-center gap-1`}>
-              <FilterIconSvg className="w-4 h-4" />
-              <span className={styles.filterBtnText}>Filters</span>
-            </Button>
-            <Button className={styles.filtersBtn}>
-              <span className={styles.filterBtnText}>See More</span>
-            </Button>
+            {showFilters && (
+              <Button className={`${styles.filtersBtn} flex items-center gap-1`}>
+                <FilterIconSvg className="w-4 h-4" />
+                <span className={styles.filterBtnText}>Filters</span>
+              </Button>
+            )}
+            {showSeeMore && (
+              <Button className={styles.filtersBtn}>
+                <span className={styles.filterBtnText}>See More</span>
+              </Button>
+            )}
           </div>
         </div>
       </div>

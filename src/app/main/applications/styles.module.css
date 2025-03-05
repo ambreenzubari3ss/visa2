@@ -1,0 +1,12 @@
+.header {
+    @apply text-[24px] font-[600] text-[#24282E]
+}
+
+.visaText{
+    @apply text-[12px] font-[400] text-[#727A90]
+}
+
+.tags{
+    @apply text-[12px] font-[400] text-[#727A90];
+
+}

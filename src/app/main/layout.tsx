@@ -1,10 +1,10 @@
 "use client";
 
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import Sidebar from "./sidebar/page";
+import Sidebar from "../../components/ui/sidebar/page";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
-import Header from "./header/page";
+import Header from "../../components/ui/header/page";
 import { toggleSidebar } from "@/store/slices/sidebarSlice";
 
 export default function MainLayout({

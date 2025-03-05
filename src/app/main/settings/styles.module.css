@@ -1,0 +1,73 @@
+.header {
+  font-size: 24px;
+  font-weight: 600;
+  color: #24282E;
+}
+
+.profileName {
+  font-size: 20px;
+  font-weight: 600;
+  color: #24282E;
+  margin-bottom: 4px;
+}
+
+.profileRole {
+  font-size: 14px;
+  color: #727A90;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.infoLabel {
+  font-size: 14px;
+  color: #727A90;
+}
+
+.infoValue {
+  font-size: 14px;
+  font-weight: 500;
+  color: #24282E;
+}
+
+.tabButton {
+  font-size: 16px;
+  font-weight: 500;
+  color: #727A90;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  position: relative;
+}
+
+.tabButton[data-state="active"] {
+  color: #42DA82;
+  border-bottom: 2px solid #42DA82;
+}
+
+.saveButton {
+  background: #42DA82;
+  color: white;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.saveButton:hover {
+  background: #3bc574;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header {
+    font-size: 20px;
+  }
+
+  .profileName {
+    font-size: 18px;
+  }
+} 

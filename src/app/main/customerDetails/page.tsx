@@ -3,15 +3,25 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import tableStyles from "../table.styles.module.css";
 import PlusGreenSvg from "@/Assets/svgs/PlusGreenSvg";
-import GeneralData from "../tableheader/page";
-import TableFooter from "../tablefooter/page";
+import GeneralData from "../../../components/ui/tableheader/page";
+import TableFooter from "../../../components/ui/tablefooter/page";
 import DropdownSVG from "@/Assets/svgs/DropdownSVG";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import DropDownSvg from "@/Assets/svgs/DropDown";
 import FlagImage from "./../../../Assets/Images/flag.png";
 import Image from "next/image";
 import EyeSvg from "@/Assets/svgs/EyeSvg";
-import LeftSvg from "@/Assets/svgs/LeftSvg";
 import RightIconSvg from "@/Assets/svgs/RightSvg";
+import Chip from "../../../components/ui/chipMenu/page";
+import UserSvg from "@/Assets/svgs/UserSvg";
+import EditSvg from "@/Assets/svgs/EditSvg";
+import DownloadSvg from "@/Assets/svgs/DownloadSvg";
+import WhatsappSvg from "@/Assets/svgs/WhatsappSvf";
 
 // Dummy data (Main Sections with Sub-Sections)
 const customers = [
@@ -209,17 +219,33 @@ export default function CustomerDetails() {
                                                         <span className="text-[14px] font-[500] text-[#24282E]">{record.country}</span>
                                                     </p>
                                                 </div>
-
-
-                                                {/* Status */}
-                                                <span className={styles.tableChip}>
-                                                    {record.status}
-                                                    <DropDownSvg color="#F05D3D" />
-                                                </span>
-
+                                                {/* Chip Component Called */}
+                                                <Chip status={record.status} />
                                                 {/* Actions */}
                                                 <span className="flex items-center justify-end gap-2">
-                                                    <DropdownSVG className="cursor-pointer" />
+                                                    <DropdownMenu>
+                                                        <DropdownMenuTrigger>
+                                                            <DropdownSVG className="cursor-pointer" />
+                                                        </DropdownMenuTrigger>
+                                                        <DropdownMenuContent className={styles.dropdownItem}>
+                                                            <DropdownMenuItem className="flex items-center p-4">
+                                                                <EditSvg className="w-4 h-4" />
+                                                                <span className={styles.dropdownText}>Edit</span>
+                                                            </DropdownMenuItem>
+                                                            <hr />
+                                                            <DropdownMenuItem className="flex items-center p-4">
+                                                                <DownloadSvg className="w-4 h-4" />
+                                                                <span className={styles.dropdownText}>Send Email</span>
+                                                            </DropdownMenuItem>
+                                                            <hr />
+                                                            <DropdownMenuItem className="flex items-center p-4">
+                                                                <WhatsappSvg className="w-4 h-4" />
+                                                                <span className={styles.dropdownText}>
+                                                                    Send Whatsapp
+                                                                </span>
+                                                            </DropdownMenuItem>
+                                                        </DropdownMenuContent>
+                                                    </DropdownMenu>
                                                     <EyeSvg className="cursor-pointer" />
                                                 </span>
                                             </div>

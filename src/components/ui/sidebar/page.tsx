@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import VisaLogo from "../../../Assets/Images/LoginLogo.png";
-import "./../../globals.css";
+import './../../../app/globals.css';
 import { usePathname, useRouter } from "next/navigation";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
 import styles from "./sidebar.module.css";
