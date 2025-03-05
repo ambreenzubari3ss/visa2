@@ -3,6 +3,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -22,13 +23,12 @@ import DropdownSVG from "@/Assets/svgs/DropdownSVG";
 import UserSvg from "@/Assets/svgs/UserSvg";
 import EditSvg from "@/Assets/svgs/EditSvg";
 import DownloadSvg from "@/Assets/svgs/DownloadSvg";
-import GeneralData from "../tableheader/page";
-import TableFooter from "../tablefooter/page";
 import { useRouter } from "next/navigation"; // ✅ Make sure to import from "next/navigation" in App Router (Next.js 13+)
 // import { IndiaFlag } from "@/Assets/svgs/CountryFlags";
 import { Button } from "@/components/ui/button";
 import IndiaFlag from "@/Assets/svgs/IndiaFlag";
 import EyeIcon from "@/Assets/svgs/EyeIcon";
+import GeneralData from "../../../components/ui/tableheader/page";
 
 // Status component with different styles
 const Status = ({ status = "" }: { status: string }) => {
