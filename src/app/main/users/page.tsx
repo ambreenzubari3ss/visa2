@@ -131,19 +131,19 @@ export default function UserTable() {
           </div>
         </TableCell>
         <TableCell>
-          <div className="h-4 w-24 bg-gray-200 rounded mx-auto"></div>
+          <div className="h-4 w-24 bg-gray-200 rounded "></div>
         </TableCell>
         <TableCell>
-          <div className="h-4 w-28 bg-gray-200 rounded mx-auto"></div>
+          <div className="h-4 w-28 bg-gray-200 rounded "></div>
         </TableCell>
         <TableCell>
-          <div className="h-6 w-16 bg-gray-200 rounded-full mx-auto"></div>
+          <div className="h-6 w-16 bg-gray-200 rounded-full "></div>
         </TableCell>
         <TableCell>
-          <div className="h-4 w-16 bg-gray-200 rounded mx-auto"></div>
+          <div className="h-4 w-16 bg-gray-200 rounded"></div>
         </TableCell>
         <TableCell>
-          <div className="flex justify-center gap-2">
+          <div className="flex gap-2">
             <div className="h-8 w-8 bg-gray-200 rounded"></div>
             <div className="h-8 w-8 bg-gray-200 rounded"></div>
           </div>
@@ -185,7 +185,8 @@ export default function UserTable() {
                 <TableHead className="text-[14px] font-[500] text-[#727A90]">
                   Users
                 </TableHead>
-                <TableHead className="text-center whitespace-nowrap">
+                <TableHead className={tableStyles.tableHeaders}>
+                  {" "}
                   <span className="inline-flex items-center gap-2">
                     <CalendarSvg className="w-4 h-4" />
                     <span className={tableStyles.tableHeaders}>
@@ -194,7 +195,8 @@ export default function UserTable() {
                   </span>
                 </TableHead>
 
-                <TableHead className="text-center whitespace-nowrap">
+                <TableHead className={tableStyles.tableHeaders}>
+                  {" "}
                   <span className="inline-flex items-center gap-2">
                     <PhoneSvg className="w-4 h-4" />
                     <span className={tableStyles.tableHeaders}>Phone</span>
@@ -202,13 +204,15 @@ export default function UserTable() {
                 </TableHead>
 
                 <TableHead className={tableStyles.tableHeaders}>Role</TableHead>
-                <TableHead className="text-center whitespace-nowrap">
+                <TableHead className={tableStyles.tableHeaders}>
+                  {" "}
                   <span className="inline-flex items-center gap-2">
                     <TimeSvg className="w-4 h-4" />
                     <span className={tableStyles.tableHeaders}>Last Login</span>
                   </span>
                 </TableHead>
-                <TableHead className="text-center whitespace-nowrap">
+                <TableHead className={tableStyles.tableHeaders}>
+                  {" "}
                   <span className="inline-flex items-center gap-2">
                     <span className={tableStyles.tableHeaders}>Actions</span>
                     <DropdownSVG />
@@ -235,16 +239,16 @@ export default function UserTable() {
                       </div>
                     </TableCell>
                     <TableCell
-                      className={`text-center ${tableStyles.userName}`}
+                      className={` ${tableStyles.userName}`}
                     >
                       {new Date(user.created_at).toLocaleDateString()}
                     </TableCell>
                     <TableCell
-                      className={`text-center ${tableStyles.userName}`}
+                      className={` ${tableStyles.userName}`}
                     >
                       {user.phone || "N/A"}
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="">
                       <span
                         className={`rounded-full text-sm ${getRoleColor(
                           user.role
@@ -256,7 +260,7 @@ export default function UserTable() {
                     <TableCell className={tableStyles.tableHeaders}>
                       {getLastLoginTime(user.last_login)}
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="">
                       <span className="flex justify-center align-center gap-2">
                         <DropdownMenu>
                           <DropdownMenuTrigger>
