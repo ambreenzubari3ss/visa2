@@ -10,6 +10,9 @@ import { Mail } from "lucide-react";
 import EmailSvg from "@/Assets/svgs/EmailSvg";
 import PhoneSvg from "@/Assets/svgs/PhoneSvg";
 import CopySvg from "@/Assets/svgs/CopySvg";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("personal");
@@ -20,12 +23,27 @@ export default function Settings() {
     newPassword: "",
     confirmPassword: "",
   });
+  const [businessSettings, setBusinessSettings] = useState({
+    sendInvoices: "yes",
+    allowCancel: "yes",
+    apiKey: "",
+    selectedStatuses: ["status1"],
+    anyFee: "",
+    whatFee: "",
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleBusinessSettingsChange = (field: string, value: any) => {
+    setBusinessSettings((prev) => ({
+      ...prev,
+      [field]: value,
     }));
   };
 
@@ -151,7 +169,163 @@ export default function Settings() {
               </TabsContent>
 
               <TabsContent value="business" className="mt-6">
-                <p>Business settings content goes here</p>
+                <form className="">
+                  {/* Send Invoices Section */}
+                  <div className="">
+                    <h3 className={styles.settingLabel}>
+                      Send invoices to customers automatically?
+                    </h3>
+                    <RadioGroup
+                      defaultValue={businessSettings.sendInvoices}
+                      onValueChange={(value) =>
+                        handleBusinessSettingsChange("sendInvoices", value)
+                      }
+                      className="flex gap-4 "
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yes" id="send-yes" />
+                        <Label
+                          className={styles.radioCheckLabel}
+                          htmlFor="send-yes"
+                        >
+                          Yes
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="no" id="send-no" />
+                        <Label
+                          className={styles.radioCheckLabel}
+                          htmlFor="send-no"
+                        >
+                          No
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  {/* API Key Section */}
+                  <div className="mt-[20px]">
+                    <InputField
+                      fieldName="apiKey"
+                      label="Payment provider API key"
+                      placeHolder="Enter API Key"
+                      onChange={(e) =>
+                        handleBusinessSettingsChange("apiKey", e.target.value)
+                      }
+                    />
+                  </div>
+
+                  {/* Allow Cancel Section */}
+                  <div className="mt-[20px]">
+                    <h3 className={styles.settingLabel}>
+                      Allow users to cancel?
+                    </h3>
+                    <RadioGroup
+                      defaultValue={businessSettings.allowCancel}
+                      onValueChange={(value) =>
+                        handleBusinessSettingsChange("allowCancel", value)
+                      }
+                      className="flex gap-4"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yes" id="cancel-yes" />
+                        <Label
+                          className={styles.radioCheckLabel}
+                          htmlFor="cancel-yes"
+                        >
+                          Yes
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="no" id="cancel-no" />
+                        <Label
+                          className={styles.radioCheckLabel}
+                          htmlFor="cancel-no"
+                        >
+                          No
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  {/* Status Section */}
+                  <div className="mt-[20px]">
+                    <h3 className={styles.settingLabel}>In what Status</h3>
+                    <div className="flex flex-row flex-wrap mt-[10px]">
+                      {[
+                        "Status Value",
+                        "Status Value",
+                        "Status Value",
+                        "Status Value",
+                      ].map((status, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center mr-[20px]"
+                        >
+                          <Checkbox
+                            checked={businessSettings.selectedStatuses.includes(
+                              `status${index + 1}`
+                            )}
+                            className="mr-[10px]"
+                            onCheckedChange={(checked) => {
+                              const newStatuses = checked
+                                ? [
+                                    ...businessSettings.selectedStatuses,
+                                    `status${index + 1}`,
+                                  ]
+                                : businessSettings.selectedStatuses.filter(
+                                    (s) => s !== `status${index + 1}`
+                                  );
+                              handleBusinessSettingsChange(
+                                "selectedStatuses",
+                                newStatuses
+                              );
+                            }}
+                          />
+                          <Label
+                            className={styles.radioCheckLabel}
+                            htmlFor={`status-${index}`}
+                          >
+                            {status}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Fee Section */}
+                  <div className="grid grid-cols-2 gap-6 mt-[20px]">
+                    <div className="space-y-4">
+                      <InputField
+                        fieldName="anyFee"
+                        label="Any Fee?"
+                        placeHolder="Enter fee amount"
+                        onChange={(e) =>
+                          handleBusinessSettingsChange("anyFee", e.target.value)
+                        }
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <InputField
+                        fieldName="whatFee"
+                        label="What Fee"
+                        placeHolder="Enter fee description"
+                        onChange={(e) =>
+                          handleBusinessSettingsChange(
+                            "whatFee",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end mt-8">
+                    <Button type="submit" className={styles.saveButton}>
+                      Save Changes
+                    </Button>
+                  </div>
+                </form>
               </TabsContent>
             </Tabs>
           </div>

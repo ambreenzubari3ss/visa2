@@ -23,11 +23,16 @@
 }
 
 .tabButton {
-  @apply text-base font-medium text-[#727A90] py-3 border-none bg-transparent relative;
+  @apply text-[14px] font-[500] text-[#727A90] py-5 border-none bg-transparent relative;
 }
 
 .tabButton[data-state="active"] {
-  @apply text-primary border-b-2 border-primary;
+  @apply text-primary font-[700] text-[14px]   shadow-none;
+}
+
+.tabButton[data-state="active"]::after {
+  content: '';
+  @apply absolute bottom-[10px] left-0 w-full h-[2px] bg-primary;
 }
 
 .saveButton {
@@ -79,4 +84,17 @@
   .formGrid {
     @apply grid-cols-1;
   }
+}
+
+/* Add these new styles */
+.settingLabel {
+  @apply text-[18px] font-[400] text-[#24282E];
+}
+
+.radioGroup {
+  @apply flex gap-4;
+}
+
+.radioCheckLabel {
+  @apply text-[18px] font-[600] text-[#24282E] cursor-pointer;
 } 
