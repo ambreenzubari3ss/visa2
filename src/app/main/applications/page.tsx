@@ -7,32 +7,39 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import styles from "./styles.module.css";
 import tableStyles from "../table.styles.module.css";
-import PlusGreenSvg from "@/Assets/svgs/PlusGreenSvg";
-import CalendarSvg from "@/Assets/svgs/CalendarSvg";
-import PhoneSvg from "@/Assets/svgs/PhoneSvg";
 import DropdownSVG from "@/Assets/svgs/DropdownSVG";
-import UserSvg from "@/Assets/svgs/UserSvg";
-import EditSvg from "@/Assets/svgs/EditSvg";
-import DownloadSvg from "@/Assets/svgs/DownloadSvg";
-// import { IndiaFlag } from "@/Assets/svgs/CountryFlags";
-import { Button } from "@/components/ui/button";
 import IndiaFlag from "@/Assets/svgs/IndiaFlag";
 import EyeIcon from "@/Assets/svgs/EyeIcon";
 import GeneralData from "../../../components/ui/tableheader/page";
 import TableFooterComponent from "@/components/ui/tablefooter/page";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import Modal from "@/components/ui/applicationDetailModal/page";
 import { useEffect, useState } from "react";
+import Modal from "@/components/modals/ApplicationDetailModal/page";
 
-// Status component with different styles
+const modalParams = {
+  name: 'Linda Blair',
+  photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTgD14vQ6I-UBiHTcwxZYnpSfLFJ2fclwS2A&s', // Replace with actual image path
+  email: 'abc@gmail.com',
+  phone: '050 414 8788',
+  visaType: 'Business Visa',
+  country: 'India',
+  flightDate: '26 October 2024',
+  passportPhotoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTgD14vQ6I-UBiHTcwxZYnpSfLFJ2fclwS2A&s', // Replace with actual image path
+  applicationId: 'ID0121',
+  passportNumber: '050 414 8788',
+  status: 'Cancel',
+  cancellationReason: 'Cancellation Reason: The applicant has decided to postpone their travel plans due to unforeseen personal circumstances. As a result, the visa application is no longer required at this time',
+  internalNotes: '',
+  paidAmount: '$2000',
+  paymentDate: '20 Oct 2024',
+  invoiceFiles: [
+    { name: 'Invoice name here', url: '/path-to-invoice.pdf' }, // Replace with actual paths
+    { name: 'Visa Invoice name here', url: '/path-to-visa-invoice.pdf' },
+  ],
+};
+
 const Status = ({ status = "" }: { status: string }) => {
   const getStatusStyle = () => {
     switch (status.toLowerCase()) {
@@ -67,7 +74,6 @@ const Status = ({ status = "" }: { status: string }) => {
   );
 };
 
-// Priority component with different colors
 const Priority = ({ level = "" }: { level: string }) => {
   const getColor = () => {
     switch (level.toLowerCase()) {
@@ -226,15 +232,16 @@ export default function Applications() {
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = "hidden"; // Disable scrolling
+      document.body.style.overflow = "hidden"; 
     } else {
-      document.body.style.overflow = "auto"; // Re-enable scrolling
+      document.body.style.overflow = "auto";
     }
-  
+
     return () => {
-      document.body.style.overflow = "auto"; // Cleanup when component unmounts
+      document.body.style.overflow = "auto";
     };
-  }, [isModalOpen]);  
+  }, [isModalOpen]);
+
 
   const openModal = () => {
     router.push(`${pathname}?modal=open`);
@@ -336,27 +343,7 @@ export default function Applications() {
           }}
         />
       </div>
-      {isModalOpen && <Modal onClose={closeModal} isOpen={isModalOpen} data={{
-        name: 'Linda Blair',
-        photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTgD14vQ6I-UBiHTcwxZYnpSfLFJ2fclwS2A&s', // Replace with actual image path
-        email: 'abc@gmail.com',
-        phone: '050 414 8788',
-        visaType: 'Business Visa',
-        country: 'India',
-        flightDate: '26 October 2024',
-        passportPhotoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTgD14vQ6I-UBiHTcwxZYnpSfLFJ2fclwS2A&s', // Replace with actual image path
-        applicationId: 'ID0121',
-        passportNumber: '050 414 8788',
-        status: 'Cancel',
-        cancellationReason: 'The applicant has decided to postpone their travel plans due to unforeseen personal circumstances. As a result, the visa application is no longer required at this time',
-        internalNotes: '',
-        paidAmount: '$2000',
-        paymentDate: '20 Oct 2024',
-        invoiceFiles: [
-          { name: 'Invoice name here', url: '/path-to-invoice.pdf' }, // Replace with actual paths
-          { name: 'Visa Invoice name here', url: '/path-to-visa-invoice.pdf' },
-        ],
-      }} />}
+      {isModalOpen && <Modal onClose={closeModal} isOpen={isModalOpen} data={modalParams} />}
     </>
   );
 }

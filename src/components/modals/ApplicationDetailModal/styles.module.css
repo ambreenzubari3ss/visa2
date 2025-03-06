@@ -17,14 +17,17 @@
 
 .textArenaStyles {
     @apply w-full border rounded-[12px] text-[14px] h-[80px] font-[400] p-2;
-    --color: black;
+}
+
+textarea::placeholder {
+    color: #24282E;
 }
 
 .refundBtn {
     @apply flex h-[36px] w-[137px] items-center gap-2 bg-[#42DA82]/10 text-[#42DA82] px-2 py-2 rounded-[8px] border border-transparent hover:border-[#42DA82] transition;
 }
 
-.modalMain{
-    max-height: 90%;
+.modalMain {
+    height: 90%;
     overflow-y: scroll;
 }
