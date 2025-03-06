@@ -224,6 +224,18 @@ export default function Applications() {
     setIsModalOpen(searchParams.get("modal") === "open");
   }, [searchParams]);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Re-enable scrolling
+    }
+  
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup when component unmounts
+    };
+  }, [isModalOpen]);  
+
   const openModal = () => {
     router.push(`${pathname}?modal=open`);
   };
@@ -336,7 +348,7 @@ export default function Applications() {
         applicationId: 'ID0121',
         passportNumber: '050 414 8788',
         status: 'Cancel',
-        cancellationReason: 'Cancellation Reason: The applicant has decided to postpone their travel plans due to unforeseen personal circumstances. As a result, the visa application is no longer required at this time',
+        cancellationReason: 'The applicant has decided to postpone their travel plans due to unforeseen personal circumstances. As a result, the visa application is no longer required at this time',
         internalNotes: '',
         paidAmount: '$2000',
         paymentDate: '20 Oct 2024',
