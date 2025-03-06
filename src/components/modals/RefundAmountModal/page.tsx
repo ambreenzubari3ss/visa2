@@ -4,7 +4,7 @@ import LeftArrowSvg from '@/Assets/svgs/LeftArrow';
 import InputField from '@/components/ui/input/input';
 import styles from './../applicationDetailModal/styles.module.css';
 
-const RefundAmount = ({ setIsViewInfo }: any) => {
+const RefundAmount = ({ setIsRefund }: any) => {
     return (
         <>
             {/* Header */}
@@ -12,12 +12,12 @@ const RefundAmount = ({ setIsViewInfo }: any) => {
                 <div className='w-full'>
                     <div className="flex justify-between p-6 pb-0 items-center">
                         <div className="flex items-center gap-2">
-                            <button onClick={() => { setIsViewInfo(false) }}>
+                            <button onClick={() => { setIsRefund(false) }}>
                                 <LeftArrowSvg />
                             </button>
                             <h2 className="text-lg font-semibold">Refund Amount</h2>
                         </div>
-                        <button className="border-[#E9EAEA] border-[1px] p-2 rounded-[10px]" onClick={() => { setIsViewInfo(false) }}>
+                        <button className="border-[#E9EAEA] border-[1px] p-2 rounded-[10px]" onClick={() => { setIsRefund(false) }}>
                             <CrossSvg size={24} />
                         </button>
                     </div>
@@ -43,7 +43,7 @@ const RefundAmount = ({ setIsViewInfo }: any) => {
                     <hr className='my-2' />
                     <div className="flex justify-end p-6 pt-0 items-center pt-4">
                         <div className="flex gap-2">
-                            <button onClick={() => setIsViewInfo(false)} className="bg-[#42DA82] text-white px-6 py-2 rounded-[12px] font-semibold">
+                            <button onClick={() => setIsRefund(false)} className="bg-[#42DA82] text-white px-6 py-2 rounded-[12px] font-semibold">
                                 <span>Submit</span>
                             </button>
                         </div>
