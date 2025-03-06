@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import LeftIcon from "@/Assets/svgs/LeftIcon";
 import Header from "../../components/ui/header/page";
 import { toggleSidebar } from "@/store/slices/sidebarSlice";
+import { useEffect } from "react";
 
 export default function MainLayout({
   children,
@@ -14,7 +15,7 @@ export default function MainLayout({
 }) {
   const { isOpen } = useAppSelector((state) => state.sidebar);
   const dispatch = useAppDispatch();
-
+  useEffect(() => {}, []);
   return (
     <ProtectedRoute>
       <div className="flex min-h-screen bg-gray-50">

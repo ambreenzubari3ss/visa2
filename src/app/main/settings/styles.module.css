@@ -44,7 +44,7 @@
 }
 
 .mainCard {
-  @apply mt-6 bg-white rounded-[16px] p-8;
+  @apply mt-6 bg-white rounded-[16px] pt-8;
 }
 
 .gridLayout {
