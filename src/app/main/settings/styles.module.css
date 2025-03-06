@@ -1,73 +1,82 @@
 .header {
-  font-size: 24px;
-  font-weight: 600;
-  color: #24282E;
+  @apply text-2xl font-semibold text-[#24282E];
 }
 
 .profileName {
-  font-size: 20px;
-  font-weight: 600;
-  color: #24282E;
-  margin-bottom: 4px;
+  @apply text-[20px] font-[600] text-[#24282E];
 }
 
 .profileRole {
-  font-size: 14px;
-  color: #727A90;
+  @apply text-[14px] text-[#727A90] font-[500];
 }
 
 .infoItem {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  @apply flex flex-col gap-1;
 }
 
 .infoLabel {
-  font-size: 14px;
-  color: #727A90;
+  @apply text-[14px] font-[500] text-[#727A90];
 }
 
 .infoValue {
-  font-size: 14px;
-  font-weight: 500;
-  color: #24282E;
+  @apply text-[14px] font-[500] text-[#24282E];
 }
 
 .tabButton {
-  font-size: 16px;
-  font-weight: 500;
-  color: #727A90;
-  padding: 12px 0;
-  border: none;
-  background: none;
-  position: relative;
+  @apply text-base font-medium text-[#727A90] py-3 border-none bg-transparent relative;
 }
 
 .tabButton[data-state="active"] {
-  color: #42DA82;
-  border-bottom: 2px solid #42DA82;
+  @apply text-primary border-b-2 border-primary;
 }
 
 .saveButton {
-  background: #42DA82;
-  color: white;
-  font-weight: 500;
-  padding: 12px 24px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
+  @apply bg-primary text-white font-medium px-6 py-3 rounded-lg transition-colors hover:bg-[#3bc574];
 }
 
-.saveButton:hover {
-  background: #3bc574;
+.settingsContainer {
+  @apply container mx-auto px-4 py-6;
 }
 
-/* Responsive Styles */
+.mainCard {
+  @apply mt-6 bg-white rounded-[16px] p-8;
+}
+
+.gridLayout {
+  @apply grid grid-cols-1 md:grid-cols-12 gap-8;
+}
+
+.profileCard {
+  @apply md:col-span-4 lg:col-span-3;
+}
+
+.profileCardInner {
+  @apply flex flex-col items-center p-6 bg-white rounded-[16px] border border-[#E9EAEA];
+}
+
+.profileImageContainer {
+  @apply relative w-32 h-32 rounded-full overflow-hidden mb-4;
+}
+
+.formSection {
+  @apply md:col-span-8 lg:col-span-9;
+}
+
+.formGrid {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
   .header {
-    font-size: 20px;
+    @apply text-xl;
   }
 
   .profileName {
-    font-size: 18px;
+    @apply text-[12px] font-[600] text-[#24282E];
+  }
+
+  .formGrid {
+    @apply grid-cols-1;
   }
 } 
