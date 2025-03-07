@@ -32,8 +32,14 @@
   @apply pb-[20px];
 }
 
-.circularProgressInsideHead{
-    @apply text-[28px] font-[600] font-jakarta text-[#24282E]
+.customTooltipValue {
+  @apply font-[700] text-[#24282E] text-[12px];
+}
+.customTooltipLabel {
+  @apply text-[#727A90] text-[12px] font-[400];
+}
+.circularProgressInsideHead {
+  @apply text-[28px] font-[600] font-jakarta text-[#24282E];
 }
 .statsGrid {
   @apply grid grid-cols-1 md:grid-cols-3 gap-6;
