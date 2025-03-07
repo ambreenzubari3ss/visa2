@@ -150,7 +150,7 @@ export default function CustomerTable() {
                                 <TableHead className={tableStyles.tableHeaders}>
                                     Customers
                                 </TableHead>
-                                <TableHead className="text-center whitespace-nowrap">
+                                <TableHead className={tableStyles.tableHeaders}>
                                     <span className="inline-flex items-center gap-2">
                                         <CalendarSvg className="w-4 h-4" />
                                         <span className={tableStyles.tableHeaders}>
@@ -159,14 +159,14 @@ export default function CustomerTable() {
                                     </span>
                                 </TableHead>
 
-                                <TableHead className="text-center whitespace-nowrap">
+                                <TableHead className={tableStyles.tableHeaders}>
                                     <span className="inline-flex items-center gap-2">
                                         <PhoneSvg className="w-4 h-4" />
                                         <span className={tableStyles.tableHeaders}>Phone</span>
                                     </span>
                                 </TableHead>
 
-                                <TableHead className="text-center whitespace-nowrap">
+                                <TableHead className={tableStyles.tableHeaders}>
                                     <span className="inline-flex items-center gap-2">
                                         <PhoneSvg className="w-4 h-4" />
                                         <span className={tableStyles.tableHeaders}>
@@ -178,7 +178,7 @@ export default function CustomerTable() {
                                 <TableHead className={tableStyles.tableHeaders}>
                                     Total Orders
                                 </TableHead>
-                                <TableHead className="text-center whitespace-nowrap">
+                                <TableHead className={tableStyles.tableHeaders}>
                                     <span className="inline-flex items-center gap-2">
                                         <span className={tableStyles.tableHeaders}>Actions</span>
                                         <DropdownSVG />
@@ -211,16 +211,16 @@ export default function CustomerTable() {
                                         </div>
                                     </TableCell>
                                     <TableCell
-                                        className={`text-center ${tableStyles.userName}`}
+                                        className={` ${tableStyles.userName}`}
                                     >
                                         {customer.createdDate}
                                     </TableCell>
                                     <TableCell
-                                        className={`text-center ${tableStyles.userName}`}
+                                        className={` ${tableStyles.userName}`}
                                     >
                                         {customer.phone}
                                     </TableCell>
-                                    <TableCell className="text-center">
+                                    <TableCell className="">
                                         <div className="flex flex-col">
                                             <span className={tableStyles.userName}>
                                                 {customer.lastOrderDate}
@@ -231,12 +231,12 @@ export default function CustomerTable() {
                                         </div>
                                     </TableCell>
                                     <TableCell
-                                        className={`text-center ${tableStyles.tableName}`}
+                                        className={` ${tableStyles.tableName}`}
                                     >
                                         {customer.totalOrders}
                                     </TableCell>
-                                    <TableCell className="text-center">
-                                        <span className="flex justify-center items-center gap-2">
+                                    <TableCell className="">
+                                        <span className="flex  items-center gap-2">
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger>
                                                     <DropdownSVG className="cursor-pointer" />
