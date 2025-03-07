@@ -32,7 +32,7 @@ const InputField = ({
     <div className="flex flex-col items-start gap-2 w-full">
       <div className="flex items-center gap-2">
         {icon && <span className="text-gray-500">{icon}</span>}
-        <span className="text highlight-color font-jakarta text-[#24282E]">
+        <span className="text-[18px] highlight-color font-[500] font-jakarta text-[#24282E]">
           {label ? label : fieldName}
         </span>
       </div>
