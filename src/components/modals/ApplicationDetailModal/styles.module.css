@@ -24,7 +24,7 @@ textarea::placeholder {
 }
 
 .refundBtn {
-    @apply flex h-[36px] w-[137px] items-center gap-2 bg-[#42DA82]/10 text-[#42DA82] px-2 py-2 rounded-[8px] border border-transparent hover:border-[#42DA82] transition;
+    @apply flex h-[36px] items-center gap-2 bg-[#42DA82]/10 text-[#42DA82] px-2 py-2 rounded-[8px] border border-transparent hover:border-[#42DA82] transition;
 }
 
 .modalMain {

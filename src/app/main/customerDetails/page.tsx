@@ -18,7 +18,6 @@ import Image from "next/image";
 import EyeSvg from "@/Assets/svgs/EyeSvg";
 import RightIconSvg from "@/Assets/svgs/RightSvg";
 import Chip from "../../../components/ui/chipMenu/page";
-import UserSvg from "@/Assets/svgs/UserSvg";
 import EditSvg from "@/Assets/svgs/EditSvg";
 import DownloadSvg from "@/Assets/svgs/DownloadSvg";
 import WhatsappSvg from "@/Assets/svgs/WhatsappSvf";

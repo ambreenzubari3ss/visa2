@@ -40,6 +40,7 @@
   html {
     font-family: var(--font-plus-jakarta);
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -97,13 +98,14 @@
   color: var(--highlight-color);
 }
 
-
+.m0imp {
+  margin: 0 !important;
+}
 
 @layer base {
-  * {
-  }
-  body {
-  }
+  * {}
+
+  body {}
 }
 
 
@@ -113,8 +115,7 @@
 
 
 @layer base {
-  * {
-  }
-  body {
-  }
+  * {}
+
+  body {}
 }

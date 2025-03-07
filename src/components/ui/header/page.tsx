@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { getCurrentUser, logout } from "@/store/slices/authSlice";
+import NotificationPopover from "../notificationPopover/page";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,14 +49,11 @@ const Header = () => {
 
         {/* Right Section */}
         <div className="right-section">
-          {/* Notification and Icons */}
-          <div className="icons-group">
-            <div className="relative">
-              <BellSvg />
-              <div className="Notification">
-                <span className="NotifactionNm">99</span>
-              </div>
-            </div>
+          <div className="icons-group flex items-center space-x-4">
+            {/* Notification Popover */}
+            <NotificationPopover />
+
+            {/* Other Icons */}
             <FlagSvg />
             <div className="plus-icon">
               <PlusSvg />
