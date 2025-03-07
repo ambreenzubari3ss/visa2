@@ -233,6 +233,7 @@ const AnalyticsCard = ({
 };
 
 const CustomTooltip = ({ active, payload }) => {
+    console.log("ACTIVE", active)
   if (active && payload && payload.length) {
     return (
       <div className="bg-white shadow-md rounded-xl p-3 border border-gray-200">
@@ -355,22 +356,11 @@ export default function AnalyticsPage() {
                 tick={{ fill: "#727A90", fontSize: 12 }}
                 tickFormatter={(value) => `$${value}`}
               />
-              {/* <Tooltip
-                contentStyle={{
-                  backgroundColor: "white",
-                  border: "none",
-                  borderRadius: "8px",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  padding: "8px 12px",
-                }}
-                labelStyle={{ color: "#64748b", marginBottom: "4px" }}
-                itemStyle={{ color: "#334155", padding: "2px 0" }}
-              /> */}
               <Tooltip
                 content={
                   <CustomTooltip active={undefined} payload={undefined} />
                 }
-                cursor={{ stroke: "#E5E7EB", strokeWidth: 1 }}
+                cursor={{ stroke: "#42DA82", strokeWidth: 1 }}
               />
 
               <Line
@@ -457,7 +447,7 @@ export default function AnalyticsPage() {
                     {item.source}
                   </span>
                 </div>
-                <span className="text-[#24282E] font-[16px] font-[500]">
+                <span className="text-[#24282E] text-[16px] font-[500]">
                   {item.value.toLocaleString()}
                 </span>
               </div>
