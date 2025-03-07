@@ -2,7 +2,7 @@
 import CrossSvg from '@/Assets/svgs/CrossSvg';
 import LeftArrowSvg from '@/Assets/svgs/LeftArrow';
 import InputField from '@/components/ui/input/input';
-import styles from './../applicationDetailModal/styles.module.css';
+import styles from './../ApplicationDetailModal/styles.module.css';
 
 const RefundAmount = ({ setIsRefund }: any) => {
     return (

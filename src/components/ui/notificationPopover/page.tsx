@@ -1,14 +1,17 @@
-// components/NotificationPopover.jsx
 import { useState } from "react";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { Check } from "lucide-react"; // For the "Mark as Read" checkmark
+import { Check } from "lucide-react";
+import styles from './styles.module.css';
 import BellSvg from "@/Assets/svgs/BellSvg";
 import TimeSvg from "@/Assets/svgs/TimeSvg";
 import InfoSvg from "@/Assets/svgs/InfoSvg";
+import CrossSvg from "@/Assets/svgs/CrossSvg";
+import MarkAllSvg from "@/Assets/svgs/MarkAllSvg";
+import RightArrowSvg from "@/Assets/svgs/RightArrowGreen";
 
 const NotificationPopover = () => {
     const [notifications, setNotifications] = useState([
@@ -88,8 +91,11 @@ const NotificationPopover = () => {
                 align="end"
             >
                 {/* Header */}
-                <div className="border-b border-gray-200 px-4 py-3">
+                <div className="border-b border-[#E9EAEA]-200 px-4 py-3 flex items-center justify-between">
                     <h3 className="text-[20px] font-[600] text-[#24282E]">Notification</h3>
+                    <button>
+                        <CrossSvg />
+                    </button>
                 </div>
 
                 {/* Notification List */}
@@ -107,34 +113,40 @@ const NotificationPopover = () => {
                                     <TimeSvg />
                                     <span>{notification.time}</span>
                                 </div>
+                            </div>
+                            <h4 className="mt-1 text-[16px] font-[600] text-[#24282E]">
+                                {notification.title}
+                            </h4>
+                            <p className="text-[14px] font-[400] text-[#686F83]">{notification.description}</p>
+                            <div className="flex justify-end w-full">
                                 {!notification.read && (
                                     <button
                                         onClick={() => markAsRead(notification.id)}
-                                        className="flex items-center space-x-1 bg-green-500 text-white rounded px-2 py-1 text-sm"
+                                        className={styles.underlineBtn}
                                     >
                                         <Check className="w-4 h-4" />
-                                        <span>Mark as Read</span>
+                                        <span className="text-[14px] font-[700] font-sacs underline">Mark as Read</span>
                                     </button>
                                 )}
                             </div>
-                            <h4 className="mt-1 font-medium text-gray-900">
-                                {notification.title}
-                            </h4>
-                            <p className="text-sm text-gray-600">{notification.description}</p>
                         </div>
                     ))}
                 </div>
 
                 {/* Footer */}
-                <div className="border-t border-gray-200 px-4 py-3 flex justify-between">
+                <div className="border-t border-gray-200 px-2 py-4 flex justify-between">
                     <button
-                        onClick={markAllAsRead}
-                        className="text-green-500 text-sm hover:underline"
+                        onClick={() => markAllAsRead}
+                        className={styles.underlineBtn}
                     >
-                        Mark All as Read
+                        <MarkAllSvg />
+                        <span className="text-[14px] font-[700] font-sacs underline">Mark All as Read</span>
                     </button>
-                    <button className="text-green-500 text-sm hover:underline">
-                        See More
+                    <button
+                        className={styles.underlineBtn}
+                    >
+                        <span className="text-[14px] font-[700] font-sacs underline">See More</span>
+                        <RightArrowSvg />
                     </button>
                 </div>
             </PopoverContent>

@@ -19,7 +19,7 @@
     @apply w-full border rounded-[12px] text-[14px] h-[80px] font-[400] p-2;
 }
 
-textarea::placeholder {
+.textarea-class::placeholder {
     color: #24282E;
 }
 
