@@ -36,6 +36,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import ChevronUp from "@/Assets/svgs/ChevronUp";
 
 // Exact chart data matching the image
 const chartData = [
@@ -231,6 +232,31 @@ const AnalyticsCard = ({
   );
 };
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white shadow-md rounded-xl p-3 border border-gray-200">
+        <div className="flex items-center justify-between space-x-4">
+          <div className="flex items-center space-x-2">
+            <span className="h-3 w-3 rounded-full bg-[#42DA82]"></span>
+            <span className={styles.customTooltipLabel}>Revenue</span>
+          </div>
+          <span className={styles.customTooltipValue}>${payload[0].value}</span>
+          <ChevronUp />
+        </div>
+        <div className="flex items-center justify-between space-x-4 mt-2">
+          <div className="flex items-center space-x-2">
+            <span className="h-3 w-3 rounded-full bg-red-500"></span>
+            <span className={styles.customTooltipLabel}>Profit</span>
+          </div>
+          <span className={styles.customTooltipValue}>${payload[1].value}</span>
+          <ChevronUp />
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
 export default function AnalyticsPage() {
   // In real implementation, replace with actual API call
   const sourceData = calculateRotations(mockApiResponse);
@@ -329,7 +355,7 @@ export default function AnalyticsPage() {
                 tick={{ fill: "#727A90", fontSize: 12 }}
                 tickFormatter={(value) => `$${value}`}
               />
-              <Tooltip
+              {/* <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
                   border: "none",
@@ -339,7 +365,14 @@ export default function AnalyticsPage() {
                 }}
                 labelStyle={{ color: "#64748b", marginBottom: "4px" }}
                 itemStyle={{ color: "#334155", padding: "2px 0" }}
+              /> */}
+              <Tooltip
+                content={
+                  <CustomTooltip active={undefined} payload={undefined} />
+                }
+                cursor={{ stroke: "#E5E7EB", strokeWidth: 1 }}
               />
+
               <Line
                 type="monotone"
                 dataKey="revenue"
