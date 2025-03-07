@@ -31,3 +31,7 @@
     height: 90%;
     overflow-y: scroll;
 }
+
+.underlineBtn {
+    @apply flex h-[20px] items-center gap-2 text-[#42DA82] py-2 hover:border-[#42DA82] transition;
+}
