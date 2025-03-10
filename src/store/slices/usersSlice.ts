@@ -3,6 +3,7 @@ import {
   postAPIWithoutAuth,
   postAPIWithAuth,
   getApiWithAuth,
+  deleteApi,
 } from "@/utils/api";
 import { toast } from "react-toastify";
 import { PAGINATION_CONFIG } from "@/config/pagination";
@@ -21,10 +22,15 @@ interface UsersState {
 
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
-  async ({ skip = 0 }: { skip?: number }, { rejectWithValue }) => {
+  async (
+    { skip = 0, search = "" }: { skip?: number; search?: string },
+    { rejectWithValue }
+  ) => {
     try {
       const response: any = await getApiWithAuth(
-        `users/?skip=${skip}&limit=${PAGINATION_CONFIG.DEFAULT_PAGE_SIZE}`
+        `users/?skip=${skip}&limit=${PAGINATION_CONFIG.DEFAULT_PAGE_SIZE}${
+          search ? `&search=${search}` : ""
+        }`
       );
 
       if (!response.success) {
@@ -42,22 +48,22 @@ export const fetchUsers = createAsyncThunk(
   }
 );
 
-// export const deleteUser = createAsyncThunk(
-//   "users/deleteUser",
-//   async (userId: number, { rejectWithValue }) => {
-//     try {
-//       const response: any = await deleteApi(`users/${userId}`);
+export const deleteUser = createAsyncThunk(
+  "users/deleteUser",
+  async (userId: number, { rejectWithValue }) => {
+    try {
+      const response: any = await deleteApi(`users/${userId}`);
 
-//       if (!response.success) {
-//         throw new Error(response.data?.message || "Failed to delete user");
-//       }
+      if (!response.success) {
+        throw new Error(response.data?.message || "Failed to delete user");
+      }
 
-//       return userId;
-//     } catch (error: any) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+      return userId;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 // Slice
 const usersSlice = createSlice({
