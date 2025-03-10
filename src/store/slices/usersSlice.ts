@@ -60,7 +60,7 @@ export const fetchUsers = createAsyncThunk(
 
 export const createUser = createAsyncThunk(
   "users/createUser",
-  async (userData: any, { rejectWithValue }) => {
+  async (userData: any, { rejectWithValue, dispatch, getState }) => {
     try {
       const response: any = await postAPIWithAuth("users/", userData);
       console.log("RES__", response.data);
@@ -69,7 +69,12 @@ export const createUser = createAsyncThunk(
           response.data.detail.message || "Failed to create user"
         );
       }
+      const state: any = getState();
+      const currentPage = state.users.currentPage;
+      await dispatch(fetchUsers({ skip: currentPage }));
+
       toast.success("User created successfully");
+
       return response.data;
     } catch (error: any) {
       console.log("rES===----", error);
@@ -94,13 +99,9 @@ export const deleteUser = createAsyncThunk(
       const currentPage = state.users.currentPage;
       const total = state.users.total - 1;
       const itemsOnCurrentPage = state.users.users.length - 1; // After deletion
+      await dispatch(fetchUsers({ skip: 0 }));
+      dispatch(setCurrentPage(1));
 
-      // If this was the last item on the page (except first page)
-      if (currentPage > 1 && itemsOnCurrentPage === 0) {
-        dispatch(setCurrentPage(currentPage - 1));
-        const skip = (currentPage - 2) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
-        dispatch(fetchUsers({ skip }));
-      }
       toast.success("User deleted successfully");
 
       return {
@@ -176,8 +177,8 @@ const usersSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.isLoading = false;
         console.log("ACTION PAYLOAD", action.payload);
-        state.users.unshift(action.payload.data);
-        state.total += 1;
+        // state.users.unshift(action.payload.data);
+        // state.total += 1;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -189,8 +190,8 @@ const usersSlice = createSlice({
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.users = state.users.filter((user) => user.id !== action.payload);
-        state.total -= 1;
+        // state.users = state.users.filter((user) => user.id !== action.payload);
+        // state.total -= 1;
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.isLoading = false;
