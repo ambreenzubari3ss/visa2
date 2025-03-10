@@ -1,6 +1,5 @@
 "use client";
 import CrossSvg from "@/Assets/svgs/CrossSvg";
-import LeftArrowSvg from "@/Assets/svgs/LeftArrow";
 import styles from "../ApplicationDetailModal/styles.module.css";
 import CopyGreenSvg from "@/Assets/svgs/CopyGreenSvg";
 import { useState } from "react";
@@ -12,8 +11,6 @@ import InputField from "@/components/ui/input/input";
 import DropDown from "@/components/ui/dropdown/page";
 import CircleImageSvg from "@/Assets/svgs/CricleImageSvg";
 import NewApplication2 from "../NewApplicationModal2/page";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 
 const SpecialTagInput = () => {
   const [tags, setTags] = useState(["Tag1"]);
@@ -33,18 +30,18 @@ const SpecialTagInput = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex items-center flex-wrap focus-within:border-green-500 input-text overflow-y-scroll">
+      <div className="flex items-center flex-wrap focus-within:border-[#42DA82] input-text overflow-y-scroll">
         {tags.map((tag, index) => (
           <div
             key={index}
-            className="bg-green-100 text-green-700 flex items-center px-3 py-1 rounded-full mr-2 mb-1"
+            className="bg-[#42DA821A] text-green-700 flex items-center px-3 py-1 rounded-full mr-2 mb-1"
           >
-            <span className="mr-2">{tag}</span>
+            <span className="mr-2 text-[#42DA82]">{tag}</span>
             <button
               onClick={() => handleRemoveTag(tag)}
-              className="text-green-600 hover:text-green-800 focus:outline-none"
+              className="text-[#42DA82] focus:outline-none"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 text-[#42DA82]" />
             </button>
           </div>
         ))}
@@ -79,30 +76,13 @@ const NewApplication = ({ setIsNewApplication }: any) => {
     }
   };
 
-  const backClicked = () => {
-    if (currentStep === 1) {
-      setIsNewApplication(false);
-    } else {
-      setCurrentStep(1);
-    }
-  };
-
   return (
     <>
       {/* Header */}
       <div className="flex flex-col h-full justify-between items-center w-full">
         <div className="w-full">
           <div className="flex justify-between p-6 pb-0 items-center">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => {
-                  backClicked();
-                }}
-              >
-                <LeftArrowSvg />
-              </button>
-              <h2 className="text-lg font-semibold">Add New Application</h2>
-            </div>
+            <h2 className="text-lg font-semibold">Add New Application</h2>
             <button
               className="border-[#E9EAEA] border-[1px] p-2 rounded-[10px]"
               onClick={() => {
@@ -125,19 +105,18 @@ const NewApplication = ({ setIsNewApplication }: any) => {
                       {/* Step Circle */}
                       <div
                         className={`w-8 h-8 flex items-center justify-center rounded-full border-2 
-                                            transition-all ${
-                                              currentStep > step.id
-                                                ? "bg-green-500 border-green-500 text-white" // Completed step
-                                                : currentStep === step.id
-                                                ? "border-green-500 text-green-500" // Active step
-                                                : "border-gray-300 text-gray-400" // Inactive step
-                                            }`}
+                                            transition-all ${currentStep > step.id
+                            ? "bg-[#42DA82] border-[#42DA82] text-white" // Completed step
+                            : currentStep === step.id
+                              ? "border-[#42DA82] text-[#42DA82]" // Active step
+                              : "border-gray-300 text-gray-400" // Inactive step
+                          }`}
                         onClick={() => handleStepClick(step.id)}
                       >
                         {currentStep > step.id ? (
                           <Check className="w-5 h-5" /> // Show checkmark for completed steps
                         ) : currentStep === step.id ? (
-                          <span className="w-2 h-2 bg-green-500 rounded-full"></span> // Show dot for active step
+                          <span className="w-2 h-2 bg-[#42DA82] rounded-full"></span> // Show dot for active step
                         ) : currentStep === 1 ? null : ( // If on first step, make second circle completely empty
                           <span className="w-2 h-2 bg-gray-300 rounded-full"></span> // Show gray dot for upcoming steps
                         )}
@@ -146,11 +125,10 @@ const NewApplication = ({ setIsNewApplication }: any) => {
                       {/* Line Between Steps */}
                       {index !== steps.length - 1 && (
                         <div
-                          className={`w-[350px] h-1 ${
-                            currentStep > step.id
-                              ? "bg-green-500"
-                              : "bg-gray-300"
-                          }`}
+                          className={`w-[350px] h-1 ${currentStep > step.id
+                            ? "bg-[#42DA82]"
+                            : "bg-[#D1D5DB]"
+                            }`}
                         />
                       )}
                     </div>
@@ -158,13 +136,12 @@ const NewApplication = ({ setIsNewApplication }: any) => {
                 </div>
 
                 {/* Step Labels */}
-                <div className="flex justify-center space-x-[330px]">
+                <div className="flex justify-center space-x-[310px]">
                   {steps.map((step) => (
                     <span
                       key={step.id}
-                      className={`text-[18px] font-[500] ${
-                        currentStep >= step.id ? "text-black" : "text-gray-500"
-                      }`}
+                      className={`text-[18px] font-[500] ${currentStep >= step.id ? "text-black" : "text-gray-500"
+                        }`}
                     >
                       {step.label}
                     </span>
@@ -235,38 +212,35 @@ const NewApplication = ({ setIsNewApplication }: any) => {
                   </div>
                 </div>
                 {/* Group Selection (Yes/No) */}
-                <div className="mt-[20px]">
-                  <h3 className={styles.settingLabel}>Group ? </h3>
-                  <RadioGroup
-                    defaultValue={"yes"}
-                    // onValueChange={(value) =>
-                    // //   handleBusinessSettingsChange("sendInvoices", value)
-                    // }
-                    className="flex gap-4 "
-                  >
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="yes" id="send-yes" />
-                      <Label
-                        className={
-                          " text-[18px] font-[600] text-[#24282E] cursor-pointer;"
-                        }
-                        htmlFor="send-yes"
-                      >
-                        Yes
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="no" id="send-no" />
-                      <Label
-                        className={
-                          " text-[18px] font-[600] text-[#24282E] cursor-pointer;"
-                        }
-                        htmlFor="send-no"
-                      >
-                        No
-                      </Label>
-                    </div>
-                  </RadioGroup>
+                <div className="col-span-5 flex flex-col gap-2 mt-2">
+                  <span className="text-[#24282E] font-jakarta font-[500] text-[18px]">Group?</span>
+                  <div className='flex items-center gap-4'>
+                    <label className="flex items-center gap-2 cursor-pointer text-[#24282E] font-jakarta font-[500] text-[18px]">
+                      <input
+                        type="radio"
+                        name="group"
+                        value="yes"
+                        className="hidden peer"
+                      />
+                      <div className="w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-400 peer-checked:bg-green-500 peer-checked:border-green-500">
+                        <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                      </div>
+                      Yes
+                    </label>
+
+                    <label className="flex items-center gap-2 cursor-pointer text-[#24282E] font-jakarta font-[500] text-[18px]">
+                      <input
+                        type="radio"
+                        name="group"
+                        value="no"
+                        className="hidden peer"
+                      />
+                      <div className="w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-400 peer-checked:bg-green-500 peer-checked:border-green-500">
+                        <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                      </div>
+                      No
+                    </label>
+                  </div>
                 </div>
                 {/* Text Area */}
                 <div className="mt-[20px]">
@@ -275,12 +249,12 @@ const NewApplication = ({ setIsNewApplication }: any) => {
                   </label>
                   <textarea
                     placeholder="Write Description Here"
-                    className="w-full border-2 border-gray-300 rounded-lg p-3 mt-1 focus:border-primary focus:outline-none"
+                    className="w-full border-2 border-[#E9EAEA] p-3 rounded-[12px] mt-1 focus:border-primary focus:outline-none"
                     rows={3}
                   ></textarea>
                 </div>
                 {/* Image Upload (Passport & Photo) */}
-                <div className="flex items-center justify-between gap-6 mt-3">
+                <div className="flex items-center justify-between gap-6 my-3">
                   {/* Passport Upload */}
                   <div className="w-full">
                     <label className="text-[#24282E] font-jakarta font-[500] text-[18px]">
@@ -289,7 +263,7 @@ const NewApplication = ({ setIsNewApplication }: any) => {
                     <div
                       className={`flex items-center justify-between gap-3 ${styles.mainDiv}`}
                     >
-                      <CircleImageSvg />
+                      <CircleImageSvg className="w-[60px]" />
                       <span className="text-[14px] font-[400] text-[#727A90]">
                         Drag and drop image here, or click add image
                       </span>
@@ -307,7 +281,7 @@ const NewApplication = ({ setIsNewApplication }: any) => {
                     <div
                       className={`flex items-center justify-between gap-3 ${styles.mainDiv}`}
                     >
-                      <CircleImageSvg />
+                      <CircleImageSvg className="w-[60px]" />
                       <span className="text-[14px] font-[400] text-[#727A90]">
                         Drag and drop image here, or click add image
                       </span>
