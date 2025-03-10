@@ -48,6 +48,7 @@ export default function UserTable() {
   const [userToDelete, setUserToDelete] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<any>(null);
 
   useEffect(() => {
     const skip = (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
@@ -97,10 +98,20 @@ export default function UserTable() {
   };
 
   const handleCreateSuccess = () => {
-    setIsCreateModalOpen(false);
     // Refresh the users list
+    handleModalClose()
     // const skip = (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
     // dispatch(fetchUsers({ skip, search: searchQuery }));
+  };
+
+  const handleEditClick = (user: any) => {
+    setSelectedUser(user);
+    setIsCreateModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsCreateModalOpen(false);
+    setSelectedUser(null);
   };
 
   // Helper functions
@@ -284,7 +295,10 @@ export default function UserTable() {
                               </span>
                             </DropdownMenuItem>
                             <hr />
-                            <DropdownMenuItem className="flex items-center p-4">
+                            <DropdownMenuItem 
+                              className="flex items-center p-4"
+                              onClick={() => handleEditClick(user)}
+                            >
                               <EditSvg className="w-4 h-4" />
                               <span className={styles.dropdownText}>Edit</span>
                             </DropdownMenuItem>
@@ -328,8 +342,9 @@ export default function UserTable() {
 
       <CreateUserModal
         isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
+        onClose={handleModalClose}
         onSuccess={handleCreateSuccess}
+        editData={selectedUser}
       />
     </>
   );
