@@ -36,6 +36,7 @@ import {
   setCurrentPage,
 } from "@/store/slices/usersSlice";
 import { PAGINATION_CONFIG } from "@/config/pagination";
+import CreateUserModal from "@/components/modals/CreateUserModal/page";
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
@@ -46,6 +47,7 @@ export default function UserTable() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   useEffect(() => {
     const skip = (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
@@ -53,7 +55,7 @@ export default function UserTable() {
     //   return;
     // }
     dispatch(fetchUsers({ skip, search: searchQuery }));
-  }, [dispatch, currentPage, searchQuery]);
+  }, [currentPage, searchQuery]);
 
   // useEffect(() => {
   //   if (searchQuery.trim() === "") {
@@ -83,8 +85,7 @@ export default function UserTable() {
     if (userToDelete) {
       try {
         // We'll implement this action in usersSlice
-        await dispatch(deleteUser(userToDelete.id)).unwrap();
-        toast.success("User deleted successfully");
+        await dispatch(deleteUser(userToDelete.id));
         // Refresh the users list
         // dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
       } catch (error: any) {
@@ -95,18 +96,26 @@ export default function UserTable() {
     setUserToDelete(null);
   };
 
-  
+  const handleCreateSuccess = () => {
+    setIsCreateModalOpen(false);
+    // Refresh the users list
+    // const skip = (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
+    // dispatch(fetchUsers({ skip, search: searchQuery }));
+  };
 
   // Helper functions
   function getRoleColor(role: string) {
-    switch (role.toLowerCase()) {
-      case "admin":
-        return styles.roleBtnRed;
-      case "user":
-        return styles.roleBtnBlue;
-      default:
-        return styles.roleBtnGreen;
+    if (role) {
+      switch (role.toLowerCase()) {
+        case "admin":
+          return styles.roleBtnRed;
+        case "user":
+          return styles.roleBtnBlue;
+        default:
+          return styles.roleBtnGreen;
+      }
     }
+    return styles.roleBtnGreen;
   }
 
   function getLastLoginTime(lastLogin: string) {
@@ -162,9 +171,13 @@ export default function UserTable() {
 
   return (
     <>
-      <div className="flex justify-between  mt-3">
+      <div className="flex justify-between mt-3">
         <h1 className={styles.header}>Manage users</h1>
-        <button type="button" className={styles.userBtn}>
+        <button
+          type="button"
+          className={styles.userBtn}
+          onClick={() => setIsCreateModalOpen(true)}
+        >
           <PlusGreenSvg className={styles.btnPlusIcon} />
           Add New User
         </button>
@@ -311,6 +324,12 @@ export default function UserTable() {
         title="Delete User"
         description={`Are you sure you want to delete ${userToDelete?.name}? This action cannot be undone.`}
         triggerText={""}
+      />
+
+      <CreateUserModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={handleCreateSuccess}
       />
     </>
   );
