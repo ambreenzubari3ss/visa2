@@ -30,7 +30,11 @@ import GeneralData from "../../../components/ui/tableheader/page";
 import TableFooter from "../../../components/ui/tablefooter/page";
 import { toast } from "react-toastify";
 import ConfirmDialog from "@/components/ui/confirmDialogue/confirmDialogu";
-import { fetchUsers, setCurrentPage } from "@/store/slices/usersSlice";
+import {
+  deleteUser,
+  fetchUsers,
+  setCurrentPage,
+} from "@/store/slices/usersSlice";
 import { PAGINATION_CONFIG } from "@/config/pagination";
 
 export default function UserTable() {
@@ -42,28 +46,27 @@ export default function UserTable() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState(users);
 
   useEffect(() => {
-    dispatch(
-      fetchUsers({
-        skip: (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE,
-      })
-    );
-  }, [dispatch, currentPage]);
+    const skip = (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
+    // if (error) {
+    //   return;
+    // }
+    dispatch(fetchUsers({ skip, search: searchQuery }));
+  }, [dispatch, currentPage, searchQuery]);
 
-  useEffect(() => {
-    if (searchQuery.trim() === "") {
-      setFilteredUsers(users);
-    } else {
-      const filtered = users.filter((user) =>
-        Object.values(user).some((value) =>
-          String(value).toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      );
-      setFilteredUsers(filtered);
-    }
-  }, [users, searchQuery]);
+  // useEffect(() => {
+  //   if (searchQuery.trim() === "") {
+  //     setFilteredUsers(users);
+  //   } else {
+  //     const filtered = users.filter((user) =>
+  //       Object.values(user).some((value) =>
+  //         String(value).toLowerCase().includes(searchQuery.toLowerCase())
+  //       )
+  //     );
+  //     setFilteredUsers(filtered);
+  //   }
+  // }, [users, searchQuery]);
 
   const handlePageChange = (page: number) => {
     const totalPages = Math.ceil(total / PAGINATION_CONFIG.DEFAULT_PAGE_SIZE);
@@ -80,8 +83,8 @@ export default function UserTable() {
     if (userToDelete) {
       try {
         // We'll implement this action in usersSlice
-        // await dispatch(deleteUser(userToDelete.id)).unwrap();
-        // toast.success("User deleted successfully");
+        await dispatch(deleteUser(userToDelete.id)).unwrap();
+        toast.success("User deleted successfully");
         // Refresh the users list
         // dispatch(fetchUsers({ skip: (currentPage - 1) * limit, limit }));
       } catch (error: any) {
@@ -92,9 +95,7 @@ export default function UserTable() {
     setUserToDelete(null);
   };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  
 
   // Helper functions
   function getRoleColor(role: string) {
@@ -223,10 +224,10 @@ export default function UserTable() {
             <TableBody>
               {isLoading ? (
                 <LoadingSkeleton />
-              ) : filteredUsers.length === 0 ? (
+              ) : users.length === 0 ? (
                 <NoDataRow />
               ) : (
-                filteredUsers.map((user, index) => (
+                users.map((user, index) => (
                   <TableRow key={user.id || index} className="hover:bg-gray-50">
                     <TableCell>
                       <div className="flex flex-col">
@@ -238,14 +239,10 @@ export default function UserTable() {
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell
-                      className={` ${tableStyles.userName}`}
-                    >
+                    <TableCell className={` ${tableStyles.userName}`}>
                       {new Date(user.created_at).toLocaleDateString()}
                     </TableCell>
-                    <TableCell
-                      className={` ${tableStyles.userName}`}
-                    >
+                    <TableCell className={` ${tableStyles.userName}`}>
                       {user.phone || "N/A"}
                     </TableCell>
                     <TableCell className="">
@@ -261,7 +258,7 @@ export default function UserTable() {
                       {getLastLoginTime(user.last_login)}
                     </TableCell>
                     <TableCell className="">
-                      <span className="flex justify-center align-center gap-2">
+                      <span className="flex align-center gap-2">
                         <DropdownMenu>
                           <DropdownMenuTrigger>
                             <DropdownSVG className="cursor-pointer" />
@@ -301,7 +298,7 @@ export default function UserTable() {
         </div>
         {/* Footer Section */}
         <TableFooter
-          total={searchQuery ? filteredUsers.length : total}
+          total={total}
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />

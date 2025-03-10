@@ -21,10 +21,16 @@ interface CustomersState {
 
 export const fetchCustomers = createAsyncThunk(
   "customers/fetchCustomers",
-  async ({ skip = 0 }: { skip?: number }, { rejectWithValue }) => {
+  async (
+    { skip = 0, search = "" }: { skip?: number; search?: string },
+    { rejectWithValue }
+  ) => {
     try {
       const response: any = await getApiWithAuth(
-        `customers/?skip=${skip}&limit=${PAGINATION_CONFIG.DEFAULT_PAGE_SIZE}`
+        // `customers/?skip=${skip}&limit=${PAGINATION_CONFIG.DEFAULT_PAGE_SIZE}`
+        `customers/?skip=${skip}&limit=${PAGINATION_CONFIG.DEFAULT_PAGE_SIZE}${
+          search ? `&search=${search}` : ""
+        }`
       );
 
       if (!response.success) {

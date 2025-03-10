@@ -4,6 +4,8 @@ import sidebarReducer from "./slices/sidebarSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import usersSlice from "./slices/usersSlice";
 import customersSlice from "./slices/customersSlice";
+import applicantsReducer from "./slices/applicantsSlice";
+import applicationsSlice from "./slices/applicationsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     users: usersSlice,
     customers: customersSlice,
+    applicants: applicantsReducer,
+    applicantions: applicationsSlice,
   },
 });
 

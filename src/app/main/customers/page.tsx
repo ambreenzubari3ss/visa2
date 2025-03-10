@@ -45,13 +45,12 @@ export default function CustomerTable() {
   // Fetch customers on mount and when page changes
   useEffect(() => {
     const skip = (currentPage - 1) * PAGINATION_CONFIG.DEFAULT_PAGE_SIZE;
-    // const delayDebounceFn = setTimeout(() => {
-      dispatch(fetchCustomers({ skip }));
-    // }, 500);
-
-    // return () => clearTimeout(delayDebounceFn);
-  }, [dispatch, currentPage]);
-
+    // if (error) {
+    //   return;
+    // }
+    dispatch(fetchCustomers({ skip, search: searchTerm }));
+  }, [dispatch, currentPage, searchTerm]);
+  
   // Handle page change
   const handlePageChange = (page: number) => {
     dispatch(setCurrentPage(page));
