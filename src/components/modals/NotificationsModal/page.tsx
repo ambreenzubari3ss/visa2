@@ -87,11 +87,13 @@ function NotificationModal({ closeModal }: { closeModal: () => void }) {
                                     </button>
                                     <div className="relative cursor-pointer mr-2">
                                         <BellSvg />
-                                        <div className="Notification">
-                                            <span className="NotifactionNm">
-                                                {notifications.filter((notif) => !notif.read).length || ""}
-                                            </span>
-                                        </div>
+                                        {notifications.filter((notif) => !notif.read).length > 0 && (
+                                            <div className="Notification">
+                                                <span className="NotifactionNm">
+                                                    {notifications.filter((notif) => !notif.read).length || ""}
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
                                     <h2 className="text-lg font-semibold">Notifications</h2>
                                 </div>
